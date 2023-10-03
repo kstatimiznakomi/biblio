@@ -5,9 +5,11 @@ import com.example.biblio.model.Book;
 import com.example.biblio.model.ReaderTicket;
 import com.example.biblio.model.User;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 @AllArgsConstructor
 public class ReaderTicketServiceImpl implements ReaderTicketService{
     private final UserService userService;
