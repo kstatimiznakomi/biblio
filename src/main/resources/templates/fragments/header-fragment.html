@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<body th:fragment="nav-menu">
+<section class = "head">
+  <header class="header">
+    <a th:href="@{/}"><img src="/image/rdLib.jpg" height="40" width="40"></a>
+    <nav>
+      <ul class = "menu">
+        <li><a th:href="@{/}">Главная</a></li>
+        <li><a th:href="@{/catalog}">Каталог</a></li>
+        <li><a th:href="@{/about}">О нас</a></li>
+        <li><a th:href="@{/profile}">Профиль</a></li>
+      </ul>
+    </nav>
+    <div class = "btn__menu">
+      <a th:href="@{/login}">Войти</a>
+      <a th:href="@{/register}" style = "margin-left: 0px; margin-right: 0px;">Регистрация</a>
+    </div>
+  </header>
+</section>
+</body>
+</html>

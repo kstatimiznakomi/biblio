@@ -19,5 +19,6 @@ public class ReaderTicketServiceImpl implements ReaderTicketService{
         User foundUser = userService.GetUserByUserName(user.getUsername());
         ReaderTicket ticket = ticketDAO.getReaderTicketByUser(foundUser);
         ticket.setBooks(books);
+        ticketDAO.save(ticket);
     }
 }

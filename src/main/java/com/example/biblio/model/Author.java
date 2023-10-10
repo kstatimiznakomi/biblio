@@ -20,7 +20,9 @@ public class Author {
     @GeneratedValue(strategy = GenerationType.UUID, generator = SEQ_NAME)
     @SequenceGenerator(name = SEQ_NAME, sequenceName = SEQ_NAME, allocationSize = 1)
     private Long id;
+    private String authorLastName;
     private String authorName;
-    @OneToMany(mappedBy = "author", cascade = CascadeType.REMOVE)
+    private String authorSurname;
+    @OneToMany()
     private List<Book> books;
 }
