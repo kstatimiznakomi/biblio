@@ -25,7 +25,10 @@
                     <option value="0">Жанры</option>
                     <option th:each="genre : ${genres}" th:text="${genre.genreName}" th:value="${genre.id}"></option>
                 </select>
-                <li style = "padding-right: 131px; margin-left: 0px; margin-right: 82px;">Издательство</li>
+                <select style = "margin-left: 74px; margin-right: 82px;">
+                    <option value="0">Издатели</option>
+                    <option th:each="publisher : ${publishers}" th:text="${publisher.publisherName}" th:value="${publisher.id}"></option>
+                </select>
                 <span>Дата публикации</span>
             </ul>
         </div>

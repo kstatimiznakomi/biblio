@@ -2,11 +2,9 @@ package com.example.biblio.Controller;
 
 import com.example.biblio.dto.AuthorDTO;
 import com.example.biblio.dto.GenresDTO;
+import com.example.biblio.dto.PublisherDTO;
 import com.example.biblio.model.Book;
-import com.example.biblio.service.AuthorService;
-import com.example.biblio.service.BookService;
-import com.example.biblio.service.GenreService;
-import com.example.biblio.service.PageService;
+import com.example.biblio.service.*;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
@@ -29,6 +27,8 @@ public class CatalogController {
     @Lazy
     private final GenreService genreService;
     @Lazy
+    private final PublisherService publisherService;
+    @Lazy
     private PageService pageService;
 
     @GetMapping("")
@@ -44,11 +44,13 @@ public class CatalogController {
         List<Book> books = page.getContent();
         List<AuthorDTO> authors = authorService.getAllAuthors();
         List<GenresDTO> genres = genreService.getAllGenres();
+        List<PublisherDTO> publishers = publisherService.getAllPublishers();
         model.addAttribute("currentPage", curPage);
         model.addAttribute("totalItems", totalItems);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("authors", authors);
         model.addAttribute("genres", genres);
+        model.addAttribute("publishers", publishers);
         model.addAttribute("books", books);
         return "catalog";
     }
