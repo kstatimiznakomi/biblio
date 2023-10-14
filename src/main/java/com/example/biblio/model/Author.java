@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
@@ -15,14 +16,14 @@ import java.util.List;
 @Entity
 @Table(name = "author")
 public class Author {
-    private static final String SEQ_NAME = "user_seq";
+    private static final String SEQ_NAME = "author_seq";
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID, generator = SEQ_NAME)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQ_NAME)
     @SequenceGenerator(name = SEQ_NAME, sequenceName = SEQ_NAME, allocationSize = 1)
     private Long id;
     private String authorLastName;
     private String authorName;
     private String authorSurname;
-    @OneToMany()
+    @OneToMany
     private List<Book> books;
 }

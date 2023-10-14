@@ -15,5 +15,5 @@ public interface BookMapper {
     @InheritInverseConfiguration
     BookDTO fromBook(Book book);
     List<Book> toProductList(List<BookDTO> bookDTOS);
-    List<BookDTO> fromProductList(List<Book> products);
+    List<BookDTO> fromProductList(List<Book> books);
 }

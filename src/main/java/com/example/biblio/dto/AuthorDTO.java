@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
@@ -20,5 +21,4 @@ public class AuthorDTO {
     private String authorName;
     private String authorSurname;
     private List<Book> books;
-    private List<Publisher> publishers = new ArrayList<>();
 }

@@ -14,5 +14,20 @@
 </head>
 <body>
 <div th:replace="~{fragments/header-fragment :: nav-menu}"></div>
+<div class="flex-container reg-bg">
+    <div class="form">
+        <form th:action="@{/register/new}" th:object="${user}" method="post">
+            <input type="text" class="user" placeholder="Фамилия" th:field="*{lastname}" required>
+            <input type="text" class="user" placeholder="Имя" th:field="*{name}" required>
+            <input type="text" class="user" placeholder="Отчество" th:field="*{surname}" required>
+            <input type="text" class="user" placeholder="Имя пользователя" th:field="*{username}" required>
+            <input type="password" class="user" placeholder="Пароль" th:field="*{password}" required>
+            <input type="email" class="user" placeholder="Почта" th:field="*{email}" required>
+            <input type="text" class="user" placeholder="Адрес" th:field="*{address}" required>
+            <input type="number" class="user" placeholder="Номер телефона" th:field="*{phone}" required>
+            <button id="reg-btn" type="submit">Зарегистрироваться</button>
+        </form>
+    </div>
+</div>
 </body>
 </html>

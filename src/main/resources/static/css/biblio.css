@@ -2,23 +2,53 @@
     padding: 0; margin: 0;
 }
 
-/*ul,
-li {
-	list-style: none;
-	margin: 0;
-	padding: 0;
+.reg-bg{
+    width: 810px;
+    height: 621px;
+    background-color: #FFE68B;
+    display: flex;
+    justify-content: center;
+    margin: 15px auto;
+}
 
-}*/
+.user{
+    padding: 5px;
+    border-radius: 15px;
+    border-width: inherit;
+    margin: 10px 3px;
+}
+
+#reg-btn{
+    height: 43px;
+    width: 394px;
+    background-color: white;
+    border-radius: 15px;
+    border-width: inherit;
+    margin-top: 10px
+}
+
+.form{
+    width: 50%;
+    display: flex;
+    align-items: center;
+}
 
 body 
 {
-    
     width: 1920px;
-    height: 1080px;
+    height: auto;
     /*flex-direction: column;
     justify-content: flex-end;
     align-items: center;
     gap: 14px;*/
+}
+
+#search-button{
+    height: 40px;
+    width: 29px;
+    color: white;
+    border-radius: 15px;
+    border-width: inherit;
 }
 
 .header 
@@ -94,7 +124,6 @@ body
     background: #FFE68B;
     margin: 0 auto;
     list-style: none;
-    margin-bottom: 14px;
 }
 
 .bar {
@@ -133,7 +162,6 @@ padding: 20px 0px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-    border: 1px solid #FFF;
     border-radius: 14px;
     width: 1310px;
     height: 40px;
@@ -142,20 +170,50 @@ padding: 20px 0px;
     background: #ffffff;
 }
 
-.catalog {
+.search-input{
+    border-radius: 14px;
+    width: 1274px;
+    height: 40px;
+    padding: 5px;
+    border-width: inherit;
+}
+
+.search-input:checked{
+    border-color: #FFE68B;
+}
+
+.book-bg {
     width: 1460px;
-    height: 1328px;
+    height: 458px;
     flex-shrink: 0;
     border-radius: 11px;
     background: #FFE68B;
-    margin: 0 auto;
+    margin: 14px auto;
     list-style: none;
+}
+
+.book-img{
+    width: 269px;
+    height: 390px;
+    margin-right: 25px;
+}
+
+a{
+    text-decoration: none;
+}
+
+a:hover{
+    text-decoration: underline;
+}
+
+.book-nm{
+
 }
 
 .book {
     width: 1412px;
-    height: 1328px;
-    /*display: flex;*/
+    height: 458px;
+    display: flex;
     margin: 0 auto;
     padding-top: 24px;
     padding-left: 24px;

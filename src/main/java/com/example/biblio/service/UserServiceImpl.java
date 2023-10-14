@@ -20,11 +20,15 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
     private final BCryptPasswordEncoder encoder;
+    @Lazy
     private final UserDAO userRepository;
+    @Lazy
+    private final ReaderTicketService readerTicketService;
 
-    public UserServiceImpl(@Lazy BCryptPasswordEncoder encoder, @Lazy UserDAO userRepository) {
+    public UserServiceImpl(BCryptPasswordEncoder encoder, @Lazy UserDAO userRepository, @Lazy ReaderTicketService readerTicketService) {
         this.encoder = encoder;
         this.userRepository = userRepository;
+        this.readerTicketService = readerTicketService;
     }
 
     @Override
@@ -33,19 +37,35 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUserByName(String name){
+        return userRepository.findFirstByUsername(name);
+    }
+
+    @Override
+    public Boolean checkUserForExist(String name){
+        User user = userRepository.findFirstByUsername(name);
+        return user != null;
+    }
+
+    @Override
     public void Save(UserDTO dto) {
         User user = User.builder()
+                .lastname(dto.getLastname())
+                .name(dto.getName())
+                .surname(dto.getSurname())
                 .username(dto.getUsername())
                 .password(encoder.encode(dto.getPassword()))
                 .email(dto.getEmail())
+                .phone(dto.getPhone())
+                .address(dto.getAddress())
                 .role(UserRole.Читатель)
                 .status(UserStatus.Активный)
                 .build();
         userRepository.save(user);
         ReaderTicket ticket = ReaderTicket.builder()
                 .user(user)
-                .books(null)
                 .build();
+        readerTicketService.Save(ticket);
     }
 
     @Override

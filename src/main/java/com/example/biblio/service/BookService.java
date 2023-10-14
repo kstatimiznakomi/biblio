@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface BookService {
     public Page<Book> getAllPage(int pageNumber);
+
+    BookDTO findBookById(Long bookId);
 }

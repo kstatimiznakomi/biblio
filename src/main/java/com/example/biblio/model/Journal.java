@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,14 +15,17 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "genres")
-public class Genres {
-    private static final String SEQ_NAME = "genres_seq";
+@Table(name = "journal")
+public class Journal {
+    private static final String SEQ_NAME = "journal_seq";
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQ_NAME)
     @SequenceGenerator(name = SEQ_NAME, sequenceName = SEQ_NAME, allocationSize = 1)
     private Long id;
-    private String genreName;
-    @ManyToMany
-    private List<Book> books;
+    private Date dateTake;
+    private Date dateReturn;
+    @OneToOne
+    private ReaderTicket readerTicket;
+    @OneToOne
+    private Book book;
 }

@@ -7,13 +7,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class GenreDTO {
+public class GenresDTO {
     private Long id;
-    private String name;
+    private String genreName;
     private List<Book> books;
 }
