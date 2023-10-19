@@ -1,0 +1,14 @@
+package com.example.biblio.dao;
+
+import com.example.biblio.model.JournalNotes;
+import com.example.biblio.model.ReaderTicket;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface JournalNotesDAO extends JpaRepository<JournalNotes, Long>, PagingAndSortingRepository<JournalNotes, Long> {
+    Page<JournalNotes> getJournalNotesByReaderTicket(ReaderTicket ticket, Pageable page);
+}

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<section class = "flex-container" th:fragment="book-list">
+    <h2 class="not-auth">Забронированные книги</h2>
+    <div class = "book-bg" th:each="note : ${notes}">
+        <ul class = "book" style="margin-left: 0px; margin-right: 0px;">
+            <li style ="margin-right: 0px;" >
+                <img class="book-img" th:src="${note.book.img}" style ="padding-left: 20px;">
+                <div class="book-nm">
+                    <a th:href="@{/book/{bookId}(bookId=${note.book.id})}" th:text="${note.book.bookName}"></a>
+                </div>
+                <span th:text="${note.book.description}"></span>
+            </li>
+        </ul>
+    </div>
+</section>
+</body>
+</html>

@@ -1,12 +1,15 @@
 package com.example.biblio.Controller;
 
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/filter/by-author-genre")
 public class FilterController {
+    @RequestMapping(value = "/filter/by-author-genre-publisher", method = RequestMethod.GET)
+    @ResponseBody()
+    String list(){
+        return "hello";
+    }
 
 }

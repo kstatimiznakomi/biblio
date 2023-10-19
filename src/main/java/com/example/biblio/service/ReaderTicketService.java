@@ -7,6 +7,6 @@ import com.example.biblio.model.User;
 import java.util.List;
 
 public interface ReaderTicketService {
-    void SetBooksToTicket(User user, List<Book> books);
+    ReaderTicket getTicketByUser(User user);
     void Save(ReaderTicket readerTicket);
 }

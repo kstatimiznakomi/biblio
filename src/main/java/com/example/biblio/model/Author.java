@@ -24,6 +24,6 @@ public class Author {
     private String authorLastName;
     private String authorName;
     private String authorSurname;
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Book> books;
 }

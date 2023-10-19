@@ -20,20 +20,13 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
     private final BCryptPasswordEncoder encoder;
-    @Lazy
     private final UserDAO userRepository;
-    @Lazy
     private final ReaderTicketService readerTicketService;
 
     public UserServiceImpl(BCryptPasswordEncoder encoder, @Lazy UserDAO userRepository, @Lazy ReaderTicketService readerTicketService) {
         this.encoder = encoder;
         this.userRepository = userRepository;
         this.readerTicketService = readerTicketService;
-    }
-
-    @Override
-    public User GetUserByUserName(String userName){
-        return userRepository.getUserByUsername(userName);
     }
 
     @Override
@@ -69,8 +62,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void Block(User user) {
+    public void block(User user) {
+        user.setStatus(UserStatus.Заблокированный);
+        userRepository.save(user);
+    }
 
+    @Override
+    public void unblock(User user){
+        user.setStatus(UserStatus.Активный);
+        userRepository.save(user);
     }
 
 

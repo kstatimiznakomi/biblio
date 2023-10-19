@@ -6,13 +6,13 @@ import com.example.biblio.model.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 public interface UserService extends UserDetailsService {
-    User GetUserByUserName(String userName);
 
     User getUserByName(String name);
 
     Boolean checkUserForExist(String name);
 
     void Save(UserDTO dto);
-    void Block(User user);
+    void block(User user);
+    void unblock(User user);
 
 }

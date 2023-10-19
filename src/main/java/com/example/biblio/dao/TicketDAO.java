@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TicketDAO extends JpaRepository<ReaderTicket, Long> {
-    public ReaderTicket getReaderTicketByUser(User user);
+    ReaderTicket getReaderTicketByUser(User user);
 }

@@ -5,7 +5,6 @@ import com.example.biblio.dto.GenresDTO;
 import com.example.biblio.dto.PublisherDTO;
 import com.example.biblio.model.Book;
 import com.example.biblio.service.*;
-import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -18,18 +17,20 @@ import java.util.List;
 
 @Controller
 @RequestMapping({"/catalog"})
-@AllArgsConstructor
 public class CatalogController {
-    @Lazy
     private final BookService bookService;
-    @Lazy
     private final AuthorService authorService;
-    @Lazy
     private final GenreService genreService;
-    @Lazy
     private final PublisherService publisherService;
-    @Lazy
-    private PageService pageService;
+    private final PageService pageService;
+
+    public CatalogController(@Lazy BookService bookService, @Lazy AuthorService authorService, @Lazy GenreService genreService, @Lazy PublisherService publisherService, @Lazy PageService pageService) {
+        this.bookService = bookService;
+        this.authorService = authorService;
+        this.genreService = genreService;
+        this.publisherService = publisherService;
+        this.pageService = pageService;
+    }
 
     @GetMapping("")
     public String catalog(){

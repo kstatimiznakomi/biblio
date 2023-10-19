@@ -10,4 +10,5 @@ import java.util.List;
 public interface BookDAO extends JpaRepository<Book, Long> {
     Book findBookByBookName(String bookName);
     BookDTO getBookById(Long bookId);
+    Book findBookById(Long bookId);
 }
