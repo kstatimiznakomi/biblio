@@ -1,12 +1,47 @@
 *{
     padding: 0; margin: 0;
     outline: none;
-    border-radius: 14px;
     border-width: inherit;
 }
 
 .reg-bg{
     width: 811px;
+    height: 805px;
+    background-color: #FFE68B;
+    display: flex;
+    justify-content: center;
+    margin: 15px auto;
+    border-radius: 14px;
+}
+
+.prof-grad-bg{
+    width: 1399px;
+    height: 755px;
+    background: linear-gradient(180deg, #FFE68B, rgba(255,210,95,1) 100%);
+    margin-top: 29px;
+    border-radius: 14px;
+    display: flex;
+    flex-direction: column;
+}
+
+.info{
+    margin-left: 195px;
+    height: 373px;
+}
+
+.info-img{
+
+}
+
+.profile-info{
+    margin-left: 44px;
+    margin-top: 40px;
+    display: flex;
+}
+
+
+.prof-bg{
+    width: 1443px;
     height: 805px;
     background-color: #FFE68B;
     display: flex;
@@ -28,6 +63,11 @@
 }
 
 .not-auth{
+    text-align: center;
+    top: 50%;
+}
+
+.authed{
     text-align: center;
     top: 50%;
 }
@@ -178,7 +218,8 @@ li{
 .btn__menu a:hover{
     background: #1D1D1D;
     color: #ffffff;
-    border: #1D1D1D;
+    outline: none;
+    border: 0;
 }
 
 .criteria {

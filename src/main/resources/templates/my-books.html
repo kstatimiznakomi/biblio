@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Список забронированных книг</title>
@@ -11,15 +11,17 @@
 </head>
 <body>
 <div th:replace="~{fragments/header-fragment :: nav-menu}"></div>
-<div th:if="${${notes.isEmpty()}}" th:replace="~{fragments/empty-book-list-fragment}"></div>
-<div th:if="${${!notes.isEmpty()} }" th:replace="~{fragments/book-list}"></div>
-<div class="pages" align="center">
+<div sec:authorize="!isAuthenticated()" th:if="${notes.isEmpty()}"
+     th:replace="~{fragments/empty-book-list-fragment}"></div>
+<div th:if="${!notes.isEmpty()}" th:replace="~{fragments/book-list}"></div>
+<div sec:authorize="isAuthenticated()" class="pages" align="center">
     <span>Всего элементов: [[${totalItems}]] - Страница [[${currentPage}]] из [[${totalPages}]]</span>
     &nbsp;
     <div class="row">
         <div class="col-null" th:each="i : ${#numbers.sequence(1, totalPages)}">
             <span class="page-digits-bg" th:unless="${i != currentPage}">[[${i}]]</span>
-            <a class="page-digits-bg-link" th:if="${i != currentPage}" th:href="@{'/catalog/' + ${i}}">[[${i}]]</a>
+            <a class="page-digits-bg-link" th:if="${i != currentPage}"
+               th:href="@{'/catalog/' + ${i}}">[[${i}]]</a>
         </div>
     </div>
 </div>

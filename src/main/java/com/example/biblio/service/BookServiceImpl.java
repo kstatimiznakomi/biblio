@@ -2,6 +2,7 @@ package com.example.biblio.service;
 
 import com.example.biblio.dao.BookDAO;
 import com.example.biblio.dto.BookDTO;
+import com.example.biblio.mapper.AuthorMapper;
 import com.example.biblio.mapper.BookMapper;
 import com.example.biblio.model.Book;
 import org.springframework.context.annotation.Lazy;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 public class BookServiceImpl implements BookService{
     @Lazy
     private final BookDAO bookDAO;
+    private final BookMapper mapper = BookMapper.MAPPER;
     public BookServiceImpl(@Lazy BookDAO bookDAO) {
         this.bookDAO = bookDAO;
     }
@@ -25,8 +27,9 @@ public class BookServiceImpl implements BookService{
     }
 
     @Override
-    public BookDTO findBookById(Long bookId){
-        return bookDAO.getBookById(bookId);
+    public BookDTO getBookPage(Long book){
+        Book bookOrig = bookDAO.findBookById(book);
+        return mapper.fromBook(bookOrig);
     }
 
     @Override

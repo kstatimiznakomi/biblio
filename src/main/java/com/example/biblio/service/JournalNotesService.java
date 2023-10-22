@@ -13,4 +13,5 @@ public interface JournalNotesService {
     public Page<JournalNotes> getAllPageByTicket(int pageNumber, ReaderTicket ticket);
 
     void Save(Principal principal, Long bookId);
+    void Delete(Principal principal, Long bookId);
 }

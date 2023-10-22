@@ -1,6 +1,7 @@
 package com.example.biblio.Controller;
 
 import com.example.biblio.dto.BookDTO;
+import com.example.biblio.mapper.BookMapper;
 import com.example.biblio.service.BookService;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/book/{bookId}")
 public class BookController {
     private final BookService bookService;
+    private final BookMapper mapper = BookMapper.MAPPER;
 
     public BookController(@Lazy BookService bookService) {
         this.bookService = bookService;
@@ -20,7 +22,7 @@ public class BookController {
 
     @GetMapping("")
     public String aboutBook(Model model, @PathVariable Long bookId){
-        BookDTO book = bookService.findBookById(bookId);
+        BookDTO book = bookService.getBookPage(bookId);
         model.addAttribute("bookName", book);
         return "about-book";
     }

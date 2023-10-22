@@ -60,4 +60,11 @@ public class ReaderBookListController {
         notesService.Save(principal, bookId);
         return "redirect:/books";
     }
+
+    @GetMapping("/delete/{bookId}")
+    public String deleteNote(Principal principal, @PathVariable Long bookId){
+        if (principal == null) return "catalog";
+        notesService.Delete(principal, bookId);
+        return "redirect:/books";
+    }
 }

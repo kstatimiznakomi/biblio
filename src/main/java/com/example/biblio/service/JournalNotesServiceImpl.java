@@ -33,12 +33,26 @@ public class JournalNotesServiceImpl implements JournalNotesService{
         User user = userService.getUserByName(principal.getName());
         ReaderTicket ticket = ticketService.getTicketByUser(user);
         Book book = bookService.findBookByIdModel(bookId);
-        JournalNotes note = JournalNotes.builder()
-                .book(book)
-                .readerTicket(ticket)
-                .dateTake(LocalDateTime.now())
-                .dateReturn(LocalDateTime.now().plusDays(30))
-                .build();
-        dao.save(note);
+        JournalNotes noteExist = dao.getJournalNotesByReaderTicketAndBook(ticket, book);
+        if (noteExist == null){
+            JournalNotes note = JournalNotes.builder()
+                    .book(book)
+                    .readerTicket(ticket)
+                    .dateTake(LocalDateTime.now())
+                    .dateReturn(LocalDateTime.now().plusDays(30))
+                    .build();
+            dao.save(note);
+        }
+    }
+
+    @Override
+    public void Delete(Principal principal, Long bookId) {
+        User user = userService.getUserByName(principal.getName());
+        ReaderTicket ticket = ticketService.getTicketByUser(user);
+        Book book = bookService.findBookByIdModel(bookId);
+        JournalNotes noteExist = dao.getJournalNotesByReaderTicketAndBook(ticket, book);
+        if (noteExist != null){
+            dao.delete(noteExist);
+        }
     }
 }

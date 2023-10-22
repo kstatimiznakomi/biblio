@@ -2,7 +2,7 @@
 <html lang="en">
 <body>
 <section class = "flex-container" th:fragment="book-list">
-    <h2 class="not-auth">Забронированные книги</h2>
+    <h2 class="authed">Забронированные книги</h2>
     <div class = "book-bg" th:each="note : ${notes}">
         <ul class = "book" style="margin-left: 0px; margin-right: 0px;">
             <li style ="margin-right: 0px;" >
@@ -11,6 +11,10 @@
                     <a th:href="@{/book/{bookId}(bookId=${note.book.id})}" th:text="${note.book.bookName}"></a>
                 </div>
                 <span th:text="${note.book.description}"></span>
+                <div class = "btn__menu">
+                    <a th:href="@{/books/delete/{bookId}(bookId=${note.book.id})}"
+                       class="btn__menu">Удалить книгу из списка</a>
+                </div>
             </li>
         </ul>
     </div>

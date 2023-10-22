@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 <body th:fragment="nav-menu">
 <section class = "head">
   <header class="header">
@@ -9,10 +9,14 @@
         <li><a th:href="@{/}">Главная</a></li>
         <li><a th:href="@{/catalog}">Каталог</a></li>
         <li><a th:href="@{/about}">О нас</a></li>
-        <li><a th:href="@{/profile}">Профиль</a></li>
+        <li sec:authorize="isAuthenticated()"><a th:href="@{/books}">Забронированные книги</a></li>
+        <li sec:authorize="isAuthenticated()"><a th:href="@{/profile}">Профиль</a></li>
       </ul>
     </nav>
-    <div class = "btn__menu">
+    <div sec:authorize="isAuthenticated()" class = "btn__menu">
+      <a th:href="@{/logout}">Выйти</a>
+    </div>
+    <div sec:authorize="!isAuthenticated()" class = "btn__menu">
       <a th:href="@{/login}">Войти</a>
       <a th:href="@{/register}" style = "margin-left: 0px; margin-right: 0px;">Регистрация</a>
     </div>

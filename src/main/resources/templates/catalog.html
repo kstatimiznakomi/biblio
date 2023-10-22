@@ -52,6 +52,8 @@
                     <a th:href="@{/book/{bookId}(bookId=${book.id})}" th:text="${book.bookName}"></a>
                 </div>
                 <span th:text="${book.description}"></span>
+                <a th:href="@{/books/add/{bookId}(bookId=${book.id})}"
+                   class = "btn__menu">Забронировать</a>
             </li>
         </ul>
     </div>

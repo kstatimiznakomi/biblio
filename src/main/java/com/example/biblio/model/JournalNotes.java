@@ -25,8 +25,8 @@ public class JournalNotes {
     private Long id;
     private LocalDateTime dateTake;
     private LocalDateTime dateReturn;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne
     private ReaderTicket readerTicket;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Book book;
 }
