@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head>
 
     <meta charset="UTF-8">
@@ -40,7 +40,7 @@
                     <img height="15px" width="15px" src="/image/search-interface-symbol.png">
                 </button>
             </li>
-            </div>
+        </div>
 </section>
 
 <section class = "flex-container">
@@ -52,10 +52,8 @@
                     <a th:href="@{/book/{bookId}(bookId=${book.id})}" th:text="${book.bookName}"></a>
                 </div>
                 <span th:text="${book.description}"></span>
-                <div sec:authorize="isAuthenticated()" th:if="${userStatus == activeStat}">
-                    <a  th:href="@{/books/add/{bookId}(bookId=${book.id})}"
-                        class = "btn__menu">Забронировать</a>
-                </div>
+                <a th:href="@{/books/add/{bookId}(bookId=${book.id})}"
+                   class = "btn__menu">Забронировать</a>
             </li>
         </ul>
     </div>

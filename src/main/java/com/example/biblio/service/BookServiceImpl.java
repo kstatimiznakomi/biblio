@@ -2,7 +2,6 @@ package com.example.biblio.service;
 
 import com.example.biblio.dao.BookDAO;
 import com.example.biblio.dto.BookDTO;
-import com.example.biblio.mapper.AuthorMapper;
 import com.example.biblio.mapper.BookMapper;
 import com.example.biblio.model.Book;
 import org.springframework.context.annotation.Lazy;
@@ -22,7 +21,7 @@ public class BookServiceImpl implements BookService{
 
     @Override
     public Page<Book> getAllPage(int pageNumber) {
-        Pageable page = PageRequest.of(pageNumber - 1,5);
+        Pageable page = PageRequest.of(pageNumber - 1,10);
         return bookDAO.findAll(page);
     }
 
@@ -30,6 +29,12 @@ public class BookServiceImpl implements BookService{
     public BookDTO getBookPage(Long book){
         Book bookOrig = bookDAO.findBookById(book);
         return mapper.fromBook(bookOrig);
+    }
+
+    @Override
+    public Page<Book> getSearchBooks(int pageNumber, String bookName){
+        Pageable page = PageRequest.of(pageNumber - 1,10);
+        return bookDAO.getBooksByBookNameContainsIgnoreCase(bookName, page);
     }
 
     @Override

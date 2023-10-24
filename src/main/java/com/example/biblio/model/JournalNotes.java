@@ -29,4 +29,6 @@ public class JournalNotes {
     private ReaderTicket readerTicket;
     @ManyToOne(fetch = FetchType.LAZY)
     private Book book;
+    @Enumerated(EnumType.STRING)
+    private NoteStatus status;
 }

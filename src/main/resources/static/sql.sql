@@ -1,16 +1,12 @@
 select
-    b1_0.genres_id,
-    b1_1.id,
-    b1_1.book_name,
-    b1_1.count,
-    b1_1.description,
-    b1_1.img,
-    b1_1.isbn,
-    b1_1.public_date
+    b1_0.id,
+    b1_0.book_name,
+    b1_0.count,
+    b1_0.description,
+    b1_0.img,
+    b1_0.isbn,
+    b1_0.public_date
 from
-    genres_books b1_0
-        join
-    book b1_1
-    on b1_1.id=b1_0.books_id
+    book b1_0
 where
-    b1_0.genres_id=1
+        upper(b1_0.book_name) like upper(b1_0.book_name) escape '\' offset 0 rows fetch first 10 rows only

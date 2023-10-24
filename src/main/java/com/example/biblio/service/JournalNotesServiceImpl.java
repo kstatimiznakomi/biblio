@@ -1,10 +1,7 @@
 package com.example.biblio.service;
 
 import com.example.biblio.dao.JournalNotesDAO;
-import com.example.biblio.model.Book;
-import com.example.biblio.model.JournalNotes;
-import com.example.biblio.model.ReaderTicket;
-import com.example.biblio.model.User;
+import com.example.biblio.model.*;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -24,8 +22,13 @@ public class JournalNotesServiceImpl implements JournalNotesService{
 
     @Override
     public Page<JournalNotes> getAllPageByTicket(int pageNumber, ReaderTicket ticket) {
-        Pageable page = PageRequest.of(pageNumber - 1,5);
+        Pageable page = PageRequest.of(pageNumber - 1,10);
         return dao.getJournalNotesByReaderTicket(ticket, page);
+    }
+
+    @Override
+    public List<JournalNotes> getAllNotesWithOpenStatus(){
+        return dao.getJournalNotesByStatus(NoteStatus.Открытый);
     }
 
     @Override
