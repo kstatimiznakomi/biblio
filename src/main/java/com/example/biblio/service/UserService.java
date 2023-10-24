@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 public interface UserService extends UserDetailsService {
 
     User getUserByName(String name);
+    UserDTO getUser(String name);
 
     Boolean checkUserForExist(String name);
 

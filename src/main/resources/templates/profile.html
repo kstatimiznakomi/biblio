@@ -24,6 +24,20 @@
                 <div class="info-img">
                     <img src="/image/free-icon-user-8150564.png" height="120px" width="120px" alt="книга">
                 </div>
+                <div class="info-details">
+                    <span class="user-dtls" th:text="${user.lastname}"></span>
+                    <hr class="info-details-hr">
+                    <span class="user-dtls" th:text="${user.name}"></span>
+                    <hr class="info-details-hr">
+                    <span class="user-dtls" th:text="${user.surname}"></span>
+                    <hr class="info-details-hr">
+                    <span class="user-dtls" th:text="${user.username}"></span>
+                    <hr class="info-details-hr">
+                    <span class="user-dtls" th:text="${user.email}"></span>
+                    <hr class="info-details-hr">
+                    <span class="user-dtls" th:text="${user.phone}"></span>
+                    <hr class="info-details-hr">
+                </div>
             </div>
         </div>
     </div>

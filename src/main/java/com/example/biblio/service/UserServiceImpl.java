@@ -2,10 +2,13 @@ package com.example.biblio.service;
 
 import com.example.biblio.dao.UserDAO;
 import com.example.biblio.dto.UserDTO;
+import com.example.biblio.mapper.PublisherMapper;
+import com.example.biblio.mapper.UserMapper;
 import com.example.biblio.model.ReaderTicket;
 import com.example.biblio.model.User;
 import com.example.biblio.model.UserRole;
 import com.example.biblio.model.UserStatus;
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,20 +21,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class UserServiceImpl implements UserService {
     private final BCryptPasswordEncoder encoder;
     private final UserDAO userRepository;
     private final ReaderTicketService readerTicketService;
-
-    public UserServiceImpl(BCryptPasswordEncoder encoder, @Lazy UserDAO userRepository, @Lazy ReaderTicketService readerTicketService) {
-        this.encoder = encoder;
-        this.userRepository = userRepository;
-        this.readerTicketService = readerTicketService;
-    }
+    private final UserMapper userMapper = UserMapper.MAPPER;
 
     @Override
     public User getUserByName(String name){
         return userRepository.findFirstByUsername(name);
+    }
+
+    @Override
+    public UserDTO getUser(String name) {
+        return userMapper.fromUser(userRepository.getUserByUsername(name));
     }
 
     @Override

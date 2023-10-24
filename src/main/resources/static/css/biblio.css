@@ -27,6 +27,25 @@
 .info{
     margin-left: 195px;
     height: 373px;
+    width: 820px;
+    display: flex;
+    flex-direction: row;
+}
+
+.info-details{
+    width: inherit;
+    margin-left: 25px;
+}
+
+.info-details-hr{
+    margin-top: 22px;
+    opacity: 100%;
+}
+
+.user-dtls{
+    padding: 3px 39px;
+    font-family: Inter;
+    font-size: large;
 }
 
 .info-img{
