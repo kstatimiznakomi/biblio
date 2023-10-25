@@ -19,6 +19,7 @@ public class JournalNotesServiceImpl implements JournalNotesService{
     private final UserService userService;
     private final ReaderTicketService ticketService;
     private final BookService bookService;
+    private final ReserveService reserveService;
 
     @Override
     public Page<JournalNotes> getAllPageByTicket(int pageNumber, ReaderTicket ticket) {
@@ -33,16 +34,31 @@ public class JournalNotesServiceImpl implements JournalNotesService{
 
     @Override
     public void Save(Principal principal, Long bookId){
-        User user = userService.getUserByName(principal.getName());
-        ReaderTicket ticket = ticketService.getTicketByUser(user);
-        Book book = bookService.findBookByIdModel(bookId);
-        JournalNotes noteExist = dao.getJournalNotesByReaderTicketAndBook(ticket, book);
-        if (noteExist == null){
+        if (reserveService.getReserveWithStatus(ReserveStatus.Открыт) != null){
+            JournalNotes noteExist = dao.getJournalNotesByReaderTicketAndBook(
+                    ticketService.getTicketByUser(userService.getUserByName(principal.getName())),
+                    bookService.findBookByIdModel(bookId)
+            );
+            if (noteExist == null){
+                JournalNotes note = JournalNotes.builder()
+                        .book(bookService.findBookByIdModel(bookId))
+                        .readerTicket(
+                                ticketService.getTicketByUser(userService.getUserByName(principal.getName()))
+                        )
+                        .status(NoteStatus.Открытый)
+                        .reserve(reserveService.getReserveWithStatus(ReserveStatus.Открыт))
+                        .build();
+                dao.save(note);
+            }
+        }
+        else {
+            reserveService.Create();
             JournalNotes note = JournalNotes.builder()
-                    .book(book)
-                    .readerTicket(ticket)
-                    .dateTake(LocalDateTime.now())
-                    .dateReturn(LocalDateTime.now().plusDays(30))
+                    .book(bookService.findBookByIdModel(bookId))
+                    .readerTicket(
+                            ticketService.getTicketByUser(userService.getUserByName(principal.getName()))
+                    )
+                    .reserve(reserveService.getReserveWithStatus(ReserveStatus.Открыт))
                     .build();
             dao.save(note);
         }
@@ -50,10 +66,10 @@ public class JournalNotesServiceImpl implements JournalNotesService{
 
     @Override
     public void Delete(Principal principal, Long bookId) {
-        User user = userService.getUserByName(principal.getName());
-        ReaderTicket ticket = ticketService.getTicketByUser(user);
-        Book book = bookService.findBookByIdModel(bookId);
-        JournalNotes noteExist = dao.getJournalNotesByReaderTicketAndBook(ticket, book);
+        JournalNotes noteExist = dao.getJournalNotesByReaderTicketAndBook(
+                ticketService.getTicketByUser(userService.getUserByName(principal.getName())),
+                bookService.findBookByIdModel(bookId)
+        );
         if (noteExist != null){
             dao.delete(noteExist);
         }

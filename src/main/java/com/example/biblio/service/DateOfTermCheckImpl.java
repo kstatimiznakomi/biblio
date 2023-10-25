@@ -13,11 +13,11 @@ public class DateOfTermCheckImpl implements DateOfTermCheck{
     private final UserService userService;
     @Override
     public void checkForBlock() {
-        List<JournalNotes> allOpenNotes = notesService.getAllNotesWithOpenStatus();
+       /* List<JournalNotes> allOpenNotes = notesService.getAllNotesWithOpenStatus();
         for (JournalNotes note : allOpenNotes){
             if (Objects.equals(note.getDateReturn(), LocalDateTime.now())){
                 userService.block(note.getReaderTicket().getUser());
             }
-        }
+        }*/
     }
 }

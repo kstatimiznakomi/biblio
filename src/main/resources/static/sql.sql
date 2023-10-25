@@ -1,12 +1,16 @@
 select
-    b1_0.id,
-    b1_0.book_name,
-    b1_0.count,
-    b1_0.description,
-    b1_0.img,
-    b1_0.isbn,
-    b1_0.public_date
+    u1_0.id,
+    u1_0.address,
+    u1_0.email,
+    u1_0.lastname,
+    u1_0.name,
+    u1_0.password,
+    u1_0.phone,
+    u1_0.role,
+    u1_0.status,
+    u1_0.surname,
+    u1_0.username
 from
-    book b1_0
+    users u1_0
 where
-        upper(b1_0.book_name) like upper(b1_0.book_name) escape '\' offset 0 rows fetch first 10 rows only
+    u1_0.username='one'

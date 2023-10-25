@@ -33,6 +33,6 @@ public class SearchController {
         model.addAttribute("currentPage", curPage);
         model.addAttribute("totalItems", totalItems);
         model.addAttribute("totalPages", totalPages);
-        return "catalog";
+        return "search";
     }
 }

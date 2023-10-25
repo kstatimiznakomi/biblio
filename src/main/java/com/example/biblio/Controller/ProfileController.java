@@ -21,7 +21,7 @@ public class ProfileController {
     public String index(Model model, Principal principal){
         if (principal == null) return "redirect:/login";
         UserDTO dto = userService.getUser(principal.getName());
-        model.addAttribute("user", dto);
+        model.addAttribute("userData", dto);
         return "profile";
     }
 

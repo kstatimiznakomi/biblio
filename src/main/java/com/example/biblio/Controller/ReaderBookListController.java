@@ -29,41 +29,39 @@ public class ReaderBookListController {
     private final ReaderTicketService readerTicketService;
     private final JournalNotesService notesService;
     private PageService pageService;
+
     @GetMapping({"", "/"})
-    public String books(){
+    public String books() {
         return "redirect:/books/1";
     }
 
     @GetMapping("/{pageNumber}")
-    public String getMyBooks(Model model, Principal principal, @PathVariable int pageNumber){
-        if (principal != null){
-            User user = userService.getUserByName(principal.getName());
-            ReaderTicket ticket = readerTicketService.getTicketByUser(user);
-            Page<JournalNotes> page = notesService.getAllPageByTicket(pageNumber, ticket);
-            long totalItems = page.getTotalElements();
-            int totalPages = page.getTotalPages();
-            int curPage = pageService.GetBiggerLower(pageNumber, totalPages);
-            List<JournalNotes> notes = page.getContent();
-
-            model.addAttribute("notes", notes);
-            model.addAttribute("currentPage", curPage);
-            model.addAttribute("totalItems", totalItems);
-            model.addAttribute("totalPages", totalPages);
-            return "my-books";
-        }
-        return "catalog";
+    public String getMyBooks(Model model, Principal principal, @PathVariable int pageNumber) {
+        if (principal == null) return "redirect:/catalog";
+        User user = userService.getUserByName(principal.getName());
+        ReaderTicket ticket = readerTicketService.getTicketByUser(user);
+        Page<JournalNotes> page = notesService.getAllPageByTicket(pageNumber, ticket);
+        long totalItems = page.getTotalElements();
+        int totalPages = page.getTotalPages();
+        int curPage = pageService.GetBiggerLower(pageNumber, totalPages);
+        List<JournalNotes> notes = page.getContent();
+        model.addAttribute("notes", notes);
+        model.addAttribute("currentPage", curPage);
+        model.addAttribute("totalItems", totalItems);
+        model.addAttribute("totalPages", totalPages);
+        return "my-books";
     }
 
     @GetMapping("/add/{bookId}")
-    public String addBookToTicket(Principal principal, @PathVariable Long bookId){
-        if (principal == null) return "catalog";
+    public String addBookToTicket(Principal principal, @PathVariable Long bookId) {
+        if (principal == null) return "redirect:/catalog";
         notesService.Save(principal, bookId);
         return "redirect:/books";
     }
 
     @GetMapping("/delete/{bookId}")
-    public String deleteNote(Principal principal, @PathVariable Long bookId){
-        if (principal == null) return "catalog";
+    public String deleteNote(Principal principal, @PathVariable Long bookId) {
+        if (principal == null) return "redirect:/catalog";
         notesService.Delete(principal, bookId);
         return "redirect:/books";
     }
