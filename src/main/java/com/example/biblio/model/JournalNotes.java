@@ -23,9 +23,9 @@ public class JournalNotes {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQ_NAME)
     @SequenceGenerator(name = SEQ_NAME, sequenceName = SEQ_NAME, allocationSize = 1)
     private Long id;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private ReaderTicket readerTicket;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Reserve reserve;
     @ManyToOne(fetch = FetchType.LAZY)
     private Book book;

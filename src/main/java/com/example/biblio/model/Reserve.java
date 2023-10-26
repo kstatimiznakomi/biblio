@@ -24,4 +24,6 @@ public class Reserve {
     private ReserveStatus status;
     private LocalDateTime dateTake;
     private LocalDateTime dateReturn;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private ReaderTicket readerTicket;
 }

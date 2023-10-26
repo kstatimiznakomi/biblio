@@ -20,8 +20,7 @@ public class ProfileController {
     @GetMapping("")
     public String index(Model model, Principal principal){
         if (principal == null) return "redirect:/login";
-        UserDTO dto = userService.getUser(principal.getName());
-        model.addAttribute("userData", dto);
+        model.addAttribute("userData", userService.getUser(principal.getName()));
         return "profile";
     }
 
