@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO getUser(String name) {
-        return userMapper.fromUser(userRepository.getUserByUsername(name));
+        return userMapper.fromAnyUser(userRepository.getUserByUsername(name));
     }
 
     @Override

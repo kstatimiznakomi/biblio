@@ -20,7 +20,8 @@ public class ProfileController {
     @GetMapping("")
     public String index(Model model, Principal principal){
         if (principal == null) return "redirect:/login";
-        model.addAttribute("userData", userService.getUser(principal.getName()));
+        UserDTO user = userService.getUser(principal.getName());
+        model.addAttribute("userData", user);
         return "profile";
     }
 
@@ -33,6 +34,6 @@ public class ProfileController {
     @PatchMapping ("/edit/patch")
     public String profile(Model model){
         model.addAttribute("user", new UserDTO());
-        return "profile";
+        return "redirect:/profile";
     }
 }
