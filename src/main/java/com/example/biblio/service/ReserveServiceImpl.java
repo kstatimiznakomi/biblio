@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -26,6 +27,11 @@ public class ReserveServiceImpl implements ReserveService{
     @Override
     public void Save(Reserve reserve){
         reserveDAO.save(reserve);
+    }
+
+    @Override
+    public List<Reserve> getReservesWithOpenStatus(){
+        return reserveDAO.getReservesByStatus(ReserveStatus.Открыт);
     }
 
     @Override

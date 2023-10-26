@@ -4,6 +4,7 @@ import com.example.biblio.dao.BookDAO;
 import com.example.biblio.dto.BookDTO;
 import com.example.biblio.mapper.BookMapper;
 import com.example.biblio.model.Book;
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -11,13 +12,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
 public class BookServiceImpl implements BookService{
     @Lazy
     private final BookDAO bookDAO;
     private final BookMapper mapper = BookMapper.MAPPER;
-    public BookServiceImpl(@Lazy BookDAO bookDAO) {
-        this.bookDAO = bookDAO;
-    }
 
     @Override
     public Page<Book> getAllPage(int pageNumber) {

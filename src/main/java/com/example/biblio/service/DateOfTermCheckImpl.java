@@ -1,6 +1,6 @@
 package com.example.biblio.service;
 
-import com.example.biblio.model.JournalNotes;
+import com.example.biblio.model.Reserve;
 import lombok.AllArgsConstructor;
 
 import java.time.LocalDateTime;
@@ -9,15 +9,17 @@ import java.util.Objects;
 
 @AllArgsConstructor
 public class DateOfTermCheckImpl implements DateOfTermCheck{
-    private final JournalNotesService notesService;
+    private final ReserveService reserveService;
     private final UserService userService;
+
     @Override
     public void checkForBlock() {
-       /* List<JournalNotes> allOpenNotes = notesService.getAllNotesWithOpenStatus();
-        for (JournalNotes note : allOpenNotes){
-            if (Objects.equals(note.getDateReturn(), LocalDateTime.now())){
-                userService.block(note.getReaderTicket().getUser());
+        List<Reserve> allOpenReserves = reserveService.getReservesWithOpenStatus();
+        for (Reserve reserve : allOpenReserves){
+            if (Objects.equals(reserve.getDateReturn(), LocalDateTime.now()) ||
+                    LocalDateTime.now().getDayOfMonth() < reserve.getDateReturn().getDayOfMonth()){
+                userService.block(reserve.getReaderTicket().getUser());
             }
-        }*/
+        }
     }
 }
