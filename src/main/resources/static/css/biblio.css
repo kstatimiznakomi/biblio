@@ -46,6 +46,8 @@
     padding: 3px 39px;
     font-family: Inter;
     font-size: large;
+    font-weight: bold;
+    letter-spacing: 1px;
 }
 
 .info-img{
@@ -165,9 +167,9 @@ body
 }
 
 #search-button{
-    height: 40px;
+    height: 30px;
     width: 55px;
-    color: white;
+    background-color: rgb(255, 255, 255);
     border-radius: 15px;
     border-width: inherit;
 }
@@ -310,8 +312,26 @@ select{
     border-radius: 14px;
     width: 1274px;
     height: 40px;
-    padding: 5px;
+    padding: 5px 16px;;
     border-width: inherit;
+}
+
+.reserved-bks{
+    font-family: Inter;
+    margin-left: 44px;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: row;
+}
+
+.res-book-bg{
+    height: 152px;
+    width: 1299px;
+    display: flex;
+    flex-direction: row;
+    border-radius: 14px;
+    background: linear-gradient(180deg, #FFE68B, rgba(255,210,95,1) 100%);
+
 }
 
 .search-input:checked{
@@ -320,7 +340,7 @@ select{
 
 .book-bg {
     width: 1460px;
-    height: 458px;
+    height: 438px;
     flex-shrink: 0;
     border-radius: 11px;
     background: #FFE68B;
@@ -348,22 +368,73 @@ a:hover{
 
 .book {
     width: 1412px;
-    height: 458px;
+    height: 434px;
     display: flex;
     margin: 0 auto;
     padding-top: 24px;
-    padding-left: 24px;
+    padding-left: 76px;
 }
 
 .book li {
-    width: 1406px;
-    height: 410px;
+    width: 1058px;
     border: 1px solid #FFF;
     border-radius: 14px;
-    display: flex;
     margin: 0px 24px 24px 0px;
     background: #FFF;
     align-items: center;
+}
+
+.name-book a{
+    text-decoration: none;
+    font-family: Inter;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color: #000;
+}
+
+.name-book a:hover{
+    text-decoration: underline;
+    color: #000000;
+    outline: none;
+    border: 0;
+
+}
+
+.description-book {
+    padding-right: 20px;
+
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    line-height: normal;
+    font-weight: 400;
+    color: #000;
+}
+
+.btn-book a{
+    color: black;
+    text-decoration: none;
+    font-family: Inter;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    border-radius: 14px;
+    padding: 16px 420px;
+    display: inline-block;
+    background: #fff0a4;
+}
+.btn-book a:hover{
+    background: #fff023;
+    color: black;
+    outline: none;
+    border: 0;
+}
+
+.name-book,.description-book,.btn-book{
+    padding-left: 42px;
 }
 
 select{

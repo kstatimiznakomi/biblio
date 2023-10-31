@@ -2,14 +2,12 @@ package com.example.biblio.service;
 
 import com.example.biblio.dao.UserDAO;
 import com.example.biblio.dto.UserDTO;
-import com.example.biblio.mapper.PublisherMapper;
 import com.example.biblio.mapper.UserMapper;
 import com.example.biblio.model.ReaderTicket;
 import com.example.biblio.model.User;
 import com.example.biblio.model.UserRole;
 import com.example.biblio.model.UserStatus;
 import lombok.AllArgsConstructor;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -35,7 +33,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO getUser(String name) {
-        return userMapper.fromAnyUser(userRepository.getUserByUsername(name));
+        return userMapper.fromUser(userRepository.getUserByUsername(name));
     }
 
     @Override
@@ -77,12 +75,10 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
-
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findFirstByUsername(username);
-        if(user == null){
+        if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }
         List<GrantedAuthority> roles = new ArrayList<>();

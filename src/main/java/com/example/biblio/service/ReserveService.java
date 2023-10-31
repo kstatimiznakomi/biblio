@@ -9,8 +9,6 @@ import java.util.List;
 
 @Service
 public interface ReserveService {
-    Reserve getReserveWithStatus(ReserveStatus status);
-
     Reserve getReserveWithStatusAndTicket(ReserveStatus status, ReaderTicket ticket);
 
     void Save(Reserve reserve);

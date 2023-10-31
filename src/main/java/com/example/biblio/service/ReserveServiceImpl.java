@@ -14,10 +14,6 @@ import java.util.List;
 @AllArgsConstructor
 public class ReserveServiceImpl implements ReserveService{
     private final ReserveDAO reserveDAO;
-    @Override
-    public Reserve getReserveWithStatus(ReserveStatus status){
-        return reserveDAO.getReserveByStatus(status);
-    }
 
     @Override
     public Reserve getReserveWithStatusAndTicket(ReserveStatus status, ReaderTicket ticket){

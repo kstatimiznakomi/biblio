@@ -23,7 +23,6 @@ public class User {
     private String surname;
     private String username;
     private String password;
-    private String verifyPassword;
     private String email;
     private String address;
     @Enumerated(EnumType.STRING)

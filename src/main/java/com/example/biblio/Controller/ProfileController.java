@@ -1,7 +1,6 @@
 package com.example.biblio.Controller;
 
 import com.example.biblio.dto.UserDTO;
-import com.example.biblio.model.User;
 import com.example.biblio.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -20,8 +19,7 @@ public class ProfileController {
     @GetMapping("")
     public String index(Model model, Principal principal){
         if (principal == null) return "redirect:/login";
-        UserDTO user = userService.getUser(principal.getName());
-        model.addAttribute("userData", user);
+        model.addAttribute("userData", userService.getUser(principal.getName()));
         return "profile";
     }
 

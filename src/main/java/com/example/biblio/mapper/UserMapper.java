@@ -8,5 +8,5 @@ import org.mapstruct.factory.Mappers;
 @Mapper
 public interface UserMapper {
     UserMapper MAPPER = Mappers.getMapper(UserMapper.class);
-    UserDTO fromAnyUser(User user);
+    UserDTO fromUser(User user);
 }

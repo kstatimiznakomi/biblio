@@ -5,35 +5,34 @@ import com.example.biblio.dto.BookDTO;
 import com.example.biblio.mapper.BookMapper;
 import com.example.biblio.model.Book;
 import lombok.AllArgsConstructor;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
 public class BookServiceImpl implements BookService{
-    @Lazy
     private final BookDAO bookDAO;
     private final BookMapper mapper = BookMapper.MAPPER;
+    private final PageService pageService;
 
     @Override
     public Page<Book> getAllPage(int pageNumber) {
-        Pageable page = PageRequest.of(pageNumber - 1,10);
-        return bookDAO.findAll(page);
+        return bookDAO.findAll(
+                pageService.getPage(pageNumber)
+        );
     }
 
     @Override
     public BookDTO getBookPage(Long book){
-        Book bookOrig = bookDAO.findBookById(book);
-        return mapper.fromBook(bookOrig);
+        return mapper.fromBook(bookDAO.findBookById(book));
     }
 
     @Override
     public Page<Book> getSearchBooks(int pageNumber, String bookName){
-        Pageable page = PageRequest.of(pageNumber - 1,10);
-        return bookDAO.getBooksByBookNameContainsIgnoreCase(bookName, page);
+        return bookDAO.getBooksByBookNameContainsIgnoreCase(
+                bookName,
+                pageService.getPage(pageNumber)
+        );
     }
 
     @Override

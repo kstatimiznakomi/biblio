@@ -3,13 +3,12 @@
 <body th:fragment="nav-menu">
 <section class = "head">
   <header class="header">
-    <a th:href="@{/}"><img src="/image/rdLib.jpg" height="40" width="40"></a>
+    <a th:href="@{/}"><img src="https://i.postimg.cc/9FpWWbkr/rd-lib.png" height="40" width="40"></a>
     <nav>
       <ul class = "menu">
         <li><a th:href="@{/}">Главная</a></li>
         <li><a th:href="@{/catalog}">Каталог</a></li>
         <li><a th:href="@{/about}">О нас</a></li>
-        <li sec:authorize="isAuthenticated()"><a th:href="@{/books}">Забронированные книги</a></li>
         <li sec:authorize="isAuthenticated()"><a th:href="@{/profile}">Профиль</a></li>
       </ul>
     </nav>

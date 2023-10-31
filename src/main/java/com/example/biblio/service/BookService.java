@@ -9,10 +9,7 @@ import java.util.List;
 @Service
 public interface BookService {
     Page<Book> getAllPage(int pageNumber);
-
     BookDTO getBookPage(Long book);
-
     Page<Book> getSearchBooks(int pageNumber, String bookName);
-
     Book findBookByIdModel(Long bookId);
 }

@@ -4,12 +4,9 @@ import com.example.biblio.dao.JournalNotesDAO;
 import com.example.biblio.model.*;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
-import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -19,20 +16,24 @@ public class JournalNotesServiceImpl implements JournalNotesService{
     private final ReaderTicketService ticketService;
     private final BookService bookService;
     private final ReserveService reserveService;
+    private final PageService pageService;
 
     @Override
     public Page<JournalNotes> getAllPageByTicket(int pageNumber, ReaderTicket ticket) {
-        Pageable page = PageRequest.of(pageNumber - 1,10);
-        return dao.getJournalNotesByReaderTicket(ticket, page);
+        return dao.getJournalNotesByReaderTicket(
+                ticket,
+                pageService.getPage(pageNumber)
+        );
     }
 
     @Override
-    public void Create(Book book, User user){
+    public void Create(Book book, User user, Reserve reserve){
         JournalNotes note = JournalNotes.builder()
                 .book(book)
                 .readerTicket(
                         ticketService.getTicketByUser(user)
                 )
+                .reserve(reserve)
                 .status(NoteStatus.Открытый)
                 .build();
         dao.save(note);
@@ -48,14 +49,17 @@ public class JournalNotesServiceImpl implements JournalNotesService{
                 ReserveStatus.Открыт,
                 ticketService.getTicketByUser(userService.getUserByName(principal.getName()))
         ) != null){
-            JournalNotes noteExist = dao.getJournalNotesByReaderTicketAndBook(
+            if (dao.getJournalNotesByReaderTicketAndBook(
                     ticketService.getTicketByUser(userService.getUserByName(principal.getName())),
                     bookService.findBookByIdModel(bookId)
-            );
-            if (noteExist == null){
+            ) == null){
                 Create(
                         bookService.findBookByIdModel(bookId),
-                        userService.getUserByName(principal.getName())
+                        userService.getUserByName(principal.getName()),
+                        reserveService.getReserveWithStatusAndTicket(
+                                ReserveStatus.Открыт,
+                                ticketService.getTicketByUser(userService.getUserByName(principal.getName()))
+                        )
                 );
             }
         }
@@ -65,7 +69,11 @@ public class JournalNotesServiceImpl implements JournalNotesService{
             );
             Create(
                     bookService.findBookByIdModel(bookId),
-                    userService.getUserByName(principal.getName())
+                    userService.getUserByName(principal.getName()),
+                    reserveService.getReserveWithStatusAndTicket(
+                            ReserveStatus.Открыт,
+                            ticketService.getTicketByUser(userService.getUserByName(principal.getName()))
+                    )
             );
         }
     }
