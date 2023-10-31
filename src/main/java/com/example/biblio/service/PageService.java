@@ -12,6 +12,6 @@ public class PageService {
     }
 
     public PageRequest getPage(int pageNumber){
-        return PageRequest.of(pageNumber - 1,10);
+        return PageRequest.of(pageNumber - 1,5);
     }
 }

@@ -25,6 +25,6 @@ public class Book {
     @Column(length = 5000)
     private String description;
     private Integer count;
-    private Date publicDate;
+    private Integer publicDate;
     private String isbn;
 }

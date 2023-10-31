@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-class SearchParamsDTO {
+public class SearchParamsDTO {
     private String authorId;
     private String genreId;
     private String publisherId;

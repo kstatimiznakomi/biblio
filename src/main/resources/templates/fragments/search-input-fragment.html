@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<body>
+<div class="search" th:fragment="search-params">
+    <form th:action="@{/search}" th:object="${search}">
+        <input type="hidden" th:field="*{authorId}">
+        <input type="hidden" th:field="*{genreId}">
+        <input type="hidden" th:field="*{publisherId}">
+        <input type="hidden" name="page" value="1">
+        <input th:field="*{searchText}" id="search-in" placeholder="Введите наименование книги" class="search-input" type="text"
+               data-toggle="dropdown" aria-expanded="false">
+        <button type="submit" id="search-button">
+            <img height="15px" width="15px" src="https://i.postimg.cc/k405b5NG/search-interface-symbol.png">
+        </button>
+    </form>
+</div>
+</body>
+</html>

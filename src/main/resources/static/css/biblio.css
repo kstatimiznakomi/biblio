@@ -352,6 +352,7 @@ select{
     width: 269px;
     height: 390px;
     margin-right: 25px;
+    border-radius: 14px;
 }
 
 a{

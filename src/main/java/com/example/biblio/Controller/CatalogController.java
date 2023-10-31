@@ -1,8 +1,6 @@
 package com.example.biblio.Controller;
 
-import com.example.biblio.dto.AuthorDTO;
-import com.example.biblio.dto.GenresDTO;
-import com.example.biblio.dto.PublisherDTO;
+import com.example.biblio.dto.*;
 import com.example.biblio.model.Book;
 import com.example.biblio.model.User;
 import com.example.biblio.model.UserRole;
@@ -52,6 +50,7 @@ public class CatalogController {
         List<AuthorDTO> authors = authorService.getAllAuthors();
         List<GenresDTO> genres = genreService.getAllGenres();
         List<PublisherDTO> publishers = publisherService.getAllPublishers();
+        model.addAttribute("search", new SearchParamsDTO());
         model.addAttribute("currentPage", curPage);
         model.addAttribute("totalItems", totalItems);
         model.addAttribute("totalPages", totalPages);

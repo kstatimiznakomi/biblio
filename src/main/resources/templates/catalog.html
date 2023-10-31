@@ -33,13 +33,7 @@
                 <input class="input-date" type="date" placeholder="Конечная дата">
             </ul>
         </div>
-        <div class="search">
-            <input id="search-in" placeholder="Введите наименование книги" class="search-input" type="text"
-                   data-toggle="dropdown" aria-expanded="false">
-            <button type="submit" id="search-button">
-                <img height="15px" width="15px" src="https://i.postimg.cc/k405b5NG/search-interface-symbol.png">
-            </button>
-        </div>
+        <div th:replace="~{fragments/search-input-fragment}"></div>
 </section>
 
 <section class = "flex-container">

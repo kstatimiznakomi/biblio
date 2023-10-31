@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
 
     <meta charset="UTF-8">
@@ -33,27 +33,20 @@
                 <input class="input-date" type="date" placeholder="Конечная дата">
             </ul>
         </div>
-        <div class = "search">
-            <li>
-                <input id="search-in" placeholder="Введите наименование книги" class="search-input" type="text" data-toggle="dropdown" aria-expanded="false">
-                <button type="submit" id="search-button">
-                    <img height="15px" width="15px" src="/image/search-interface-symbol.png">
-                </button>
-            </li>
-        </div>
+        <div th:replace="~{fragments/search-input-fragment}"></div>
 </section>
 
 <section class = "flex-container">
-    <div class = "book-bg" th:each="book : ${books}">
-        <ul class = "book" style="margin-left: 0px; margin-right: 0px;">
-            <li style ="margin-right: 0px;" >
-                <img class="book-img" th:src="${book.img}" style ="padding-left: 20px;">
-                <div class="book-nm">
-                    <a th:href="@{/book/{bookId}(bookId=${book.id})}" th:text="${book.bookName}"></a>
-                </div>
-                <span th:text="${book.description}"></span>
-                <a th:href="@{/books/add/{bookId}(bookId=${book.id})}"
-                   class = "btn__menu">Забронировать</a>
+    <div class="book-bg" th:each="book : ${foundBooks}">
+        <ul class="book" style="margin-left: 0px; margin-right: 0px;">
+            <img class="book-img" th:src="${book.img}">
+            <li style="margin-right: 0px;">
+                <div class="name-book"><a th:href="@{/book/{bookId}(bookId=${book.id})}" th:text="${book.bookName}"></a></div>
+                <div class="description-book"><span  th:text="${book.description}"></span></div>
+                <div sec:authorize="isAuthenticated()" th:if="${userStatus == activeStat}" class="btn-book">
+                    <a th:href="@{/books/add/{bookId}(bookId=${book.id})}"
+                       class="btn__menu">Забронировать
+                    </a></div>
             </li>
         </ul>
     </div>
@@ -64,7 +57,7 @@
     <div class="row">
         <div class="col-null" th:each="i : ${#numbers.sequence(1, totalPages)}">
             <span class="page-digits-bg" th:unless="${i != currentPage}">[[${i}]]</span>
-            <a class="page-digits-bg-link" th:if="${i != currentPage}" th:href="@{'/catalog/' + ${i}}">[[${i}]]</a>
+            <a class="page-digits-bg-link" th:if="${i != currentPage}" href="javascript:"></a>
         </div>
     </div>
 </div>
