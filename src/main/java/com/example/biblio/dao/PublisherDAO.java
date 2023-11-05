@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PublisherDAO extends JpaRepository<Publisher, Long> {
+    Publisher getPublisherById(Long publisherId);
 }

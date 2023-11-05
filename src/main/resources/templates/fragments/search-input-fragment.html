@@ -1,17 +1,40 @@
 <!DOCTYPE html>
 <body>
-<div class="search" th:fragment="search-params">
-    <form th:action="@{/search}" th:object="${search}">
-        <input type="hidden" th:field="*{authorId}">
-        <input type="hidden" th:field="*{genreId}">
-        <input type="hidden" th:field="*{publisherId}">
-        <input type="hidden" name="page" value="1">
-        <input th:field="*{searchText}" id="search-in" placeholder="Введите наименование книги" class="search-input" type="text"
-               data-toggle="dropdown" aria-expanded="false">
-        <button type="submit" id="search-button">
-            <img height="15px" width="15px" src="https://i.postimg.cc/k405b5NG/search-interface-symbol.png">
-        </button>
-    </form>
-</div>
+<section class="flex-container" th:fragment="search-params()">
+    <div class="criteria">
+        <form th:action="@{/search}" th:object="${search}">
+            <div class="bar">
+                <ul class="combo" style="width: 1460px;height: 60px;">
+                    <select>
+                        <option value="0">Авторы</option>
+                        <option th:each="author : ${authors}"
+                                th:text="${author.authorLastName} + ' ' + ${author.getAuthorName()}"
+                                th:value="${author.id}"></option>
+                    </select>
+                    <select>
+                        <option value="0">Жанры</option>
+                        <option th:each="genre : ${genres}" th:text="${genre.genreName}"
+                                th:value="${genre.id}"></option>
+                    </select>
+                    <select>
+                        <option value="0">Издатели</option>
+                        <option th:each="publisher : ${publishers}" th:text="${publisher.publisherName}"
+                                th:value="${publisher.id}"></option>
+                    </select>
+                    <input class="input-date" type="date" placeholder="Начальная дата">
+                    <input class="input-date" type="date" placeholder="Конечная дата">
+                </ul>
+            </div>
+            <div class="search">
+                <input type="hidden" name="page" value="1">
+                <input th:field="*{searchText}" id="search-in" placeholder="Введите наименование книги"
+                       class="search-input" type="text"
+                       data-toggle="dropdown" aria-expanded="false">
+                <button type="submit" id="search-button">
+                    <img height="15px" width="15px" src="https://i.postimg.cc/k405b5NG/search-interface-symbol.png">
+                </button>
+            </div>
+        </form>
+</section>
 </body>
 </html>

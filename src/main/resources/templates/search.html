@@ -13,7 +13,8 @@
 </head>
 <body>
 <div th:replace="~{fragments/header-fragment :: nav-menu}"></div>
-<section class = "flex-container">
+<div th:replace="~{fragments/search-input-fragment}"></div>
+<!--<section class = "flex-container">
     <div class="criteria">
         <div class = "bar">
             <ul class = "combo" style = "width: 1460px;height: 60px;">
@@ -34,7 +35,7 @@
             </ul>
         </div>
         <div th:replace="~{fragments/search-input-fragment}"></div>
-</section>
+</section> -->
 
 <section class = "flex-container">
     <div class="book-bg" th:each="book : ${foundBooks}">
@@ -57,7 +58,7 @@
     <div class="row">
         <div class="col-null" th:each="i : ${#numbers.sequence(1, totalPages)}">
             <span class="page-digits-bg" th:unless="${i != currentPage}">[[${i}]]</span>
-            <a class="page-digits-bg-link" th:if="${i != currentPage}" href="javascript:"></a>
+            <button class="page-digits-bg-link" th:if="${i != currentPage}">[[${i}]]</button>
         </div>
     </div>
 </div>

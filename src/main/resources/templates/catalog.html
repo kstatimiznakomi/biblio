@@ -13,28 +13,7 @@
 </head>
 <body>
 <div th:replace="~{fragments/header-fragment :: nav-menu}"></div>
-<section class = "flex-container">
-    <div class="criteria">
-        <div class = "bar">
-            <ul class = "combo" style = "width: 1460px;height: 60px;">
-                <select>
-                    <option value="0">Авторы</option>
-                    <option th:each="author : ${authors}" th:text="${author.authorLastName} + ' ' + ${author.getAuthorName()}" th:value="${author.id}"></option>
-                </select>
-                <select>
-                    <option value="0">Жанры</option>
-                    <option th:each="genre : ${genres}" th:text="${genre.genreName}" th:value="${genre.id}"></option>
-                </select>
-                <select>
-                    <option value="0">Издатели</option>
-                    <option th:each="publisher : ${publishers}" th:text="${publisher.publisherName}" th:value="${publisher.id}"></option>
-                </select>
-                <input class="input-date" type="date" placeholder="Начальная дата">
-                <input class="input-date" type="date" placeholder="Конечная дата">
-            </ul>
-        </div>
-        <div th:replace="~{fragments/search-input-fragment}"></div>
-</section>
+<div th:replace="~{fragments/search-input-fragment}"></div>
 
 <section class = "flex-container">
     <div class="book-bg" th:each="book : ${books}">
