@@ -24,4 +24,9 @@ public class PublisherServiceImpl implements PublisherService {
     public void deletePublisherById(Long publisherId) {
         publisherDAO.delete(publisherDAO.getPublisherById(publisherId));
     }
+
+    public void save(Publisher publisher){
+        if (publisher.getId() != null)
+            publisherDAO.save(publisher);
+    }
 }
