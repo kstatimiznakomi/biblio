@@ -54,8 +54,8 @@
 <div class="pages" align="center">
     <span>Всего элементов: [[${totalItems}]] - Страница [[${currentPage}]] из [[${totalPages}]]</span>
     &nbsp;
-    <div class="row">
-        <div class="col-null" th:each="i : ${#numbers.sequence(1, totalPages)}">
+    <div class="row center">
+        <div class="col-1" th:each="i : ${#numbers.sequence(1, totalPages)}">
             <span class="page-digits-bg" th:unless="${i != currentPage}">[[${i}]]</span>
             <a class="page-digits-bg-link" th:if="${i != currentPage}" th:href="@{'/catalog/' + ${i}}">[[${i}]]</a>
         </div>

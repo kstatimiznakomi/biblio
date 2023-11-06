@@ -3,8 +3,8 @@ package com.example.biblio.service;
 import com.example.biblio.dao.AuthorDAO;
 import com.example.biblio.dto.AuthorDTO;
 import com.example.biblio.mapper.AuthorMapper;
+import com.example.biblio.model.Author;
 import lombok.AllArgsConstructor;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,5 +18,10 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public List<AuthorDTO> getAllAuthors(){
         return mapper.fromAuthorList(authorDAO.findAll());
+    }
+
+    @Override
+    public Author getAuthor(String authorId) {
+        return authorDAO.getAuthorById(Long.getLong(authorId));
     }
 }

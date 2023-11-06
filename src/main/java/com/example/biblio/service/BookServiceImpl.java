@@ -3,9 +3,12 @@ package com.example.biblio.service;
 import com.example.biblio.dao.BookDAO;
 import com.example.biblio.dto.BookDTO;
 import com.example.biblio.mapper.BookMapper;
+import com.example.biblio.model.Author;
 import com.example.biblio.model.Book;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 @Service

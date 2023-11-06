@@ -55,9 +55,10 @@
     <span>Всего элементов: [[${totalItems}]] - Страница [[${currentPage}]] из [[${totalPages}]]</span>
     &nbsp;
     <div class="row">
-        <div class="col-null" th:each="i : ${#numbers.sequence(1, totalPages)}">
+        <div class="col-1" th:each="i : ${#numbers.sequence(1, totalPages)}">
             <span class="page-digits-bg" th:unless="${i != currentPage}">[[${i}]]</span>
-            <a class="page-digits-bg-link" th:if="${i != currentPage}" href="javascript:"></a>
+            <a class="page-digits-bg-link"
+               th:href="@{/search(authorId=${author}, genreId=${genre}, publisherId=${publisher}, page=${i}, searchText=${searchText})}">[[${i}]]</a>
         </div>
     </div>
 </div>

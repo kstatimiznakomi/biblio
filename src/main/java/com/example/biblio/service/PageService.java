@@ -1,5 +1,7 @@
 package com.example.biblio.service;
 
+import com.example.biblio.model.Book;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 

@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -24,6 +25,11 @@ public class JournalNotesServiceImpl implements JournalNotesService{
                 ticket,
                 pageService.getPage(pageNumber)
         );
+    }
+
+    @Override
+    public List<JournalNotes> getAllByTicket(ReaderTicket ticket) {
+        return dao.getJournalNotesByReaderTicket(ticket);
     }
 
     @Override
@@ -74,6 +80,42 @@ public class JournalNotesServiceImpl implements JournalNotesService{
                             ReserveStatus.Открыт,
                             ticketService.getTicketByUser(userService.getUserByName(principal.getName()))
                     )
+            );
+        }
+    }
+
+    @Override
+    public void ReturnToRead(Principal principal, Long bookId){
+        if (ifExist(
+                ticketService.getTicketByUser(userService.getUserByName(principal.getName())),
+                bookService.findBookByIdModel(bookId)
+        ) != null){
+            dao.getJournalNotesByReaderTicketAndBook(
+                    ticketService.getTicketByUser(userService.getUserByName(principal.getName())),
+                    bookService.findBookByIdModel(bookId)
+            ).setStatus(NoteStatus.Открытый);
+            dao.save(
+                    dao.getJournalNotesByReaderTicketAndBook(
+                            ticketService.getTicketByUser(userService.getUserByName(principal.getName())),
+                            bookService.findBookByIdModel(bookId))
+            );
+        }
+    }
+
+    @Override
+    public void Complete(Principal principal, Long bookId){
+        if (ifExist(
+                ticketService.getTicketByUser(userService.getUserByName(principal.getName())),
+                bookService.findBookByIdModel(bookId)
+        ) != null){
+            dao.getJournalNotesByReaderTicketAndBook(
+                    ticketService.getTicketByUser(userService.getUserByName(principal.getName())),
+                    bookService.findBookByIdModel(bookId)
+            ).setStatus(NoteStatus.Закрытый);
+            dao.save(
+                    dao.getJournalNotesByReaderTicketAndBook(
+                    ticketService.getTicketByUser(userService.getUserByName(principal.getName())),
+                    bookService.findBookByIdModel(bookId))
             );
         }
     }

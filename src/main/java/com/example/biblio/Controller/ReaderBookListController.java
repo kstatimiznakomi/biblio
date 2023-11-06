@@ -32,37 +32,61 @@ public class ReaderBookListController {
 
     @GetMapping({"", "/"})
     public String books() {
-        return "redirect:/books/1";
+        return "redirect:/catalog/1";
     }
 
     @GetMapping("/{pageNumber}")
     public String getMyBooks(Model model, Principal principal, @PathVariable int pageNumber) {
         if (principal == null) return "redirect:/catalog";
-        User user = userService.getUserByName(principal.getName());
-        ReaderTicket ticket = readerTicketService.getTicketByUser(user);
-        Page<JournalNotes> page = notesService.getAllPageByTicket(pageNumber, ticket);
-        long totalItems = page.getTotalElements();
-        int totalPages = page.getTotalPages();
+        long totalItems = notesService.getAllPageByTicket(
+                pageNumber,
+                readerTicketService.getTicketByUser(userService.getUserByName(principal.getName()))
+        ).getTotalElements();
+
+        int totalPages = notesService.getAllPageByTicket(
+                pageNumber,
+                readerTicketService.getTicketByUser(userService.getUserByName(principal.getName()))
+        ).getTotalPages();
+
         int curPage = pageService.GetBiggerLower(pageNumber, totalPages);
-        List<JournalNotes> notes = page.getContent();
+        List<JournalNotes> notes = notesService.getAllPageByTicket(
+                pageNumber,
+                readerTicketService.getTicketByUser(userService.getUserByName(principal.getName()))
+        ).getContent();
+
         model.addAttribute("notes", notes);
         model.addAttribute("currentPage", curPage);
         model.addAttribute("totalItems", totalItems);
         model.addAttribute("totalPages", totalPages);
-        return "my-books";
+        return "redirect:/catalog";
     }
 
     @GetMapping("/add/{bookId}")
     public String addBookToTicket(Principal principal, @PathVariable Long bookId) {
         if (principal == null) return "redirect:/catalog";
         notesService.Save(principal, bookId);
-        return "redirect:/books";
+        return "redirect:/profile";
     }
 
     @GetMapping("/delete/{bookId}")
     public String deleteNote(Principal principal, @PathVariable Long bookId) {
         if (principal == null) return "redirect:/catalog";
         notesService.Delete(principal, bookId);
-        return "redirect:/books";
+        return "redirect:/profile";
     }
+
+    @GetMapping("/complete/{bookId}")
+    public String bookHaveCompleted(Principal principal, @PathVariable Long bookId){
+        if (principal == null) return "redirect:/catalog";
+        notesService.Complete(principal, bookId);
+        return "redirect:/profile";
+    }
+
+    @GetMapping("/continue/{bookId}")
+    public String returnToRead(Model model, Principal principal, @PathVariable Long bookId){
+        if (principal == null) return "redirect:/catalog";
+        notesService.ReturnToRead(principal, bookId);
+        return "redirect:/profile";
+    }
+
 }
