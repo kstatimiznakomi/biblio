@@ -50,11 +50,11 @@
                         <a th:href="@{/books/delete/{bookId}(bookId=${note.book.id})}"
                            class="btn__menu">Удалить книгу из списка</a>
                     </div>
-                    <div class = "col-3 btn__menu" th:if="${note.status.Open == openStat}">
+                    <div class = "col-3 btn__menu" th:if="${note.status == openStat}">
                         <a th:href="@{/books/complete/{bookId}(bookId=${note.book.id})}"
                            class="btn__menu">Завершить чтение</a>
                     </div>
-                    <div class = "col-3 btn__menu" th:if="${note.status.Close == closeStat}">
+                    <div class = "col-3 btn__menu" th:if="${note.status == closeStat}">
                         <a th:href="@{/books/continue/{bookId}(bookId=${note.book.id})}"
                            class="btn__menu">Продолжить чтение</a>
                     </div>

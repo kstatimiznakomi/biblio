@@ -1,13 +1,14 @@
 package com.example.biblio.Controller;
 
-import com.example.biblio.dto.*;
+import com.example.biblio.dto.AuthorDTO;
+import com.example.biblio.dto.GenresDTO;
+import com.example.biblio.dto.PublisherDTO;
+import com.example.biblio.dto.SearchParamsDTO;
 import com.example.biblio.model.Book;
 import com.example.biblio.model.User;
-import com.example.biblio.model.UserRole;
 import com.example.biblio.model.UserStatus;
 import com.example.biblio.service.*;
 import lombok.AllArgsConstructor;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,7 +29,6 @@ public class CatalogController {
     private final PublisherService publisherService;
     private final PageService pageService;
     private final UserService userService;
-    private final RusToEngStatus rusToEngStatus;
 
     @GetMapping("")
     public String catalog(){
@@ -43,8 +43,8 @@ public class CatalogController {
         if (principal != null) {
             User user = userService.getUserByName(principal.getName());
             model.addAttribute("user", user);
-            model.addAttribute("userStatus", rusToEngStatus.rusToEng(user));
-            model.addAttribute("activeStat", UserStatus.Active);
+            model.addAttribute("activeStat", UserStatus.Активный);
+            model.addAttribute("blockedStat", UserStatus.Заблокированный);
         }
         List<Book> books = page.getContent();
         List<AuthorDTO> authors = authorService.getAllAuthors();
