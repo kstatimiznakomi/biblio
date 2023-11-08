@@ -1,7 +1,6 @@
 package com.example.biblio.Controller;
 
 import com.example.biblio.dto.SearchParamsDTO;
-import com.example.biblio.model.Author;
 import com.example.biblio.model.Book;
 import com.example.biblio.service.AuthorService;
 import com.example.biblio.service.BookService;

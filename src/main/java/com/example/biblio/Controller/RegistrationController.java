@@ -1,10 +1,8 @@
 package com.example.biblio.Controller;
 
 import com.example.biblio.dto.UserDTO;
-import com.example.biblio.model.User;
 import com.example.biblio.service.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

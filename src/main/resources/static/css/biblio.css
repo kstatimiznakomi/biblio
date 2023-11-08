@@ -331,9 +331,9 @@ select{
     display: flex;
     flex-direction: row;
     border-radius: 14px;
-    background: linear-gradient(180deg, #FFE68B, rgba(255,210,95,1) 100%);
-    margin-top: 10px;
+    background: linear-gradient(180deg, #FFE68B, rgb(255 237 151) 100%);
     padding: 11px 24px;
+    margin: 10px auto;
 }
 
 .search-input:checked{

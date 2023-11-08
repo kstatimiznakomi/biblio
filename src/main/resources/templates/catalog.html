@@ -43,7 +43,7 @@
             <li style="margin-right: 0px;">
                 <div class="name-book"><a th:href="@{/book/{bookId}(bookId=${book.id})}" th:text="${book.bookName}"></a></div>
                 <div class="description-book"><span  th:text="${book.description}"></span></div>
-                <div sec:authorize="isAuthenticated()" th:if="${user.status == activeStat}" class="btn-book">
+                <div sec:authorize="isAuthenticated()" th:if="${isActiveStat == true}" class="btn-book">
                     <a th:href="@{/books/add/{bookId}(bookId=${book.id})}"
                        class="btn__menu">Забронировать
                     </a></div>

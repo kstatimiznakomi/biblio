@@ -1,7 +1,6 @@
 package com.example.biblio.Controller;
 
 import com.example.biblio.dto.UserDTO;
-import com.example.biblio.model.NoteStatus;
 import com.example.biblio.service.JournalNotesService;
 import com.example.biblio.service.ReaderTicketService;
 import com.example.biblio.service.UserService;
@@ -30,8 +29,6 @@ public class ProfileController {
                         readerTicketService.getTicketByUser(
                                 userService.getUserByName(principal.getName())))
         );
-        model.addAttribute("openStat", NoteStatus.Открытый);
-        model.addAttribute("closeStat", NoteStatus.Закрытый);
         model.addAttribute("userData", userService.getUser(principal.getName()));
         return "profile";
     }

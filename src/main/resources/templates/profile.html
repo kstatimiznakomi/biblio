@@ -38,10 +38,10 @@
             </div>
         </div>
         <div class="reserved-bks align-items-center flex-lg-wrap">
-            <div class="res-book-bg" th:each="note : ${notes}">
+            <div class="res-book-bg align-items-center" th:each="note : ${notes}">
                 <div class="row align-items-center">
                     <div class="col-2">
-                        <img class="book-img-prof" th:src="${note.book.img}" alt="" height="130px">
+                        <img class="book-img-prof" th:src="${note.book.img}" width="90px">
                     </div>
                     <div class="col-3">
                         <a th:text="${note.book.bookName}" th:href="@{/book/{bookId}(bookId=${note.book.id})}"></a>
@@ -50,12 +50,10 @@
                         <a th:href="@{/books/delete/{bookId}(bookId=${note.book.id})}"
                            class="btn__menu">Удалить книгу из списка</a>
                     </div>
-                    <div class = "col-3 btn__menu" th:if="${note.status == openStat}">
-                        <a th:href="@{/books/complete/{bookId}(bookId=${note.book.id})}"
+                    <div class = "col-3 btn__menu" th:switch="${note.status.name()}">
+                        <a th:case="'Открытый'" th:href="@{/books/complete/{bookId}(bookId=${note.book.id})}"
                            class="btn__menu">Завершить чтение</a>
-                    </div>
-                    <div class = "col-3 btn__menu" th:if="${note.status == closeStat}">
-                        <a th:href="@{/books/continue/{bookId}(bookId=${note.book.id})}"
+                        <a th:case="'Закрытый'" th:href="@{/books/continue/{bookId}(bookId=${note.book.id})}"
                            class="btn__menu">Продолжить чтение</a>
                     </div>
                 </div>
