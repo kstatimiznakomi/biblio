@@ -2,6 +2,7 @@
     padding: 0; margin: 0;
     outline: none;
     border-width: inherit;
+    font-family: Inter;
 }
 
 .reg-bg{
@@ -325,6 +326,12 @@ select{
     position: relative;
 }
 
+.paging{
+    display: flex;
+    padding-left: 0;
+    list-style: none;
+}
+
 .res-book-bg{
     height: 152px;
     width: 1000px;
@@ -343,19 +350,21 @@ select{
 .page-digits-bg-link{
     color: #0064ff;
     background-color: #f5f5f5;
+    font-family: Inter;
+    text-decoration: none;
     border-radius: 5px;
-    margin-left: 10px;
+    margin-right: 10px;
     margin-bottom: 15px;
     padding: 10px;
 }
 .page-digits-bg-link:hover{
     color: #ffb016;
 }
-.page-digits-bg{
+.page-digits-span{
     color: #000000;
     background-color: #f5f5f5;
-    border-radius: 14px;
-    margin-left: 10px;
+    border-radius: 5px;
+    margin-right: 10px;
     margin-bottom: 15px;
     padding: 10px;
 }
