@@ -5,6 +5,7 @@ import com.example.biblio.model.Author;
 import com.example.biblio.model.Book;
 import com.example.biblio.model.JournalNotes;
 import com.example.biblio.model.ReaderTicket;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,4 +17,5 @@ public interface BookDAO extends JpaRepository<Book, Long>, PagingAndSortingRepo
     Page<Book> getBooksByBookNameContainsIgnoreCase(String bookName, Pageable page);
     BookDTO getBookById(Long bookId);
     Book findBookById(Long bookId);
+    Page<Book> getBooksByPublicDate(Integer publishDate, Pageable pageable);
 }

@@ -1,0 +1,12 @@
+<div class="pages" align="center" th:fragment="pager-date">
+    <span>Всего элементов: [[${totalItems}]] - Страница [[${currentPage}]] из [[${totalPages}]]</span>
+    &nbsp;
+    <div>
+        <ul class="paging justify-content-center">
+            <li th:switch="${i}" th:each="i : ${#numbers.sequence(1, totalPages)}">
+                <span th:case="${currentPage}" class="page-digits-span">[[${i}]]</span>
+                <a class="page-digits-bg-link" th:if="${i != currentPage}" th:href="@{'/search/date/'+${date}+'/' + ${i}}">[[${i}]]</a>
+            </li>
+        </ul>
+    </div>
+</div>

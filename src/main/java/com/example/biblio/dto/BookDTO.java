@@ -20,5 +20,5 @@ public class BookDTO {
     private String img;
     private Integer count;
     private String isbn;
-    private Date publicDate;
+    private Integer publicDate;
 }

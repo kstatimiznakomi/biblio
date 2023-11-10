@@ -1,34 +1,22 @@
-let author = document.getElementsByTagName("select")[0]
-let genre = document.getElementsByTagName("select")[1]
-let publisher = document.getElementsByTagName("select")[2]
+const author = document.getElementsByTagName("select")[0]
+const genre = document.getElementsByTagName("select")[1]
+const publisher = document.getElementsByTagName("select")[2]
+const dateButton = document.getElementById("date")
 author.addEventListener('change', () => {
-    preFilter()
+    let authorId = document.getElementsByTagName("select")[0].value
+    document.location.replace("/search/author/" + authorId + "/1");
 });
 genre.addEventListener('change', () => {
-    preFilter()
+    let genreId = document.getElementsByTagName("select")[1].value
+
 });
 publisher.addEventListener('change', () => {
-    preFilter()
+    let publisherId = document.getElementsByTagName("select")[2].value
+    document.location.replace("/search/publisher/" + publisherId + "/1");
 });
 
-function preFilter(){
-    let authorId = document.getElementsByTagName("select")[0].value
-    let genreId = document.getElementsByTagName("select")[1].value
-    let publisherId = document.getElementsByTagName("select")[2].value
-    filter(authorId, genreId, publisherId)
-    console.log("ID автора: " + authorId + " ID жанра: " + genreId + " ID издателя: " + publisherId);
-}
-
-function filter(authorId, genreId, publisherId){
-    $.ajax({
-        type: "GET",
-        contentType: false,
-        dataType: "json",
-        url: '/filter/by-author-genre-publisher',
-        data: {
-            'author': authorId,
-            'genre': genreId,
-            'publisher': publisherId
-        },
-    });
-}
+dateButton.addEventListener('change', () => {
+    const date = document.getElementById("date").value
+    const auth = document.getElementsByTagName("select")[0].value
+    document.location.replace("/search/date/" + date + "/1");
+})
