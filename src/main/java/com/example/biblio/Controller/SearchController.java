@@ -105,10 +105,29 @@ public class SearchController {
         model.addAttribute("genres", genreService.getAllGenres());
         model.addAttribute("publishers", publisherService.getAllPublishers());
         model.addAttribute("nameType", PageType.Author.toString());
-        model.addAttribute("author", publisherId);
+        model.addAttribute("publisher", publisherId);
         model.addAttribute("foundBooks", bookService.getBooksByPublisher(pageNum, publisherId).getContent());
         model.addAttribute("totalItems", bookService.getBooksByPublisher(pageNum, publisherId).getTotalElements());
         model.addAttribute("totalPages", bookService.getBooksByPublisher(pageNum, publisherId).getTotalPages());
+        return "search";
+    }
+
+    @GetMapping("/genre/{genreId}/{pageNum}")
+    public String allByGenre(@PathVariable Long genreId, @PathVariable int pageNum, Model model){
+        model.addAttribute("search", new SearchParamsDTO());
+        model.addAttribute(
+                "currentPage", pageService.GetBiggerLower(
+                        pageNum,
+                        bookService.getBooksByGenre(pageNum, genreId).getTotalPages())
+        );
+        model.addAttribute("authors", authorService.getAllAuthors());
+        model.addAttribute("genres", genreService.getAllGenres());
+        model.addAttribute("publishers", publisherService.getAllPublishers());
+        model.addAttribute("nameType", PageType.Genre.toString());
+        model.addAttribute("genre", genreId);
+        model.addAttribute("foundBooks", bookService.getBooksByGenre(pageNum, genreId).getContent());
+        model.addAttribute("totalItems", bookService.getBooksByGenre(pageNum, genreId).getTotalElements());
+        model.addAttribute("totalPages", bookService.getBooksByGenre(pageNum, genreId).getTotalPages());
         return "search";
     }
 }

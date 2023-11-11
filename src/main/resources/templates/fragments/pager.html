@@ -5,7 +5,8 @@
         <ul class="paging justify-content-center">
             <li th:switch="${i}" th:each="i : ${#numbers.sequence(1, totalPages)}">
                 <span th:case="${currentPage}" class="page-digits-span">[[${i}]]</span>
-                <a class="page-digits-bg-link" th:if="${i != currentPage}" th:href="@{'/catalog/' + ${i}}">[[${i}]]</a>
+                <a class="page-digits-bg-link" th:if="${i != currentPage}"
+                   th:href="@{'/catalog/' + ${i}}">[[${i}]]</a>
             </li>
         </ul>
     </div>

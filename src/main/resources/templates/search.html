@@ -34,9 +34,46 @@
         </ul>
     </div>
 </section>
-<div th:switch="${nameType}">
-    <div th:case="Name" th:replace="~{fragments/pager}"></div>
-    <div th:case="Date" th:replace="~{fragments/pager-date}"></div>
+<div class="pages" align="center" th:fragment="pager-date">
+    <span>Всего элементов: [[${totalItems}]] - Страница [[${currentPage}]] из [[${totalPages}]]</span>
+    &nbsp;
+    <div th:switch="${nameType}">
+        <ul th:case="'Name'" class="paging justify-content-center">
+            <li th:switch="${i}" th:each="i : ${#numbers.sequence(1, totalPages)}">
+                <span th:case="${currentPage}" class="page-digits-span">[[${i}]]</span>
+                <a class="page-digits-bg-link" th:if="${i != currentPage}"
+                   th:href="@{search(authorId=${author},genreId=${genre},page=${i},searchText=${searchText})}">[[${i}]]</a>
+            </li>
+        </ul>
+        <ul th:case="'Date'" class="paging justify-content-center">
+            <li th:switch="${i}" th:each="i : ${#numbers.sequence(1, totalPages)}">
+                <span th:case="${currentPage}" class="page-digits-span">[[${i}]]</span>
+                <a class="page-digits-bg-link" th:if="${i != currentPage}"
+                   th:href="@{'/search/date/'+${date}+'/' + ${i}}">[[${i}]]</a>
+            </li>
+        </ul>
+        <ul th:case="'Author'" class="paging justify-content-center">
+            <li th:switch="${i}" th:each="i : ${#numbers.sequence(1, totalPages)}">
+                <span th:case="${currentPage}" class="page-digits-span">[[${i}]]</span>
+                <a class="page-digits-bg-link" th:if="${i != currentPage}"
+                   th:href="@{'/search/author/'+${author}+'/' + ${i}}">[[${i}]]</a>
+            </li>
+        </ul>
+        <ul th:case="'Publisher'" class="paging justify-content-center">
+            <li th:switch="${i}" th:each="i : ${#numbers.sequence(1, totalPages)}">
+                <span th:case="${currentPage}" class="page-digits-span">[[${i}]]</span>
+                <a class="page-digits-bg-link" th:if="${i != currentPage}"
+                   th:href="@{'/search/publisher/'+${publisher}+'/' + ${i}}">[[${i}]]</a>
+            </li>
+        </ul>
+        <ul th:case="'Genre'" class="paging justify-content-center">
+            <li th:switch="${i}" th:each="i : ${#numbers.sequence(1, totalPages)}">
+                <span th:case="${currentPage}" class="page-digits-span">[[${i}]]</span>
+                <a class="page-digits-bg-link" th:if="${i != currentPage}"
+                   th:href="@{'/search/genre/'+${genre}+'/' + ${i}}">[[${i}]]</a>
+            </li>
+        </ul>
+    </div>
 </div>
 
 </body>
@@ -45,5 +82,4 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <script src="/js/search.js"></script>
 <script src="/js/filter.js"></script>
-<script src="/js/other-filter.js"></script>
 </html>

@@ -8,7 +8,7 @@ author.addEventListener('change', () => {
 });
 genre.addEventListener('change', () => {
     let genreId = document.getElementsByTagName("select")[1].value
-
+    document.location.replace("/search/genre/" + genreId + "/1");
 });
 publisher.addEventListener('change', () => {
     let publisherId = document.getElementsByTagName("select")[2].value

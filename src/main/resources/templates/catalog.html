@@ -13,8 +13,8 @@
 </head>
 <body>
 <div th:replace="~{fragments/header-fragment :: nav-menu}"></div>
-<section class = "flex-container">
-    <div class="criteria justify-content-center">
+<section class = "flex-container justify-content-between">
+    <div class="criteria">
         <div th:replace="~{fragments/inputs-params}"></div>
         <div th:replace="~{fragments/search-input-fragment}"></div>
 </section>
@@ -41,5 +41,4 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <script src="/js/search.js"></script>
 <script src="/js/filter.js"></script>
-<script src="/js/other-filter.js"></script>
 </html>

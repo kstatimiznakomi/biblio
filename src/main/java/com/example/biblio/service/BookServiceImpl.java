@@ -17,6 +17,7 @@ public class BookServiceImpl implements BookService{
     private final PageService pageService;
     private final AuthorService authorService;
     private final PublisherService publisherService;
+    private final GenreService genreService;
 
     @Override
     public Page<Book> getAllPage(int pageNumber) {
@@ -46,6 +47,11 @@ public class BookServiceImpl implements BookService{
     @Override
     public Page<Book> getBooksByPublisher(int pageNumber, Long publisherId){
         return new PageImpl<>(publisherService.getBookByPublisher(publisherId).getBooks());
+    }
+
+    @Override
+    public Page<Book> getBooksByGenre(int pageNumber, Long genreId){
+        return new PageImpl<>(genreService.getGenre(genreId).getBooks());
     }
 
     @Override

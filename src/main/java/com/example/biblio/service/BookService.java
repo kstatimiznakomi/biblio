@@ -16,6 +16,8 @@ public interface BookService {
 
     Page<Book> getBooksByPublisher(int pageNumber, Long publisherId);
 
+    Page<Book> getBooksByGenre(int pageNumber, Long genreId);
+
     Page<Book> getBooksByDate(int pageNumber, Integer date);
 
     Book findBookByIdModel(Long bookId);

@@ -290,9 +290,8 @@ padding: 20px 0px;
     font-weight: 400;
     line-height: normal;
     border-radius: 14px;
-    width: 1334px;
+    width: 1298px;
     height: 40px;
-    display: inline-block;
     margin: 21px 74px;
     background: #ffffff;
 }
@@ -311,7 +310,7 @@ select{
 
 .search-input{
     border-radius: 14px;
-    width: 1274px;
+    width: 1238px;
     height: 40px;
     padding: 5px 16px;;
     border-width: inherit;
