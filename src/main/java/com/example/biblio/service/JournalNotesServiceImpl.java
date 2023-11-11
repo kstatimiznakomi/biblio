@@ -4,6 +4,7 @@ import com.example.biblio.dao.JournalNotesDAO;
 import com.example.biblio.model.*;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
@@ -49,13 +50,37 @@ public class JournalNotesServiceImpl implements JournalNotesService{
         return dao.getJournalNotesByReaderTicketAndBook(ticket, book);
     }
 
-    @Override
-    public void Save(Principal principal, Long bookId){
-        if (reserveService.getReserveWithStatusAndTicket(
+    public Reserve getReserve(Principal principal){
+        return reserveService.getReserveWithStatusAndTicket(
                 ReserveStatus.Открыт,
                 ticketService.getTicketByUser(userService.getUserByName(principal.getName()))
-        ) != null){
-            if (dao.getJournalNotesByReaderTicketAndBook(
+        );
+    }
+
+    public List<JournalNotes> getReadBooks(Principal principal){
+        return dao.getJournalNotesByReaderTicketAndStatus(
+                ticketService.getTicketByUser(userService.getUserByName(principal.getName())),
+                NoteStatus.Открытый
+        );
+    }
+
+    public void CloseReserve(Principal principal){
+        reserveService.Close(
+                reserveService.getReserveWithStatusAndTicket(
+                        ReserveStatus.Открыт,
+                        ticketService.getTicketByUser(userService.getUserByName(principal.getName()))
+                ),
+                ReserveStatus.Закрыт
+        );
+    }
+
+    @Override
+    public void Save(Principal principal, Long bookId){
+        if (getReserve(principal) != null){
+            if(getReadBooks(principal) == null) {
+                CloseReserve(principal);
+            }
+            if (ifExist(
                     ticketService.getTicketByUser(userService.getUserByName(principal.getName())),
                     bookService.findBookByIdModel(bookId)
             ) == null){

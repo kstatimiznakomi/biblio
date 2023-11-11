@@ -15,5 +15,7 @@ public interface ReserveService {
 
     List<Reserve> getReservesWithOpenStatus();
 
+    void Close(Reserve reserve, ReserveStatus status);
+
     void Create(ReaderTicket ticket);
 }

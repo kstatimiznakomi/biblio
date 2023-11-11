@@ -31,6 +31,12 @@ public class ReserveServiceImpl implements ReserveService{
     }
 
     @Override
+    public void Close(Reserve reserve, ReserveStatus status){
+        reserve.setStatus(status);
+        reserveDAO.save(reserve);
+    }
+
+    @Override
     public void Create(ReaderTicket ticket){
         Reserve reserve = Reserve.builder()
                 .dateTake(LocalDateTime.now())
