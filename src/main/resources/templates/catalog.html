@@ -7,34 +7,47 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="icon" type="image/png" sizes="16x16" href="/image/rdLib.jpg">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="/css/biblio.css"/>
 
 </head>
 <body>
 <div th:replace="~{fragments/header-fragment :: nav-menu}"></div>
-<section class = "flex-container justify-content-between">
+<section class="flex-container justify-content-between">
     <div class="criteria">
         <div th:replace="~{fragments/inputs-params}"></div>
         <div th:replace="~{fragments/search-input-fragment}"></div>
+    </div>
 </section>
 
-<section class = "flex-container">
+<section class="flex-container">
     <div class="book-bg" th:each="book : ${books}">
         <ul class="book" style="margin-left: 0px; margin-right: 0px;">
             <img class="book-img" th:src="${book.img}">
             <li style="margin-right: 0px;">
-                <div class="name-book"><a th:href="@{/book/{bookId}(bookId=${book.id})}" th:text="${book.bookName}"></a></div>
-                <div class="description-book"><span  th:text="${book.description}"></span></div>
-                <div sec:authorize="isAuthenticated()" th:if="${isActiveStat == true}" class="btn-book">
+                <div class="name-book">
+                    <a th:href="@{/book/{bookId}(bookId=${book.id})}" th:text="${book.bookName}"></a>
+                </div>
+                <div class="description-book"><span th:text="${book.description}"></span></div>
+                <div th:if="${isActiveStat} eq FALSE or ${ifUserSigned} eq FALSE" class="btn-book-locked">
+                    <span th:href="@{/books/add/{bookId}(bookId=${book.id})}"
+                          class="btn__menu">Забронировать
+                    </span>
+                </div>
+                <div th:if="${isActiveStat} eq TRUE" class="btn-book">
                     <a th:href="@{/books/add/{bookId}(bookId=${book.id})}"
                        class="btn__menu">Забронировать
-                    </a></div>
+                    </a>
+                </div>
             </li>
         </ul>
     </div>
 </section>
-<div th:replace="~{fragments/pager}"></div>
+<div th:switch="${toDraw}">
+    <div th:case="'true'" th:replace="~{fragments/pager}"></div>
+    <h1 th:case="'false'">Нету книг по данному запросу</h1>
+</div>
 </body>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

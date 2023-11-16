@@ -14,6 +14,12 @@ public interface BookService {
 
     Page<Book> getBooksByAuthor(int pageNumber, Long authorId);
 
+    void increaseCountOfBook(Long bookId, int count);
+
+    void decreaseCountOfBook(Long bookId, int count);
+
+    Boolean ifAvailable(Long bookId);
+
     Page<Book> getBooksByPublisher(int pageNumber, Long publisherId);
 
     Page<Book> getBooksByGenre(int pageNumber, Long genreId);

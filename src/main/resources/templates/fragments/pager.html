@@ -3,7 +3,7 @@
     &nbsp;
     <div>
         <ul class="paging justify-content-center">
-            <li th:switch="${i}" th:each="i : ${#numbers.sequence(1, totalPages)}">
+            <li th:switch="${i}" th:each="i : ${#numbers.sequence(minPage, maxPage)}">
                 <span th:case="${currentPage}" class="page-digits-span">[[${i}]]</span>
                 <a class="page-digits-bg-link" th:if="${i != currentPage}"
                    th:href="@{'/catalog/' + ${i}}">[[${i}]]</a>

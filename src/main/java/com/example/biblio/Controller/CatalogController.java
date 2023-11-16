@@ -42,6 +42,12 @@ public class CatalogController {
         );
         model.addAttribute("totalItems", bookService.getAllPage(pageNumber).getTotalElements());
         model.addAttribute("totalPages", bookService.getAllPage(pageNumber).getTotalPages());
+        model.addAttribute("maxPage",
+                pageService.Max(pageNumber, bookService.getAllPage(pageNumber).getTotalPages())
+        );
+        model.addAttribute("minPage", pageService.Min(pageNumber));
+        model.addAttribute("ifUserSigned", userService.ifUserSigned(principal));
+        model.addAttribute("toDraw", pageService.toDraw(bookService.getAllPage(pageNumber).getTotalElements()));
         model.addAttribute("authors", authorService.getAllAuthors());
         model.addAttribute("genres", genreService.getAllGenres());
         model.addAttribute("publishers", publisherService.getAllPublishers());

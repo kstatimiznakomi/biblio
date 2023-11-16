@@ -28,17 +28,9 @@ public class SearchController {
 
     @GetMapping("")
     public String search(Model model, SearchParamsDTO dto, @RequestParam("page") int pageNumber){
-        Page<Book> page = null;
         if (Objects.equals(dto.getSearchText(), "")) return "redirect:/catalog";
-        if (!Objects.equals(dto.getSearchText(), "")) {
-            page = bookService.getSearchBooks(pageNumber, dto.getSearchText());
-        }
-        if (!Objects.equals(dto.getAuthorId(), "")) {
-            page = new PageImpl<>(authorService.getAuthor(Long.getLong(dto.getAuthorId())).getBooks());
-        }
-
+        Page<Book> page = bookService.getSearchBooks(pageNumber, dto.getSearchText());
         model.addAttribute("search", new SearchParamsDTO());
-        assert page != null;
         model.addAttribute("foundBooks", page.getContent());
         model.addAttribute("author", dto.getAuthorId());
         model.addAttribute("genre", dto.getGenreId());
@@ -48,6 +40,11 @@ public class SearchController {
                 "currentPage", pageService.GetBiggerLower(pageNumber, page.getTotalPages())
         );
         model.addAttribute("nameType", PageType.Name.toString());
+        model.addAttribute("maxPage",
+                pageService.Max(pageNumber, bookService.getAllPage(pageNumber).getTotalPages())
+        );
+        model.addAttribute("minPage", pageService.Min(pageNumber));
+        model.addAttribute("toDraw", pageService.toDraw(bookService.getSearchBooks(pageNumber, dto.getSearchText()).getTotalElements()));
         model.addAttribute("authors", authorService.getAllAuthors());
         model.addAttribute("genres", genreService.getAllGenres());
         model.addAttribute("publishers", publisherService.getAllPublishers());
@@ -66,6 +63,11 @@ public class SearchController {
         model.addAttribute("authors", authorService.getAllAuthors());
         model.addAttribute("genres", genreService.getAllGenres());
         model.addAttribute("publishers", publisherService.getAllPublishers());
+        model.addAttribute("maxPage",
+                pageService.Max(pageNum, bookService.getBooksByDate(pageNum, date).getTotalPages())
+        );
+        model.addAttribute("minPage", pageService.Min(pageNum));
+        model.addAttribute("toDraw", pageService.toDraw(bookService.getBooksByDate(pageNum, date).getTotalElements()));
         model.addAttribute("date", date);
         model.addAttribute("nameType", PageType.Date.toString());
         model.addAttribute("foundBooks", bookService.getBooksByDate(pageNum, date).getContent());
@@ -76,6 +78,7 @@ public class SearchController {
 
     @GetMapping("/author/{authorId}/{pageNum}")
     public String allByAuthor(@PathVariable Long authorId, @PathVariable int pageNum, Model model){
+        if (Objects.equals(authorId, 0L)) return "redirect:/catalog";
         model.addAttribute("search", new SearchParamsDTO());
         model.addAttribute(
                 "currentPage", pageService.GetBiggerLower(
@@ -87,6 +90,11 @@ public class SearchController {
         model.addAttribute("publishers", publisherService.getAllPublishers());
         model.addAttribute("nameType", PageType.Author.toString());
         model.addAttribute("author", authorId);
+        model.addAttribute("maxPage",
+                pageService.Max(pageNum, bookService.getBooksByAuthor(pageNum, authorId).getTotalPages())
+        );
+        model.addAttribute("minPage", pageService.Min(pageNum));
+        model.addAttribute("toDraw", pageService.toDraw(bookService.getBooksByAuthor(pageNum, authorId).getTotalElements()));
         model.addAttribute("foundBooks", bookService.getBooksByAuthor(pageNum, authorId).getContent());
         model.addAttribute("totalItems", bookService.getBooksByAuthor(pageNum, authorId).getTotalElements());
         model.addAttribute("totalPages", bookService.getBooksByAuthor(pageNum, authorId).getTotalPages());
@@ -95,6 +103,7 @@ public class SearchController {
 
     @GetMapping("/publisher/{publisherId}/{pageNum}")
     public String allByPublisher(@PathVariable Long publisherId, @PathVariable int pageNum, Model model){
+        if (Objects.equals(publisherId, 0L)) return "redirect:/catalog";
         model.addAttribute("search", new SearchParamsDTO());
         model.addAttribute(
                 "currentPage", pageService.GetBiggerLower(
@@ -106,6 +115,11 @@ public class SearchController {
         model.addAttribute("publishers", publisherService.getAllPublishers());
         model.addAttribute("nameType", PageType.Author.toString());
         model.addAttribute("publisher", publisherId);
+        model.addAttribute("maxPage",
+                pageService.Max(pageNum, bookService.getBooksByPublisher(pageNum, publisherId).getTotalPages())
+        );
+        model.addAttribute("minPage", pageService.Min(pageNum));
+        model.addAttribute("toDraw", pageService.toDraw(bookService.getBooksByPublisher(pageNum, publisherId).getTotalElements()));
         model.addAttribute("foundBooks", bookService.getBooksByPublisher(pageNum, publisherId).getContent());
         model.addAttribute("totalItems", bookService.getBooksByPublisher(pageNum, publisherId).getTotalElements());
         model.addAttribute("totalPages", bookService.getBooksByPublisher(pageNum, publisherId).getTotalPages());
@@ -114,6 +128,7 @@ public class SearchController {
 
     @GetMapping("/genre/{genreId}/{pageNum}")
     public String allByGenre(@PathVariable Long genreId, @PathVariable int pageNum, Model model){
+        if (Objects.equals(genreId, 0L)) return "redirect:/catalog";
         model.addAttribute("search", new SearchParamsDTO());
         model.addAttribute(
                 "currentPage", pageService.GetBiggerLower(
@@ -125,6 +140,11 @@ public class SearchController {
         model.addAttribute("publishers", publisherService.getAllPublishers());
         model.addAttribute("nameType", PageType.Genre.toString());
         model.addAttribute("genre", genreId);
+        model.addAttribute("maxPage",
+                pageService.Max(pageNum, bookService.getBooksByGenre(pageNum, genreId).getTotalPages())
+        );
+        model.addAttribute("minPage", pageService.Min(pageNum));
+        model.addAttribute("toDraw", pageService.toDraw(bookService.getBooksByGenre(pageNum, genreId).getTotalElements()));
         model.addAttribute("foundBooks", bookService.getBooksByGenre(pageNum, genreId).getContent());
         model.addAttribute("totalItems", bookService.getBooksByGenre(pageNum, genreId).getTotalElements());
         model.addAttribute("totalPages", bookService.getBooksByGenre(pageNum, genreId).getTotalPages());

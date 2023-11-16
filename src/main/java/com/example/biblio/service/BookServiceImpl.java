@@ -45,6 +45,27 @@ public class BookServiceImpl implements BookService{
     }
 
     @Override
+    public void increaseCountOfBook(Long bookId, int count){
+        Book book = bookDAO.findBookById(bookId);
+        book.setCount(book.getCount() + count);
+        bookDAO.save(book);
+    }
+
+    @Override
+    public void decreaseCountOfBook(Long bookId, int count){
+        Book book = bookDAO.findBookById(bookId);
+        if (book.getCount() - count >= 0){
+            book.setCount(book.getCount() - count);
+            bookDAO.save(book);
+        }
+    }
+
+    @Override
+    public Boolean ifAvailable(Long bookId){
+        return bookDAO.findBookById(bookId).getCount() != 0;
+    }
+
+    @Override
     public Page<Book> getBooksByPublisher(int pageNumber, Long publisherId){
         return new PageImpl<>(publisherService.getBookByPublisher(publisherId).getBooks());
     }

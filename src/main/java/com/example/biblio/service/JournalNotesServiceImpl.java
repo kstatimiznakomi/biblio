@@ -92,6 +92,7 @@ public class JournalNotesServiceImpl implements JournalNotesService{
                                 ticketService.getTicketByUser(userService.getUserByName(principal.getName()))
                         )
                 );
+                bookService.decreaseCountOfBook(bookId, 1);
             }
         }
         else {
@@ -106,6 +107,7 @@ public class JournalNotesServiceImpl implements JournalNotesService{
                             ticketService.getTicketByUser(userService.getUserByName(principal.getName()))
                     )
             );
+            bookService.decreaseCountOfBook(bookId, 1);
         }
     }
 
@@ -142,6 +144,7 @@ public class JournalNotesServiceImpl implements JournalNotesService{
                     ticketService.getTicketByUser(userService.getUserByName(principal.getName())),
                     bookService.findBookByIdModel(bookId))
             );
+            bookService.increaseCountOfBook(bookId, 1);
         }
     }
 

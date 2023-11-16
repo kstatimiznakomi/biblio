@@ -26,12 +26,12 @@ public class ReaderBookListController {
 
     @GetMapping({"", "/"})
     public String books() {
-        return "redirect:/catalog/1";
+        return "redirect:/profile";
     }
 
     @GetMapping("/{pageNumber}")
     public String getMyBooks(Model model, Principal principal, @PathVariable int pageNumber) {
-        if (principal == null) return "redirect:/catalog";
+        /*if (principal == null) return "redirect:/catalog";
         long totalItems = notesService.getAllPageByTicket(
                 pageNumber,
                 readerTicketService.getTicketByUser(userService.getUserByName(principal.getName()))
@@ -52,7 +52,8 @@ public class ReaderBookListController {
         model.addAttribute("currentPage", curPage);
         model.addAttribute("totalItems", totalItems);
         model.addAttribute("totalPages", totalPages);
-        return "redirect:/catalog";
+        return "redirect:/catalog";*/
+        return "redirect:/profile";
     }
 
     @GetMapping("/add/{bookId}")
