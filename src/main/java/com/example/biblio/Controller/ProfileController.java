@@ -5,6 +5,7 @@ import com.example.biblio.service.JournalNotesService;
 import com.example.biblio.service.ReaderTicketService;
 import com.example.biblio.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,9 +17,11 @@ import java.security.Principal;
 @Controller
 @RequestMapping("/profile")
 @AllArgsConstructor
+@Lazy
 public class ProfileController {
     private final UserService userService;
     private final ReaderTicketService readerTicketService;
+    @Lazy
     private final JournalNotesService notesService;
     @GetMapping("")
     public String index(Model model, Principal principal){

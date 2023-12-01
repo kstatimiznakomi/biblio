@@ -4,10 +4,17 @@ import com.example.biblio.dao.BookDAO;
 import com.example.biblio.dto.BookDTO;
 import com.example.biblio.mapper.BookMapper;
 import com.example.biblio.model.Book;
+import com.example.biblio.model.JournalNotes;
+import com.example.biblio.model.ReaderTicket;
 import lombok.AllArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -15,6 +22,7 @@ public class BookServiceImpl implements BookService{
     private final BookDAO bookDAO;
     private final BookMapper mapper = BookMapper.MAPPER;
     private final PageService pageService;
+    @Lazy
     private final AuthorService authorService;
     private final PublisherService publisherService;
     private final GenreService genreService;
@@ -37,6 +45,11 @@ public class BookServiceImpl implements BookService{
                 bookName,
                 pageService.getPage(pageNumber)
         );
+    }
+
+    @Override
+    public Book getBook(String bookName){
+        return bookDAO.getBookByBookName(bookName);
     }
 
     @Override

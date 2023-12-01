@@ -105,13 +105,20 @@
     grid-auto-columns: min-content;
 }
 
+.book-inputs{
+    padding: 13px 31px;
+    border-radius: 15px;
+    border-width: inherit;
+    margin: 10px;
+    width: 583px;
+}
+
 .user{
     padding: 13px 31px;
     border-radius: 15px;
     border-width: inherit;
     margin: 10px 3px;
     width: 583px;
-
 }
 
 .welcome{
@@ -496,6 +503,12 @@ a:hover{
     margin: auto;
 }
 
+.select-for-book{
+    width: 583px;
+    margin: 10px !important;
+    padding: 13px 31px;
+}
+
 .btn-book a:hover{
     background: #fff023;
     color: black;
@@ -505,6 +518,7 @@ a:hover{
 
 .name-book,.description-book,.btn-book{
     padding-left: 42px;
+    display: grid;
 }
 
 select{

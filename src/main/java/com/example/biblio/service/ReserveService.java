@@ -6,7 +6,6 @@ import com.example.biblio.model.ReserveStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
 @Service
 public interface ReserveService {
     Reserve getReserveWithStatusAndTicket(ReserveStatus status, ReaderTicket ticket);
@@ -15,7 +14,7 @@ public interface ReserveService {
 
     List<Reserve> getReservesWithOpenStatus();
 
-    void Close(Reserve reserve, ReserveStatus status);
+    void Close(Reserve reserve);
 
     void Create(ReaderTicket ticket);
 }

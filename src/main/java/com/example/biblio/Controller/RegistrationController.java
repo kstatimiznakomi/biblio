@@ -3,6 +3,7 @@ package com.example.biblio.Controller;
 import com.example.biblio.dto.UserDTO;
 import com.example.biblio.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import java.security.Principal;
 @Controller
 @RequestMapping({"/register", "/registration"})
 @AllArgsConstructor
+@Lazy
 public class RegistrationController {
     private final UserService userService;
 

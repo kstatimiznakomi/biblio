@@ -3,33 +3,44 @@ package com.example.biblio.Controller;
 import com.example.biblio.dto.SearchParamsDTO;
 import com.example.biblio.model.Book;
 import com.example.biblio.model.PageType;
+import com.example.biblio.model.UserStatus;
 import com.example.biblio.service.*;
 import lombok.AllArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.security.Principal;
 import java.util.Objects;
 
 @Controller
 @AllArgsConstructor
 @RequestMapping("/search")
+@Lazy
 public class SearchController {
     private final BookService bookService;
     private final PageService pageService;
     private final AuthorService authorService;
     private final GenreService genreService;
     private final PublisherService publisherService;
+    private final StatusManager statusManager;
+    private final UserService userService;
+    private final SearchServiceImpl searchService;
+
+    @ModelAttribute("SearchParamsDTO")
+    public SearchParamsDTO params(){
+        return new SearchParamsDTO();
+    }
 
     @GetMapping("")
-    public String search(Model model, SearchParamsDTO dto, @RequestParam("page") int pageNumber){
+    public String search(Principal principal, Model model, @ModelAttribute SearchParamsDTO dto, @RequestParam("page") int pageNumber){
         if (Objects.equals(dto.getSearchText(), "")) return "redirect:/catalog";
-        Page<Book> page = bookService.getSearchBooks(pageNumber, dto.getSearchText());
+        Page<Book> page = searchService.searchByCriteria(dto);
         model.addAttribute("search", new SearchParamsDTO());
         model.addAttribute("foundBooks", page.getContent());
         model.addAttribute("author", dto.getAuthorId());
@@ -43,7 +54,14 @@ public class SearchController {
         model.addAttribute("maxPage",
                 pageService.Max(pageNumber, bookService.getAllPage(pageNumber).getTotalPages())
         );
+        model.addAttribute("isActiveStat", statusManager.ifUserMatchesStatus(
+                userService.getUserByName(principal.getName()), UserStatus.Активный)
+        );
+        model.addAttribute("maxPage",
+                pageService.Max(pageNumber, bookService.getAllPage(pageNumber).getTotalPages())
+        );
         model.addAttribute("minPage", pageService.Min(pageNumber));
+        model.addAttribute("ifUserSigned", userService.ifUserSigned(principal));
         model.addAttribute("toDraw", pageService.toDraw(bookService.getSearchBooks(pageNumber, dto.getSearchText()).getTotalElements()));
         model.addAttribute("authors", authorService.getAllAuthors());
         model.addAttribute("genres", genreService.getAllGenres());
@@ -52,8 +70,9 @@ public class SearchController {
         model.addAttribute("totalPages", page.getTotalPages());
         return "search";
     }
-    @GetMapping("/date/{date}/{pageNum}")
-    public String allByDate(@PathVariable Integer date, Model model, @PathVariable int pageNum){
+
+    /*@GetMapping("/date/{date}/{pageNum}")
+    public String allByDate(@PathVariable Integer date, Model model){
         model.addAttribute("search", new SearchParamsDTO());
         model.addAttribute(
                 "currentPage", pageService.GetBiggerLower(
@@ -149,5 +168,5 @@ public class SearchController {
         model.addAttribute("totalItems", bookService.getBooksByGenre(pageNum, genreId).getTotalElements());
         model.addAttribute("totalPages", bookService.getBooksByGenre(pageNum, genreId).getTotalPages());
         return "search";
-    }
+    }*/
 }

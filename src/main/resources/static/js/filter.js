@@ -2,21 +2,28 @@ const author = document.getElementsByTagName("select")[0]
 const genre = document.getElementsByTagName("select")[1]
 const publisher = document.getElementsByTagName("select")[2]
 const dateButton = document.getElementById("date")
+
+
+
+
 author.addEventListener('change', () => {
     let authorId = document.getElementsByTagName("select")[0].value
-    document.location.replace("/search/author/" + authorId + "/1");
+    if (authorId === '0') document.getElementById("authId").value = '';
+    else document.getElementById("authId").value = authorId;
 });
 genre.addEventListener('change', () => {
     let genreId = document.getElementsByTagName("select")[1].value
-    document.location.replace("/search/genre/" + genreId + "/1");
+    if (genreId === '0') document.getElementById("genreId").value = '';
+    else document.getElementById("genreId").value = genreId;
 });
 publisher.addEventListener('change', () => {
     let publisherId = document.getElementsByTagName("select")[2].value
-    document.location.replace("/search/publisher/" + publisherId + "/1");
+    if (publisherId === '0') document.getElementById("publisherId").value = '';
+    else document.getElementById("publisherId").value = publisherId;
 });
 
 dateButton.addEventListener('change', () => {
     const date = document.getElementById("date").value
     const auth = document.getElementsByTagName("select")[0].value
-    document.location.replace("/search/date/" + date + "/1");
+
 })

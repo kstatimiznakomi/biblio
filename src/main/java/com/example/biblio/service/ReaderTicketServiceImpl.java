@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+
 @Service
 @AllArgsConstructor
 public class ReaderTicketServiceImpl implements ReaderTicketService{

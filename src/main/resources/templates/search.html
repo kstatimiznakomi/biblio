@@ -18,19 +18,17 @@
         <div th:replace="~{fragments/search-input-fragment}"></div>
     </div>
 </section>
-
+<span th:text="${searchText}"></span>
 <section class="flex-container">
     <div class="book-bg" th:each="book : ${foundBooks}">
         <ul class="book" style="margin-left: 0px; margin-right: 0px;">
             <img class="book-img" th:src="${book.img}">
             <li style="margin-right: 0px;">
-                <div class="name-book"><a th:href="@{/book/{bookId}(bookId=${book.id})}" th:text="${book.bookName}"></a>
+                <div class="name-book justify-content-between">
+                    <a th:href="@{/book/{bookId}(bookId=${book.id})}" th:text="${book.bookName}"></a>
+                    <span>Количество:&nbsp;[[${book.count}]]</span>
                 </div>
-                <div class="description-book"><span th:text="${book.description}"></span></div>
-                <div sec:authorize="isAuthenticated()" th:if="${isActiveStat == true}" class="btn-book">
-                    <a th:href="@{/books/add/{bookId}(bookId=${book.id})}"
-                       class="btn__menu">Забронировать
-                    </a></div>
+                <div th:replace="~{fragments/reserve-variants}"></div>
             </li>
         </ul>
     </div>
@@ -42,6 +40,9 @@
         <ul th:case="'Name'" class="paging justify-content-center">
             <li th:switch="${i}" th:each="i : ${#numbers.sequence(1, totalPages)}">
                 <span th:case="${currentPage}" class="page-digits-span">[[${i}]]</span>
+
+                <span th:text="${searchText}"></span>
+
                 <a class="page-digits-bg-link" th:if="${i != currentPage}"
                    th:href="@{search(page=${i},searchText=${searchText})}">[[${i}]]</a>
             </li>

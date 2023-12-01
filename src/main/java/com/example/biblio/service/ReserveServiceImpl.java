@@ -31,8 +31,8 @@ public class ReserveServiceImpl implements ReserveService{
     }
 
     @Override
-    public void Close(Reserve reserve, ReserveStatus status){
-        reserve.setStatus(status);
+    public void Close(Reserve reserve){
+        reserve.setStatus(ReserveStatus.Закрыт);
         reserveDAO.save(reserve);
     }
 

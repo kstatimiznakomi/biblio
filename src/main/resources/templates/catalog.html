@@ -26,20 +26,11 @@
         <ul class="book" style="margin-left: 0px; margin-right: 0px;">
             <img class="book-img" th:src="${book.img}">
             <li style="margin-right: 0px;">
-                <div class="name-book">
+                <div class="name-book justify-content-between">
                     <a th:href="@{/book/{bookId}(bookId=${book.id})}" th:text="${book.bookName}"></a>
+                    <span>Количество:&nbsp;[[${book.count}]]</span>
                 </div>
-                <div class="description-book"><span th:text="${book.description}"></span></div>
-                <div th:if="${isActiveStat} eq FALSE or ${ifUserSigned} eq FALSE" class="btn-book-locked">
-                    <span th:href="@{/books/add/{bookId}(bookId=${book.id})}"
-                          class="btn__menu">Забронировать
-                    </span>
-                </div>
-                <div th:if="${isActiveStat} eq TRUE" class="btn-book">
-                    <a th:href="@{/books/add/{bookId}(bookId=${book.id})}"
-                       class="btn__menu">Забронировать
-                    </a>
-                </div>
+                <div th:replace="~{fragments/reserve-variants}"></div>
             </li>
         </ul>
     </div>

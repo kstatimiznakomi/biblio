@@ -14,4 +14,6 @@ public class SearchParamsDTO {
     private String genreId;
     private String publisherId;
     private String searchText;
+    private Integer publishDate;
+    private Integer page;
 }
