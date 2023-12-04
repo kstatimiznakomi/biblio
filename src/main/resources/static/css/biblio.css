@@ -18,7 +18,7 @@
 .prof-grad-bg{
     width: 1399px;
     height: 772px;
-    background: linear-gradient(180deg, #FFE68B, rgba(255,210,95,1) 100%);
+    background: linear-gradient(180deg, #9ca1ff, rgb(72 104 159) 100%);
     margin-top: 29px;
     border-radius: 14px;
     display: flex;
@@ -36,10 +36,12 @@
 .info-details{
     width: inherit;
     margin-left: 25px;
+    background: linear-gradient(180deg, #FFE68B, rgb(255 237 151) 100%);
+    border-radius: 14px
 }
 
 .info-details-hr{
-    margin-top: 22px;
+    margin-top: 13px;
     opacity: 100%;
 }
 
@@ -65,7 +67,7 @@
 .prof-bg{
     width: 1443px;
     height: 820px;
-    background-color: #FFE68B;
+    background-color: #9ca1ff;
     display: flex;
     justify-content: center;
     margin: 15px auto;
@@ -399,7 +401,7 @@ select{
     height: 438px;
     flex-shrink: 0;
     border-radius: 11px;
-    background: #FFE68B;
+    background: #9ca1ff;
     margin: 14px auto;
     list-style: none;
 }

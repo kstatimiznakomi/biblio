@@ -19,7 +19,8 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public List<AuthorDTO> getAllAuthors(){
-        return mapper.fromAuthorList(authorDAO.findAll());
+        return null;
+                //mapper.fromAuthorList(authorDAO.findAll());
     }
 
     @Override

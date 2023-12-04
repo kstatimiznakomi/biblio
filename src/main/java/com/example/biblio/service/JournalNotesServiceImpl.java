@@ -14,11 +14,11 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
+@Lazy
 public class JournalNotesServiceImpl implements JournalNotesService{
     private final JournalNotesDAO dao;
     private final UserService userService;
     private final ReaderTicketService ticketService;
-    @Lazy
     private final BookService bookService;
     private final ReserveService reserveService;
     private final PageService pageService;
@@ -63,14 +63,6 @@ public class JournalNotesServiceImpl implements JournalNotesService{
         return dao.getJournalNotesByReaderTicketAndBook(ticket, book);
     }
 
-
-    public Reserve getReserve(Principal principal){
-        return reserveService.getReserveWithStatusAndTicket(
-                ReserveStatus.Открыт,
-                ticketService.getTicketByUser(userService.getUserByName(principal.getName()))
-        );
-    }
-
     public List<JournalNotes> getReadBooks(Principal principal){
         return dao.getJournalNotesByReaderTicketAndStatus(
                 ticketService.getTicketByUser(userService.getUserByName(principal.getName())),
@@ -78,18 +70,12 @@ public class JournalNotesServiceImpl implements JournalNotesService{
         );
     }
 
-    public void CloseReserve(Principal principal){
-        reserveService.Close(
-                reserveService.getReserveWithStatusAndTicket(
-                        ReserveStatus.Открыт,
-                        ticketService.getTicketByUser(userService.getUserByName(principal.getName()))
-                )
-        );
-    }
-
     @Override
     public void Save(Principal principal, Long bookId){
-        if (getReserve(principal) != null){
+        if (reserveService.getReserveWithStatusAndTicket(
+                ReserveStatus.Открыт,
+                ticketService.getTicketByUser(userService.getUserByName(principal.getName()))
+        ) != null){
             if (ifExist(
                     ticketService.getTicketByUser(userService.getUserByName(principal.getName())),
                     bookService.findBookByIdModel(bookId)
@@ -105,7 +91,7 @@ public class JournalNotesServiceImpl implements JournalNotesService{
                 bookService.decreaseCountOfBook(bookId, 1);
             }
             if(getReadBooks(principal) == null) {
-                CloseReserve(principal);
+                reserveService.Close(principal);
             }
         }
         else {
@@ -143,17 +129,35 @@ public class JournalNotesServiceImpl implements JournalNotesService{
     }
 
     @Override
-    public void Complete(Principal principal, Long bookId){
+    public void CompletePrincipal(Principal principal, Long bookId){
         if (ifExist(
                 ticketService.getTicketByUser(userService.getUserByName(principal.getName())),
                 bookService.findBookByIdModel(bookId)
         ) != null){
             closeAndSave(principal, bookId);
             if(getReadBooks(principal) == null) {
-                CloseReserve(principal);
+                reserveService.Close(principal);
             }
             bookService.increaseCountOfBook(bookId, 1);
         }
+    }
+
+    @Override
+    public void CompleteNote(List<JournalNotes> notes){
+        for (JournalNotes noteIn : notes){
+            noteIn.setStatus(NoteStatus.Закрытый);
+        }
+    }
+
+    @Override
+    public void CompleteNote(JournalNotes note){
+        note.setStatus(NoteStatus.Закрытый);
+    }
+
+    @Override
+    public void bookIsUnread(JournalNotes note){
+        note.setStatus(NoteStatus.Недочитанный);
+        dao.save(note);
     }
 
     public void closeAndSave(Principal principal, Long bookId){
@@ -169,15 +173,14 @@ public class JournalNotesServiceImpl implements JournalNotesService{
     }
 
     @Override
-    public void Delete(Principal principal, Long bookId) {
+    public void UnreadByPrincipal(Principal principal, Long bookId) {
         if (ifExist(
                 ticketService.getTicketByUser(userService.getUserByName(principal.getName())),
                 bookService.findBookByIdModel(bookId)
         ) != null){
-            dao.delete(ifExist(
+            bookIsUnread(ifExist(
                     ticketService.getTicketByUser(userService.getUserByName(principal.getName())),
-                    bookService.findBookByIdModel(bookId)
-            ));
+                    bookService.findBookByIdModel(bookId)));
         }
     }
 }

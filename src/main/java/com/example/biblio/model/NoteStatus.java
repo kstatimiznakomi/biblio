@@ -1,6 +1,6 @@
 package com.example.biblio.model;
 
 public enum NoteStatus {
-    Открытый, Закрытый,
+    Открытый, Закрытый, Недочитанный,
     Open, Close
 }

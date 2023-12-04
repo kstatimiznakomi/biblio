@@ -38,17 +38,17 @@ public class ReaderBookListController {
         return "redirect:/profile";
     }
 
-    @GetMapping("/delete/{bookId}")
+    @GetMapping("/unread/{bookId}")
     public String deleteNote(Principal principal, @PathVariable Long bookId) {
         if (principal == null) return "redirect:/catalog";
-        notesService.Delete(principal, bookId);
+        notesService.UnreadByPrincipal(principal, bookId);
         return "redirect:/profile";
     }
 
     @GetMapping("/complete/{bookId}")
     public String bookHasCompleted(Principal principal, @PathVariable Long bookId){
         if (principal == null) return "redirect:/catalog";
-        notesService.Complete(principal, bookId);
+        notesService.CompletePrincipal(principal, bookId);
         return "redirect:/profile";
     }
 
