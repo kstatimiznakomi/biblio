@@ -13,6 +13,7 @@ public interface PublisherService {
     void deletePublisherById(Long publisherId);
 
     void save(Publisher publisher);
+    void save(PublisherDTO publisherDto);
 
     Publisher getBookByPublisher(Long publisherId);
 }

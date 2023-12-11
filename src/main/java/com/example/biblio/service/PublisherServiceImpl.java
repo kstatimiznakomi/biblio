@@ -25,6 +25,13 @@ public class PublisherServiceImpl implements PublisherService {
             publisherDAO.save(publisher);
     }
 
+    public void save(PublisherDTO publisherDTO){
+        Publisher publisher = Publisher.builder()
+                .publisherName(publisherDTO.getPublisherName())
+                .build();
+        publisherDAO.save(publisher);
+    }
+
     @Override
     public List<PublisherDTO> getAllPublishers(){
         return mapper.fromPublisherList(publisherDAO.findAll());
