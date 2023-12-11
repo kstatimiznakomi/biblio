@@ -16,6 +16,15 @@ public class PublisherServiceImpl implements PublisherService {
     private final PublisherMapper mapper = PublisherMapper.MAPPER;
     private final PublisherDAO publisherDAO;
 
+    public void deletePublisherById(Long publisherId) {
+        publisherDAO.delete(publisherDAO.getPublisherById(publisherId));
+    }
+
+    public void save(Publisher publisher) {
+        if (publisher.getId() != null)
+            publisherDAO.save(publisher);
+    }
+
     @Override
     public List<PublisherDTO> getAllPublishers(){
         return mapper.fromPublisherList(publisherDAO.findAll());
