@@ -1,34 +1,29 @@
-let author = document.getElementsByTagName("select")[0]
-let genre = document.getElementsByTagName("select")[1]
-let publisher = document.getElementsByTagName("select")[2]
+const author = document.getElementsByTagName("select")[0]
+const genre = document.getElementsByTagName("select")[1]
+const publisher = document.getElementsByTagName("select")[2]
+const dateButton = document.getElementById("date")
+
+
+
+
 author.addEventListener('change', () => {
-    preFilter()
+    let authorId = document.getElementsByTagName("select")[0].value
+    if (authorId === '0') document.getElementById("authId").value = '';
+    else document.getElementById("authId").value = authorId;
 });
 genre.addEventListener('change', () => {
-    preFilter()
+    let genreId = document.getElementsByTagName("select")[1].value
+    if (genreId === '0') document.getElementById("genreId").value = '';
+    else document.getElementById("genreId").value = genreId;
 });
 publisher.addEventListener('change', () => {
-    preFilter()
+    let publisherId = document.getElementsByTagName("select")[2].value
+    if (publisherId === '0') document.getElementById("publisherId").value = '';
+    else document.getElementById("publisherId").value = publisherId;
 });
 
-function preFilter(){
-    let authorId = document.getElementsByTagName("select")[0].value
-    let genreId = document.getElementsByTagName("select")[1].value
-    let publisherId = document.getElementsByTagName("select")[2].value
-    filter(authorId, genreId, publisherId)
-    console.log("ID автора: " + authorId + " ID жанра: " + genreId + " ID издателя: " + publisherId);
-}
+dateButton.addEventListener('change', () => {
+    const date = document.getElementById("date").value
+    const auth = document.getElementsByTagName("select")[0].value
 
-function filter(authorId, genreId, publisherId){
-    $.ajax({
-        type: "GET",
-        contentType: false,
-        dataType: "json",
-        url: '/filter/by-author-genre-publisher',
-        data: {
-            'author': authorId,
-            'genre': genreId,
-            'publisher': publisherId
-        },
-    });
-}
+})

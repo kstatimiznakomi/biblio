@@ -1,19 +1,15 @@
 package com.example.biblio.dto;
 
-import com.example.biblio.model.Author;
-import com.example.biblio.model.Publisher;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class BookDTO {
+public class BookParamsDTO {
     private Long id;
     private String bookName;
     private String description;
@@ -21,4 +17,7 @@ public class BookDTO {
     private Integer count;
     private String isbn;
     private Integer publicDate;
+    private Long authorId;
+    private Long publisherId;
+    private Long genreId;
 }

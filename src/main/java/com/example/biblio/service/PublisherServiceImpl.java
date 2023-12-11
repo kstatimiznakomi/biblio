@@ -5,10 +5,10 @@ import com.example.biblio.dto.PublisherDTO;
 import com.example.biblio.mapper.PublisherMapper;
 import com.example.biblio.model.Publisher;
 import lombok.AllArgsConstructor;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 
 @Service
 @AllArgsConstructor
@@ -21,12 +21,8 @@ public class PublisherServiceImpl implements PublisherService {
         return mapper.fromPublisherList(publisherDAO.findAll());
     }
 
-    public void deletePublisherById(Long publisherId) {
-        publisherDAO.delete(publisherDAO.getPublisherById(publisherId));
-    }
-
-    public void save(Publisher publisher){
-        if (publisher.getId() != null)
-            publisherDAO.save(publisher);
+    @Override
+    public Publisher getBookByPublisher(Long publisherId){
+        return publisherDAO.getPublisherById(publisherId);
     }
 }

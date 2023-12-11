@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +41,11 @@ public class UserServiceImpl implements UserService {
     public Boolean checkUserForExist(String name){
         User user = userRepository.findFirstByUsername(name);
         return user != null;
+    }
+
+    @Override
+    public Boolean ifUserSigned(Principal principal){
+        return principal != null;
     }
 
     @Override
