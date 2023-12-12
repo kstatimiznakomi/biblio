@@ -15,7 +15,7 @@ import java.security.Principal;
 @Controller
 @RequestMapping("/admin/publishers")
 @AllArgsConstructor
-public class PublisherController {
+public class AdminPublisherController {
     private final PublisherService publisherService;
     private final UserService userService;
     @GetMapping("")

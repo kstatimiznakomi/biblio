@@ -34,7 +34,7 @@
                 <tr th:each="author : ${authors}">
                     <td>
                         <a class="btn btn-warning" data-bs-toggle="modal"
-                           th:attr="data-bs-target=${'#editModal' + author.id}" data-row="${publisher}">
+                           th:attr="data-bs-target=${'#editModal' + author.id}" data-row="${author}">
                             <i class="bi bi-pencil"></i>
                         </a>
                         <a class="btn btn-danger"
@@ -106,7 +106,7 @@
                                     <input name="authorSurname" type="text"
                                            class="form-control" id="authorSurnameInputAdd"
                                            placeholder="Введите Отчество"
-                                           th:field="*{authorSurname}" required>
+                                           th:field="*{authorSurname}">
                                 </div>
                             </div>
                             <div class="modal-footer">

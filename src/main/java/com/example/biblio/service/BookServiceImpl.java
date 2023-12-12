@@ -100,4 +100,26 @@ public class BookServiceImpl implements BookService{
     public Book findBookByIdModel(Long bookId){
         return bookDAO.findBookById(bookId);
     }
+
+    @Override
+    public List<BookDTO> getAllBooks() { return mapper.fromBookList(bookDAO.findAll()); }
+
+    public void deleteBookById(Long bookId) { bookDAO.delete(bookDAO.getBookById(bookId)); }
+
+    public void save(Book book) {
+        if(book.getId() != null)
+            bookDAO.save(book);
+    }
+
+    public void save(BookDTO bookDTO) {
+        Book book = Book.builder()
+                .bookName(bookDTO.getBookName())
+                .description(bookDTO.getDescription())
+                .img(bookDTO.getImg())
+                .isbn(bookDTO.getIsbn())
+                .publicDate(bookDTO.getPublicDate())
+                .count(bookDTO.getCount())
+                .build();
+        bookDAO.save(book);
+    }
 }

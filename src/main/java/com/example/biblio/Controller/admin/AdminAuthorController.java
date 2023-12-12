@@ -1,7 +1,6 @@
 package com.example.biblio.Controller.admin;
 
 import com.example.biblio.dto.AuthorDTO;
-import com.example.biblio.dto.PublisherDTO;
 import com.example.biblio.model.Author;
 import com.example.biblio.model.UserRole;
 import com.example.biblio.service.AuthorService;
@@ -16,12 +15,12 @@ import java.security.Principal;
 @Controller
 @RequestMapping("/admin/authors")
 @AllArgsConstructor
-public class AuthorController {
+public class AdminAuthorController {
     private final AuthorService authorService;
     private final UserService userService;
 
     @GetMapping("")
-    public String publishers(Model model, Principal principal) {
+    public String authors(Model model, Principal principal) {
         if (principal != null &&
                 userService.getUserByName(principal.getName()).getRole().equals(UserRole.Администратор)){
             model.addAttribute("authors", authorService.getAllAuthors());
@@ -58,6 +57,7 @@ public class AuthorController {
         if (principal != null &&
                 userService.getUserByName(principal.getName()).getRole().equals(UserRole.Администратор)) {
             authorService.save(authorDTO);
+            return "redirect:/admin/authors";
         }
         return "redirect:/login";
     }

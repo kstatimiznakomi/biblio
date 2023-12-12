@@ -31,4 +31,9 @@ public interface BookService {
     Page<Book> getBooksByDate(int pageNumber, Integer date);
 
     Book findBookByIdModel(Long bookId);
+
+    List<BookDTO> getAllBooks();
+    void deleteBookById(Long bookId);
+    void save (Book book);
+    void save (BookDTO bookDTO);
 }
