@@ -21,7 +21,7 @@ public class GenreServiceImpl implements GenreService {
 
     @Override
     public List<GenresDTO> getAllGenres() {
-        return mapper.fromGenre(genresDAO.findAll());
+        return mapper.fromGenreList(genresDAO.findAll());
     }
 
     @Override

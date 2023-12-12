@@ -71,22 +71,22 @@
                             </div>
                             <div class="modal-body">
                                 <div class="mb-3">
-                                    <label for="bookNameInputEdit" class="form-laber">Название книги</label>
+                                    <label for="bookNameInputEdit" class="form-label">Название книги</label>
                                     <input name="bookName" type="text" th:value="${book.bookName}"
                                            class="form-control" id="bookNameInputEdit" placeholder="Введите название книги">
-                                    <label for="bookDescriptionInputEdit" class="form-laber">Описание</label>
+                                    <label for="bookDescriptionInputEdit" class="form-label">Описание</label>
                                     <textarea name="description" th:text="${book.description}" rows="5"
                                               class="form-control" id="bookDescriptionInputEdit" placeholder="Введите описание"></textarea>
-                                    <label for="bookImgInputEdit" class="form-laber">Ссылка на изображение</label>
+                                    <label for="bookImgInputEdit" class="form-label">Ссылка на изображение</label>
                                     <input name="img" type="text" th:value="${book.img}"
                                            class="form-control" id="bookImgInputEdit" placeholder="Введите ссылку на изображение">
-                                    <label for="bookISBNInputEdit" class="form-laber">ISBN</label>
+                                    <label for="bookISBNInputEdit" class="form-label">ISBN</label>
                                     <input name="isbn" type="text" th:value="${book.isbn}"
                                            class="form-control" id="bookISBNInputEdit" placeholder="Введите ISBN">
-                                    <label for="bookPublicDateInputEdit" class="form-laber">Дата публикации</label>
+                                    <label for="bookPublicDateInputEdit" class="form-label">Дата публикации</label>
                                     <input name="publicDate" type="number" th:value="${book.publicDate}"
                                            class="form-control number" id="bookPublicDateInputEdit" placeholder="Введите дату публикации">
-                                    <label for="bookCountInputEdit" class="form-laber">Количество книг в наличии</label>
+                                    <label for="bookCountInputEdit" class="form-label">Количество книг в наличии</label>
                                     <input name="count" type="number" th:value="${book.count}"
                                            class="form-control number" min="0" id="bookCountInputEdit" placeholder="Введите количество книг">
                                 </div>
@@ -110,32 +110,32 @@
                             </div>
                             <div class="modal-body">
                                 <div class="mb-3">
-                                    <label for="bookNameInputAdd" class="form-laber">Название книги</label>
+                                    <label for="bookNameInputAdd" class="form-label">Название книги</label>
                                     <input name="bookName" type="text"
                                            th:field="*{bookName}" required
                                            class="form-control" id="bookNameInputAdd"
                                            placeholder="Введите название книги">
-                                    <label for="bookDescriptionInputAdd" class="form-laber">Описание</label>
+                                    <label for="bookDescriptionInputAdd" class="form-label">Описание</label>
                                     <textarea name="description"
                                               th:field="*{description}" required rows="5"
                                               class="form-control" id="bookDescriptionInputAdd"
                                               placeholder="Введите описание"></textarea>
-                                    <label for="bookImgInputAdd" class="form-laber">Ссылка на изображение</label>
+                                    <label for="bookImgInputAdd" class="form-label">Ссылка на изображение</label>
                                     <input name="img" type="text"
                                            th:field="*{img}"
                                            class="form-control" id="bookImgInputAdd"
                                            placeholder="Введите ссылку на изображение">
-                                    <label for="bookISBNInputAdd" class="form-laber">ISBN</label>
+                                    <label for="bookISBNInputAdd" class="form-label">ISBN</label>
                                     <input name="isbn" type="text"
                                            th:field="*{isbn}" required
                                            class="form-control" id="bookISBNInputAdd"
                                            placeholder="Введите ISBN">
-                                    <label for="bookPublicDateInputAdd" class="form-laber">Дата публикации</label>
+                                    <label for="bookPublicDateInputAdd" class="form-label">Дата публикации</label>
                                     <input name="publicDate" type="number"
                                            th:field="*{publicDate}"
                                            class="form-control number" id="bookPublicDateInputAdd"
                                            placeholder="Введите дату публикации">
-                                    <label for="bookCountInputAdd" class="form-laber">Количество книг в наличии</label>
+                                    <label for="bookCountInputAdd" class="form-label">Количество книг в наличии</label>
                                     <input name="count" type="number"
                                            th:field="*{count}" required
                                            class="form-control number" min="0" id="bookCountInputAdd"

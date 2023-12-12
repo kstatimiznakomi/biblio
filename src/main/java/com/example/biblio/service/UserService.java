@@ -7,6 +7,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
+import java.util.List;
+
 @Service
 public interface UserService extends UserDetailsService {
     User getUserByName(String name);
@@ -18,4 +20,7 @@ public interface UserService extends UserDetailsService {
     void Save(UserDTO dto);
     void block(User user);
     void unblock(User user);
+
+    List<UserDTO> getAllUsers();
+    void save (User user);
 }
