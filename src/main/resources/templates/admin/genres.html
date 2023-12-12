@@ -2,7 +2,7 @@
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{admin/layout.html}">
 <head>
     <meta charset="UTF-8">
-    <title>АдминПанель. Издатели</title>
+    <title>АдминПанель. Жанры</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -25,39 +25,39 @@
                 <tr>
                     <th scope="col" style="width: 10%">#</th>
                     <th scope="col">ID</th>
-                    <th scope="col">Название издателя</th>
+                    <th scope="col">Название жанра</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="publisher : ${publishers}">
+                <tr th:each="genre : ${genres}">
                     <td>
                         <a class="btn btn-warning" data-bs-toggle="modal"
-                           th:attr="data-bs-target=${'#editModal' + publisher.id}" data-row="${publisher}">
+                           th:attr="data-bs-target=${'#editModal' + genre.id}" data-row="${genre}">
                             <i class="bi bi-pencil"></i>
                         </a>
                         <a class="btn btn-danger"
-                           th:onclick="'isDelete(' + ${publisher.id} + ')'"><i class="bi bi-trash"></i></a>
+                           th:onclick="'isDelete(' + ${genre.id} + ')'"><i class="bi bi-trash"></i></a>
                     </td>
-                    <td th:text="${publisher.id}"></td>
-                    <td th:text="${publisher.publisherName}"></td>
+                    <td th:text="${genre.id}"></td>
+                    <td th:text="${genre.genreName}"></td>
                 </tr>
                 </tbody>
             </table>
 
             <div class="modal fade"
-                 th:each="publisher : ${publishers}" th:attr="id=${'editModal' + publisher.id}">
+                 th:each="genre : ${genres}" th:attr="id=${'editModal' + genre.id}">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <form th:action="@{'/admin/publishers/' + ${publisher.id} + '/edit'}" method="post">
+                        <form th:action="@{'/admin/genres/' + ${genre.id} + '/edit'}" method="post">
                             <div class="modal-header">
-                                <h5 class="modal-title">Редактирование издателя <div th:text="${publisher.publisherName}"/></h5>
+                                <h5 class="modal-title">Редактирование жанра <div th:text="${genre.genreName}"/></h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
                             </div>
                             <div class="modal-body">
                                 <div class="mb-3">
-                                    <label for="publisherNameInputEdit" class="form-label">Название издателя</label>
-                                    <input name="publisherName" type="text" th:value="${publisher.publisherName}"
-                                           class="form-control" id="publisherNameInputEdit" placeholder="Введите название издателя">
+                                    <label for="genreNameInputEdit" class="form-label">Название жанра</label>
+                                    <input name="genreName" type="text" th:value="${genre.genreName}"
+                                           class="form-control" id="genreNameInputEdit" placeholder="Введите название жанра">
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -72,18 +72,18 @@
             <div class="modal fade" id="addModal" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <form th:action="@{'/admin/publishers/add'}" th:object="${publisher}" method="post">
+                        <form th:action="@{'/admin/genres/add'}" th:object="${genre}" method="post">
                             <div class="modal-header">
-                                <h5 class="modal-title">Добавление издателя</h5>
+                                <h5 class="modal-title">Добавление жанра</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
                             </div>
                             <div class="modal-body">
                                 <div class="mb-3">
-                                    <label for="publisherNameInputAdd" class="form-label">Название издателя</label>
-                                    <input name="publisherName" type="text"
-                                           class="form-control" id="publisherNameInputAdd"
-                                           placeholder="Введите название издателя"
-                                           th:field="*{publisherName}" required>
+                                    <label for="genreNameInputAdd" class="form-label">Название жанра</label>
+                                    <input name="genreName" type="text"
+                                           class="form-control" id="genreNameInputAdd"
+                                           placeholder="Введите название жанра"
+                                           th:field="*{genreName}" required>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -100,10 +100,10 @@
 
 </body>
 <script>
-    function isDelete(publisherId) {
+    function isDelete(genreId) {
         let isConf = confirm("Удалить запись?");
         if (isConf) {
-            document.location.replace("/admin/publishers/" + publisherId + "/delete");
+            document.location.replace("/admin/genres/" + genreId + "/delete");
         }
     }
 </script>
