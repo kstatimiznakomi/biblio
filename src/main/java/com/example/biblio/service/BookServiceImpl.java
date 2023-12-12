@@ -2,19 +2,14 @@ package com.example.biblio.service;
 
 import com.example.biblio.dao.BookDAO;
 import com.example.biblio.dto.BookDTO;
+import com.example.biblio.dto.BookParamsDTO;
 import com.example.biblio.mapper.BookMapper;
 import com.example.biblio.model.Book;
-import com.example.biblio.model.JournalNotes;
-import com.example.biblio.model.ReaderTicket;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -74,11 +69,6 @@ public class BookServiceImpl implements BookService{
     }
 
     @Override
-    public Boolean ifAvailable(Long bookId){
-        return bookDAO.findBookById(bookId).getCount() != 0;
-    }
-
-    @Override
     public Page<Book> getBooksByPublisher(int pageNumber, Long publisherId){
         return new PageImpl<>(publisherService.getBookByPublisher(publisherId).getBooks());
     }
@@ -86,6 +76,19 @@ public class BookServiceImpl implements BookService{
     @Override
     public Page<Book> getBooksByGenre(int pageNumber, Long genreId){
         return new PageImpl<>(genreService.getGenre(genreId).getBooks());
+    }
+
+    @Override
+    public void Create(BookParamsDTO dto){
+        Book book = Book.builder()
+                .bookName(dto.getBookName())
+                .description(dto.getDescription())
+                .img(dto.getImg())
+                .count(dto.getCount())
+                .publicDate(dto.getPublicDate())
+                .isbn(dto.getIsbn())
+                .build();
+        bookDAO.save(book);
     }
 
     @Override
