@@ -15,7 +15,7 @@
 <section class="flex-container">
     <div class="criteria">
         <form th:action="@{/search}" th:object="${search}">
-            <div th:replace="~{fragments/inputs-params}"></div>
+            <div th:replace="~{fragments/selects-search-fragment}"></div>
             <div th:replace="~{fragments/search-input-fragment}"></div>
         </form>
     </div>

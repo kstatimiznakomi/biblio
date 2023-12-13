@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class SearchParamsDTO {
-    private String authorId;
-    private String genreId;
-    private String publisherId;
+    private Long authorId;
+    private Long genreId;
+    private Long publisherId;
     private String searchText;
     private Integer publishDate;
     private Integer page;

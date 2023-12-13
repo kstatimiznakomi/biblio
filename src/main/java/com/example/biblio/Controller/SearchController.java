@@ -38,31 +38,35 @@ public class SearchController {
     }
 
     @GetMapping("")
-    public String search(Principal principal, Model model, @ModelAttribute SearchParamsDTO dto, @RequestParam("page") int pageNumber){
-        if (Objects.equals(dto.getSearchText(), "")) return "redirect:/catalog";
-        Page<Book> page = searchService.searchByCriteria(dto);
+    public String search(Principal principal, Model model, @ModelAttribute SearchParamsDTO dto){
+        if (principal != null) {
+            model.addAttribute("user", userService.getUserByName(principal.getName()));
+            model.addAttribute("isActiveStat", statusManager.ifUserMatchesStatus(
+                    userService.getUserByName(principal.getName()), UserStatus.Активный)
+            );
+
+            model.addAttribute("ifUserSigned", userService.ifUserSigned(principal));
+        }
+        Page<Book> page = bookService.getAllPage(dto.getPage());
         model.addAttribute("search", new SearchParamsDTO());
+        model.addAttribute("params", dto);
+        model.addAttribute("authorSearched", authorService.getAuthor(dto.getAuthorId()));
+        model.addAttribute("genreSearched", genreService.getGenre(dto.getGenreId()));
+        model.addAttribute("publisherSearched", publisherService.getBookByPublisher(dto.getPublisherId()));
         model.addAttribute("foundBooks", page.getContent());
-        model.addAttribute("author", dto.getAuthorId());
-        model.addAttribute("genre", dto.getGenreId());
-        model.addAttribute("publisher", dto.getPublisherId());
-        model.addAttribute("searchText", dto.getSearchText());
         model.addAttribute(
-                "currentPage", pageService.GetBiggerLower(pageNumber, page.getTotalPages())
+                "currentPage", pageService.GetBiggerLower(dto.getPage(), page.getTotalPages())
         );
         model.addAttribute("nameType", PageType.Name.toString());
         model.addAttribute("maxPage",
-                pageService.Max(pageNumber, bookService.getAllPage(pageNumber).getTotalPages())
+                pageService.Max(dto.getPage(), bookService.getAllPage(dto.getPage()).getTotalPages())
         );
-        model.addAttribute("isActiveStat", statusManager.ifUserMatchesStatus(
-                userService.getUserByName(principal.getName()), UserStatus.Активный)
-        );
+
         model.addAttribute("maxPage",
-                pageService.Max(pageNumber, bookService.getAllPage(pageNumber).getTotalPages())
+                pageService.Max(dto.getPage(), bookService.getAllPage(dto.getPage()).getTotalPages())
         );
-        model.addAttribute("minPage", pageService.Min(pageNumber));
-        model.addAttribute("ifUserSigned", userService.ifUserSigned(principal));
-        model.addAttribute("toDraw", pageService.toDraw(bookService.getSearchBooks(pageNumber, dto.getSearchText()).getTotalElements()));
+        model.addAttribute("minPage", pageService.Min(dto.getPage()));
+        model.addAttribute("toDraw", pageService.toDraw(bookService.getSearchBooks(dto.getPage(), dto.getSearchText()).getTotalElements()));
         model.addAttribute("authors", authorService.getAllAuthors());
         model.addAttribute("genres", genreService.getAllGenres());
         model.addAttribute("publishers", publisherService.getAllPublishers());
