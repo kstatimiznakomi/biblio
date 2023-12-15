@@ -16,6 +16,4 @@ public interface UserService extends UserDetailsService {
     Boolean ifUserSigned(Principal principal);
 
     void Save(UserDTO dto);
-    void block(User user);
-    void unblock(User user);
 }

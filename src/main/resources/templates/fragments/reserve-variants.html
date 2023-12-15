@@ -15,7 +15,7 @@
     <span th:text="'Вы уже забронировали эту книгу'" class="btn__menu"></span>
 </div>
 <div sec:authorize="isAuthenticated()"
-     th:if="${isActiveStat} eq TRUE and ${book.count} > 0 and ${booksByUser.contains(book)} eq FALSE"
+     th:if="${isActiveStat} eq TRUE and ${book.count} > 0 "
      class="btn-book">
     <a th:href="@{/books/add/{bookId}(bookId=${book.id})}"
        class="btn__menu">Забронировать
