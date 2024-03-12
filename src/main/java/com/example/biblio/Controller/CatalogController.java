@@ -1,6 +1,7 @@
 package com.example.biblio.Controller;
 
 import com.example.biblio.dto.SearchParamsDTO;
+import com.example.biblio.model.ReserveStatus;
 import com.example.biblio.model.UserStatus;
 import com.example.biblio.service.*;
 import lombok.AllArgsConstructor;
@@ -48,8 +49,12 @@ public class CatalogController {
                             ticketService.getTicketByUser(userService.getUserByName(principal.getName()))
                     )
             );
+            model.addAttribute("booksUnclosed", notesService.getBooksUnclosedBooksByUser(
+                    userService.getUserByName(principal.getName())
+            ));
         }
         model.addAttribute("search", new SearchParamsDTO());
+
         model.addAttribute("currentPage",
                 pageService.GetBiggerLower(pageNumber, bookService.getAllPage(pageNumber).getTotalPages())
         );

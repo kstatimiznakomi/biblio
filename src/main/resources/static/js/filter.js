@@ -4,8 +4,6 @@ const publisher = document.getElementsByTagName("select")[2]
 const dateButton = document.getElementById("date")
 
 
-
-
 author.addEventListener('change', () => {
     let authorId = document.getElementsByTagName("select")[0].value
     if (authorId === '0') document.getElementById("authId").value = '';
@@ -27,3 +25,10 @@ dateButton.addEventListener('change', () => {
     const auth = document.getElementsByTagName("select")[0].value
 
 })
+
+function BookAdd(){
+    $.ajax({
+        type: "POST",
+        url: "",
+    })
+}

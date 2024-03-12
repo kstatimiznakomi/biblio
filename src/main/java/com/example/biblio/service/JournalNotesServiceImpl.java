@@ -32,6 +32,34 @@ public class JournalNotesServiceImpl implements JournalNotesService{
     }
 
     @Override
+    public Boolean ifBookExistInCurrentReserve(User user, Book book){
+        Reserve reserve = reserveService.getReserveWithStatusAndTicket(
+                ReserveStatus.Открыт,
+                ticketService.getTicketByUser(user)
+        );
+        List<JournalNotes> notes = dao.getJournalNotesByReserve(reserve);
+        List<Book> books = new ArrayList<>();
+        for (JournalNotes notes1 : notes){
+            books.add(notes1.getBook());
+        }
+        return books.contains(book);
+    }
+
+    @Override
+    public List<Book> getBooksUnclosedBooksByUser(User user){
+        Reserve reserve = reserveService.getReserveWithStatusAndTicket(
+                ReserveStatus.Открыт,
+                ticketService.getTicketByUser(user)
+        );
+        List<JournalNotes> notes = dao.getJournalNotesByReserve(reserve);
+        List<Book> books = new ArrayList<>();
+        for (JournalNotes notes1 : notes){
+            books.add(notes1.getBook());
+        }
+        return books;
+    }
+
+    @Override
     public List<JournalNotes> getAllByTicket(ReaderTicket ticket) {
         return dao.getJournalNotesByReaderTicket(ticket);
     }
@@ -77,10 +105,10 @@ public class JournalNotesServiceImpl implements JournalNotesService{
                 ReserveStatus.Открыт,
                 ticketService.getTicketByUser(userService.getUserByName(principal.getName()))
         ) != null){
-            if (ifExist(
-                    ticketService.getTicketByUser(userService.getUserByName(principal.getName())),
+            if (!ifBookExistInCurrentReserve(
+                    userService.getUserByName(principal.getName()),
                     bookService.findBookByIdModel(bookId)
-            ) == null){
+            )){
                 Create(
                         bookService.findBookByIdModel(bookId),
                         userService.getUserByName(principal.getName()),
@@ -110,10 +138,10 @@ public class JournalNotesServiceImpl implements JournalNotesService{
 
     @Override
     public void CompletePrincipal(Principal principal, Long bookId){
-        if (ifExist(
-                ticketService.getTicketByUser(userService.getUserByName(principal.getName())),
+        if (!ifBookExistInCurrentReserve(
+                userService.getUserByName(principal.getName()),
                 bookService.findBookByIdModel(bookId)
-        ) != null){
+        )){
             closeAndSave(principal, bookId);
             bookService.increaseCountOfBook(bookId, 1);
         }
@@ -123,7 +151,6 @@ public class JournalNotesServiceImpl implements JournalNotesService{
     public void CompleteNote(List<JournalNotes> notes){
         for (JournalNotes noteIn : notes){
             noteIn.setStatus(NoteStatus.Закрытый);
-
         }
     }
 

@@ -33,6 +33,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUserByEmail(String email){
+        return userRepository.getUserByEmail(email);
+    }
+
+    @Override
     public UserDTO getUser(String name) {
         return userMapper.fromUser(userRepository.getUserByUsername(name));
     }
@@ -48,8 +53,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void Save(UserDTO dto) {
-        User user = User.builder()
+    public User create(UserDTO dto){
+        return User.builder()
                 .lastname(dto.getLastname())
                 .name(dto.getName())
                 .surname(dto.getSurname())
@@ -61,11 +66,33 @@ public class UserServiceImpl implements UserService {
                 .role(UserRole.Читатель)
                 .status(UserStatus.Активный)
                 .build();
+    }
+
+
+
+    @Override
+    public void Save(User user){
         userRepository.save(user);
-        ReaderTicket ticket = ReaderTicket.builder()
-                .user(user)
-                .build();
-        readerTicketService.Save(ticket);
+        readerTicketService.Create(user);
+    }
+
+    @Override
+    public void Save(UserDTO dto) {
+        User user = create(dto);
+        userRepository.save(user);
+        readerTicketService.Create(user);
+    }
+
+    @Override
+    public void patchUser(UserDTO dto, User user){
+        user.setName(dto.getName());
+        user.setPassword(encoder.encode(dto.getPassword()));
+        user.setEmail(dto.getEmail());
+        user.setLastname(dto.getLastname());
+        user.setSurname(dto.getSurname());
+        user.setAddress(dto.getAddress());
+        user.setUsername(dto.getUsername());
+        user.setPhone(dto.getPhone());
     }
 
     @Override

@@ -7,6 +7,11 @@ import java.security.Principal;
 import java.util.List;
 public interface JournalNotesService {
     public Page<JournalNotes> getAllPageByTicket(int pageNumber, ReaderTicket ticket);
+
+    Boolean ifBookExistInCurrentReserve(User user, Book book);
+
+    List<Book> getBooksUnclosedBooksByUser(User user);
+
     public List<JournalNotes> getAllByTicket(ReaderTicket ticket);
     List<Book> booksByUser(ReaderTicket ticket);
     void Create(Book book, User user, Reserve reserve);

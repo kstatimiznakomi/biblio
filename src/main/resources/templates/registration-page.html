@@ -18,22 +18,22 @@
     <div class="grad-bg">
         <div class="welcome">Добро пожаловать!</div>
         <div class="reg-title">(зарегистрируйтесь в библиотеке)</div>
-        <div class="form">
-            <form th:action="@{/register/new}" th:object="${user}" method="post">
-                <input type="text" class="user" placeholder="Фамилия" th:field="*{lastname}" required>
-                <input type="text" class="user" placeholder="Имя" th:field="*{name}" required>
-                <input type="text" class="user" placeholder="Отчество" th:field="*{surname}" required>
-                <input type="text" class="user" placeholder="Имя пользователя" th:field="*{username}" required>
-                <hr class="separator">
-                <input type="password" class="user" placeholder="Пароль" th:field="*{password}" required>
-                <input type="password" class="user" placeholder="Подтверждение пароля" required>
-                <input type="email" class="user" placeholder="Почта" th:field="*{email}" required>
-                <input type="text" class="user" placeholder="Адрес" th:field="*{address}" required>
-                <input type="number" class="user" placeholder="Номер телефона" th:field="*{phone}" required>
-                <button id="reg-btn" type="submit">Зарегистрироваться</button>
-            </form>
+        <div id="form">
+            <input type="text" class="user" placeholder="Фамилия" id="lastname" required>
+            <input type="text" class="user" placeholder="Имя" id="name" required>
+            <input type="text" class="user" placeholder="Отчество" id="surname" required>
+            <input type="text" class="user" placeholder="Имя пользователя" id="username" required>
+            <hr class="separator">
+            <input type="password" class="user" placeholder="Пароль" id="password" required>
+            <input type="password" class="user" id="seq_password" placeholder="Подтверждение пароля" required>
+            <input type="email" class="user" placeholder="Почта" id="email" required>
+            <input type="number" class="user" placeholder="Номер телефона" id="phone" required>
+            <button id="reg-btn" type="submit">Зарегистрироваться</button>
         </div>
     </div>
 </div>
+<script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="/js/register.js" crossorigin></script>
 </body>
 </html>

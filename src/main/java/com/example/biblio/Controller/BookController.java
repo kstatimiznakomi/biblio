@@ -45,7 +45,7 @@ public class BookController {
     public String adding(@ModelAttribute BookParamsDTO dto, Model model, Principal principal){
         if(principal != null && userService.getUserByName(principal.getName()).getRole().equals(UserRole.Администратор)) {
             model.addAttribute("user", userService.getUserByName(principal.getName()));
-            bookService.Create(dto);
+            //bookService.Create(dto);
             return "redirect:/book/add";
         }
         return "redirect:/login";

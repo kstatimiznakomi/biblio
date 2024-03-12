@@ -1,6 +1,7 @@
 package com.example.biblio.Controller;
 
 import com.example.biblio.dto.UserDTO;
+import com.example.biblio.model.User;
 import com.example.biblio.service.JournalNotesService;
 import com.example.biblio.service.ReaderTicketService;
 import com.example.biblio.service.UserService;
@@ -21,7 +22,6 @@ import java.security.Principal;
 @Lazy
 public class ProfileController {
     private final UserService userService;
-    private final ReaderTicketService readerTicketService;
     @Lazy
     private final JournalNotesService notesService;
     @GetMapping("")
@@ -38,13 +38,16 @@ public class ProfileController {
     @GetMapping("/edit")
     public String edit(Model model, Principal principal){
         if (principal == null) return "redirect:/login";
+        model.addAttribute("userInfo", userService.getUserByName(principal.getName()));
         model.addAttribute("user", new UserDTO());
         return "profile-edit";
     }
 
     @PatchMapping ("/edit/patch")
-    public String profile(Model model, @ModelAttribute UserDTO dto){
-
+    public String profile(Model model, Principal principal, @ModelAttribute UserDTO dto){
+        if (principal == null) return "redirect:/login";
+        User user = userService.getUserByName(principal.getName());
+        userService.patchUser(dto, user);
         return "redirect:/profile";
     }
 }

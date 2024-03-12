@@ -23,16 +23,14 @@
                 </div>
                 <div class="info-details">
                     <form th:action="@{/profile/edit/patch}" th:object="${user}">
-                        <input type="text" class="user" placeholder="Фамилия" th:field="*{lastname}" required>
-                        <input type="text" class="user" placeholder="Имя" th:field="*{name}" required>
-                        <input type="text" class="user" placeholder="Отчество" th:field="*{surname}" required>
-                        <input type="text" class="user" placeholder="Имя пользователя" th:field="*{username}" required>
-                        <hr class="separator">
-                        <input type="password" class="user" placeholder="Пароль" th:field="*{password}" required>
-                        <input type="password" class="user" placeholder="Подтверждение пароля" required>
-                        <input type="email" class="user" placeholder="Почта" th:field="*{email}" required>
-                        <input type="text" class="user" placeholder="Адрес" th:field="*{address}" required>
-                        <input type="number" class="user" placeholder="Номер телефона" th:field="*{phone}" required>
+                        <input type="text" name="lastname" class="user" placeholder="Фамилия" th:value="${userInfo.lastname}" required>
+                        <input type="text" name="name" class="user" placeholder="Имя" th:value="${userInfo.name}" required>
+                        <input type="text" name="surname" class="user" placeholder="Отчество" th:value="${userInfo.surname}" required>
+                        <input type="text" name="username" class="user" placeholder="Имя пользователя" th:value="${userInfo.username}" required>
+                        <input type="password" name="password" class="user" placeholder="Пароль" required>
+                        <input type="email" name="email" class="user" placeholder="Почта" th:value="${userInfo.email}" required>
+                        <input type="text" name="address" class="user" placeholder="Адрес" th:value="${userInfo.address}">
+                        <input type="number" name="phone" class="user" placeholder="Номер телефона" th:value="${userInfo.phone}" required>
                         <button id="reg-btn" type="submit">Сохранить</button>
                     </form>
                 </div>
