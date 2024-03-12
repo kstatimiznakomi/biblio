@@ -8,8 +8,6 @@ regBtn.addEventListener('click', () => {
     if (userObj["seq_password"] === userObj["password"]){
         delete userObj["seq_password"]
         const user = JSON.stringify(userObj)
-        console.log(userObj)
-        console.log(user)
         $.ajax({
             type: "POST",
             contentType: 'application/json',
