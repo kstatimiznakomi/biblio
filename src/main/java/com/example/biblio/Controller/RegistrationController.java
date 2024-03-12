@@ -35,11 +35,7 @@ public class RegistrationController {
 
     @PostMapping(value = "/new", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> registrate(@RequestBody User user){
-        ObjectMapper objectMapper = new ObjectMapper();
-        //User user1 = objectMapper.readValue(user, User.class);
         UserDTO dto = new UserDTO();
-
-        //User user1 = gson.fromJson(json, User.class);
         BeanUtils.copyProperties(user, dto);
         User user1 = userService.create(dto);
         System.out.println(user1);
@@ -47,7 +43,6 @@ public class RegistrationController {
             throw new RuntimeException("такой пользователь уже существует");
         }
         else userService.Save(user1);
-
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
