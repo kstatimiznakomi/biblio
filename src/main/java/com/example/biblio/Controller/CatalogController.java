@@ -1,12 +1,14 @@
 package com.example.biblio.Controller;
 
 import com.example.biblio.dto.SearchParamsDTO;
+import com.example.biblio.model.Book;
 import com.example.biblio.model.ReserveStatus;
 import com.example.biblio.model.UserStatus;
 import com.example.biblio.service.*;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @AllArgsConstructor

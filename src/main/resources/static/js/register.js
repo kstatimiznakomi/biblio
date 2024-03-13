@@ -14,6 +14,12 @@ regBtn.addEventListener('click', () => {
             dataType: "json",
             url: '/register/new',
             data: user,
+            success: () => {
+                alert("Успешно")
+            },
+            failure: (response) => {
+                alert(response)
+            }
         });
     }
     else alert("пароли не совпадают")
