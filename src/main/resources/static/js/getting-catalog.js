@@ -1,7 +1,5 @@
 window.onload = function () {
-    console.log(document.URL)
     let pageNumber = document.URL.substring(document.URL.lastIndexOf('/') + 1);
-    console.log(pageNumber)
     getContent(pageNumber);
 }
 
@@ -24,7 +22,11 @@ function getContent(pageNumber){
             alert(response)
         }
     });
+    getAllAuthors();
+    getAllGenres();
+    getAllPublishers();
 }
+
 function setContent(obj){
     $('#content').append(`
     <div class="book-bg">
@@ -40,4 +42,77 @@ function setContent(obj){
         </ul>
     </div>
     `);
+}
+
+function getAllGenres(){
+    $.ajax({
+        type: "GET",
+        contentType: 'application/json',
+        dataType: "json",
+        url: '/genres/api',
+        data: false,
+        success: (response) => {
+            content = response
+            content.map(function (obj){
+                setGenres(obj)
+            })
+        },
+        failure: (response) => {
+            alert(response)
+        }
+    });
+}
+
+function getAllAuthors(){
+    $.ajax({
+        type: "GET",
+        contentType: 'application/json',
+        dataType: "json",
+        url: '/author/api',
+        data: false,
+        success: (response) => {
+            response.map(function (obj){
+                setAuthors(obj)
+            })
+        },
+        failure: (response) => {
+            alert(response)
+        }
+    });
+}
+
+function getAllPublishers(){
+    $.ajax({
+        type: "GET",
+        contentType: 'application/json',
+        dataType: "json",
+        url: '/publishers/api',
+        data: false,
+        success: (response) => {
+            response.map(function (obj){
+                setPublishers(obj)
+            })
+        },
+        failure: (response) => {
+            alert(response)
+        }
+    });
+}
+
+function setAuthors(obj){
+    $('#auth').append(`
+        <option value="${obj.id}"> ${obj.authorLastName} ${obj.authorName}</option>
+`)
+}
+
+function setGenres(obj){
+    $('#genre').append(`
+        <option value="${obj.id}"> ${obj.genreName}</option>
+`)
+}
+
+function setPublishers(obj){
+    $('#publ').append(`
+        <option value="${obj.id}"> ${obj.publisherName}</option>
+`)
 }

@@ -26,7 +26,6 @@ public class CatalogController {
     @Lazy
     private final BookService bookService;
     @Lazy
-    private final AuthorService authorService;
     private final GenreService genreService;
     private final PublisherService publisherService;
     private final ReaderTicketService ticketService;
@@ -43,9 +42,6 @@ public class CatalogController {
     public String getPage(Model model, @PathVariable int pageNumber, Principal principal){
         if (principal != null) {
             model.addAttribute("user", userService.getUserByName(principal.getName()));
-            model.addAttribute("isActiveStat", statusManager.ifUserMatchesStatus(
-                    userService.getUserByName(principal.getName()), UserStatus.Активный)
-            );
             model.addAttribute(
                     "booksByUser",
                     notesService.booksByUser(
@@ -68,10 +64,8 @@ public class CatalogController {
         );
         model.addAttribute("minPage", pageService.Min(pageNumber));
         model.addAttribute("toDraw", pageService.toDraw(bookService.getAllPage(pageNumber).getTotalElements()));
-        model.addAttribute("authors", authorService.getAllAuthors());
         model.addAttribute("genres", genreService.getAllGenres());
         model.addAttribute("publishers", publisherService.getAllPublishers());
-        model.addAttribute("books", bookService.getAllPage(pageNumber).getContent());
 
         return "catalog";
     }

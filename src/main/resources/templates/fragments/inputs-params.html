@@ -2,15 +2,12 @@
     <ul class = "combo" style = "width: 1460px;height: 60px;" th:fragment="params">
         <select id="auth">
             <option value="0">Авторы</option>
-            <option th:each="author : ${authors}" th:text="${author.authorLastName} + ' ' + ${author.getAuthorName()}" th:value="${author.id}"></option>
         </select>
         <select id="genre">
             <option value="0">Жанры</option>
-            <option th:each="genre : ${genres}" th:text="${genre.genreName}" th:value="${genre.id}"></option>
         </select>
         <select id="publ">
             <option value="0">Издатели</option>
-            <option th:each="publisher : ${publishers}" th:text="${publisher.publisherName}" th:value="${publisher.id}"></option>
         </select>
         <input class="input-date" type="number" name="publicDate" id="date" placeholder="Дата" style="padding: 11px 11px">
     </ul>
