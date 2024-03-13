@@ -1,16 +1,18 @@
 window.onload = function () {
     console.log(document.URL)
-    getContent();
+    let pageNumber = document.URL.substring(document.URL.lastIndexOf('/') + 1);
+    console.log(pageNumber)
+    getContent(pageNumber);
 }
 
 var content = {}
 
-function getContent(){
+function getContent(pageNumber){
     $.ajax({
         type: "GET",
         contentType: 'application/json',
         dataType: "json",
-        url: '/catalog/api/1',
+        url: '/catalog/api/' + pageNumber,
         data: false,
         success: (response) => {
             content = response.content
@@ -30,7 +32,7 @@ function setContent(obj){
             <img class="book-img" src="${obj.img}">
             <li style="margin-right: 0px;">
                 <div class="name-book justify-content-between">
-                    <a href="book/111">${obj.bookName}</a>
+                    <a href="book/${obj.id}">${obj.bookName}</a>
                     <span>Количество: ${obj.count}</span>
                 </div>
                 <div >бронь</div>
