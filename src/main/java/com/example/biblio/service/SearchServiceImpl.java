@@ -17,7 +17,6 @@ public class SearchServiceImpl implements SearchService {
     private final BookService bookService;
     @Override
     public Page<Book> findAll(SearchParamsDTO dto) {
-        Page<Book> books = bookService.getAllPage(dto.getPage());
 
 
         return null;
