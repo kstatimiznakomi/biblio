@@ -1,9 +1,29 @@
 window.onload = function () {
     let pageNumber = document.URL.substring(document.URL.lastIndexOf('/') + 1);
     getContent(pageNumber);
+    userCheck();
 }
 
+let bookExist = true;
+let signedUser = false;
+
 var content = {}
+
+function userCheck(){
+    $.ajax({
+        type: "GET",
+        contentType: 'application/json',
+        dataType: "json",
+        url: '/get-user-api',
+        data: false,
+        success: (response) => {
+            response === true ? signedUser = true : signedUser = false
+        },
+        failure: (response) => {
+            alert(response)
+        }
+    });
+}
 
 function getContent(pageNumber){
     $.ajax({
@@ -28,6 +48,7 @@ function getContent(pageNumber){
 }
 
 function setContent(obj){
+    obj.count > 0 ? bookExist = true : bookExist = false;
     $('#content').append(`
     <div class="book-bg">
         <ul class="book" style="margin-left: 0px; margin-right: 0px;">
@@ -36,12 +57,37 @@ function setContent(obj){
                 <div class="name-book justify-content-between">
                     <a href="book/${obj.id}">${obj.bookName}</a>
                     <span>Количество: ${obj.count}</span>
-                </div>
-                <div >бронь</div>
+                ${signedUser === true ? 
+                        bookExist === true ? reserveOpen(obj) : reserveBooksNull()
+                : notSigned()}
             </li>
         </ul>
     </div>
     `);
+}
+
+function reserveOpen(obj){
+    return `
+    <div class="btn-book">
+        <a href="/books/add/${obj.id}" class="btn__menu">Забронировать</a>
+    </div>
+    `;
+}
+
+function notSigned(){
+    return `
+    <div class="btn-book-locked">
+        <span class="btn__menu">Войдите, чтобы бронировать книги</span>
+    </div>
+    `;
+}
+
+function reserveBooksNull(){
+    return `
+    <div class="btn-book-locked">
+        <span class="btn__menu">Книги нет в наличии</span>
+    </div>
+    `;
 }
 
 function getAllGenres(){

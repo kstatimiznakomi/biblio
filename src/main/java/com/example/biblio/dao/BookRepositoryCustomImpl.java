@@ -15,9 +15,9 @@ public class BookRepositoryCustomImpl implements BookRepositoryCustom{
     @Override
     public List<Book> getBooksByCriteries(SearchParamsDTO dto) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Book> cq = cb.createQuery(SearchParamsDTO.class);
+        /*CriteriaQuery<Book> cq = cb.createQuery(SearchParamsDTO.class);
 
-        Root<Book> bookRoot = cq.from()
+        Root<Book> bookRoot = cq.from()*/
 
 
         return null;

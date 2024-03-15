@@ -65,7 +65,6 @@ public class CatalogController {
         model.addAttribute("minPage", pageService.Min(pageNumber));
         model.addAttribute("toDraw", pageService.toDraw(bookService.getAllPage(pageNumber).getTotalElements()));
         model.addAttribute("genres", genreService.getAllGenres());
-        model.addAttribute("publishers", publisherService.getAllPublishers());
 
         return "catalog";
     }

@@ -161,13 +161,19 @@
 }
 
 .form{
-
+    width: 50%;
+    display: flex;
+    align-items: center;
 }
 
 body 
 {
-    width: 100%;
+    width: 1920px;
     height: auto;
+    /*flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 14px;*/
 }
 
 #search-button{
@@ -189,13 +195,12 @@ li{
     justify-content: space-between;
     padding: 16px 237px;
     box-sizing: border-box;
-	width: 100%;
+	width: 1920px;
     height: 83px;
     flex-shrink: 0;
     background: #FFE68B;
     margin: 0 auto;
     margin-bottom: 14px;
-    min-width: 1485px;
 }
 
 .menu {
@@ -252,13 +257,14 @@ li{
     height: 140px;
     flex-shrink: 0;
     border-radius: 11px;
-    background-color: teal;
+    background: #FFE68B;
     margin: 0 auto;
     list-style: none;
 }
 
 .bar {
     width: 1460px;
+    height: 60px;
     display: flex;
 }
 
@@ -293,7 +299,7 @@ padding: 20px 0px;
     font-weight: 400;
     line-height: normal;
     border-radius: 14px;
-    width: fit-content;
+    width: 1298px;
     height: 40px;
     margin: 21px 74px;
     background: #ffffff;
@@ -385,10 +391,6 @@ select{
 
 }
 
-ul{
-    margin-bottom: auto !important;
-}
-
 .col-null{
     flex-grow: 0;
     margin-bottom: 20px;
@@ -396,7 +398,7 @@ ul{
 
 .book-bg {
     width: 1460px;
-    height: auto;
+    height: 438px;
     flex-shrink: 0;
     border-radius: 11px;
     background: #9ca1ff;
@@ -429,18 +431,19 @@ a:hover{
 
 .book {
     width: 1412px;
+    height: 434px;
     display: flex;
     margin: 0 auto;
     padding-top: 24px;
-    background-color: teal;
-    border-radius: 11px;
+    padding-left: 76px;
 }
 
 .book li {
     width: 1058px;
+    border: 1px solid #FFF;
     border-radius: 14px;
     margin: 0px 24px 24px 0px;
-    background: #ebfbff;
+    background: #FFF;
     align-items: center;
 }
 
@@ -482,7 +485,7 @@ a:hover{
     font-weight: 400;
     line-height: normal;
     border-radius: 14px;
-    padding: 16px 111px;
+    padding: 16px 420px;
     display: inline-block;
     background: #fff0a4;
 }
@@ -491,11 +494,12 @@ a:hover{
     color: black;
     text-decoration: none;
     font-family: Inter;
+    font-size: 18px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
     border-radius: 14px;
-    padding: 16px 111px;
+    padding: 16px 420px;
     display: inline-block;
     background: #979797;
     margin: auto;
@@ -514,11 +518,7 @@ a:hover{
     border: 0;
 }
 
-.btn-book{
-    margin: auto;
-}
-
-.name-book,.description-book{
+.name-book,.description-book,.btn-book{
     padding-left: 42px;
     display: grid;
 }

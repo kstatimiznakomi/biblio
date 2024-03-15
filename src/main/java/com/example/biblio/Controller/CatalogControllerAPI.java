@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -42,5 +43,9 @@ public class CatalogControllerAPI {
     @GetMapping("/publishers/api")
     public List<PublisherDTO> getAllPublishers(){
         return publisherService.getAllPublishers();
+    }
+    @GetMapping("/get-user-api")
+    public Boolean getCurrentUser(Principal principal){
+        return principal != null;
     }
 }

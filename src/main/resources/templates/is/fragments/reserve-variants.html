@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml" th:fragment="reserve-variants">
+<body>
+<div sec:authorize="!isAuthenticated()" class="btn-book-locked">
+    <span th:text="'Войдите, чтобы бронировать книги'" class="btn__menu"></span>
+</div>
+<div sec:authorize="isAuthenticated()" class="btn-book-locked" th:if="${isActiveStat} eq FALSE">
+    <span th:text="У вас статус 'заблокирован'" class="btn__menu"></span>
+</div>
+<div sec:authorize="isAuthenticated()" class="btn-book-locked" th:if="${isActiveStat} eq TRUE and ${book.count == 0}">
+    <span th:text="'Книги нет в наличии'" class="btn__menu"></span>
+</div>
+<div sec:authorize="isAuthenticated()" class="btn-book-locked"
+     th:if="${isActiveStat} eq TRUE and ${book.count > 0} and ${booksByUser.contains(book)} eq TRUE">
+    <span th:text="'Вы уже забронировали эту книгу'" class="btn__menu"></span>
+</div>
+<div sec:authorize="isAuthenticated()"
+     th:if="${isActiveStat} eq TRUE and ${book.count} > 0 "
+     class="btn-book">
+    <a th:href="@{/books/add/{bookId}(bookId=${book.id})}"
+       class="btn__menu">Забронировать
+    </a>
+</div>
+</body>
+</html>
