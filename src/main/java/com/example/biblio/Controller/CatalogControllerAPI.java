@@ -4,10 +4,8 @@ import com.example.biblio.dto.AuthorDTO;
 import com.example.biblio.dto.GenresDTO;
 import com.example.biblio.dto.PublisherDTO;
 import com.example.biblio.model.Book;
-import com.example.biblio.service.AuthorService;
-import com.example.biblio.service.BookService;
-import com.example.biblio.service.GenreService;
-import com.example.biblio.service.PublisherService;
+import com.example.biblio.model.User;
+import com.example.biblio.service.*;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
@@ -27,6 +25,7 @@ public class CatalogControllerAPI {
     private final AuthorService authorService;
     private final GenreService genreService;
     private final PublisherService publisherService;
+    private final UserService userService;
     @GetMapping("/catalog/api/{pageNumber}")
     public Page<Book> getBooks(@PathVariable int pageNumber){
         return bookService.getAllPage(pageNumber);
@@ -44,8 +43,8 @@ public class CatalogControllerAPI {
     public List<PublisherDTO> getAllPublishers(){
         return publisherService.getAllPublishers();
     }
-    @GetMapping("/get-user-api")
-    public Boolean getCurrentUser(Principal principal){
+    @GetMapping("/signed-user")
+    public Boolean userSigned(Principal principal){
         return principal != null;
     }
 }

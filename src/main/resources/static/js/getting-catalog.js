@@ -14,7 +14,7 @@ function userCheck(){
         type: "GET",
         contentType: 'application/json',
         dataType: "json",
-        url: '/get-user-api',
+        url: '/signed-user',
         data: false,
         success: (response) => {
             response === true ? signedUser = true : signedUser = false
