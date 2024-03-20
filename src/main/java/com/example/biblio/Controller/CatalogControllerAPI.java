@@ -3,6 +3,7 @@ package com.example.biblio.Controller;
 import com.example.biblio.dto.AuthorDTO;
 import com.example.biblio.dto.GenresDTO;
 import com.example.biblio.dto.PublisherDTO;
+import com.example.biblio.dto.SearchParamsDTO;
 import com.example.biblio.model.Book;
 import com.example.biblio.model.User;
 import com.example.biblio.service.*;
@@ -17,7 +18,6 @@ import java.security.Principal;
 import java.util.List;
 
 @RestController
-
 @AllArgsConstructor
 public class CatalogControllerAPI {
     @Lazy
@@ -25,7 +25,6 @@ public class CatalogControllerAPI {
     private final AuthorService authorService;
     private final GenreService genreService;
     private final PublisherService publisherService;
-    private final UserService userService;
     @GetMapping("/catalog/api/{pageNumber}")
     public Page<Book> getBooks(@PathVariable int pageNumber){
         return bookService.getAllPage(pageNumber);
@@ -46,5 +45,10 @@ public class CatalogControllerAPI {
     @GetMapping("/signed-user")
     public Boolean userSigned(Principal principal){
         return principal != null;
+    }
+    @GetMapping("/catalog/api/search")
+    public Page<Object> getBooksBySearch(@Lazy SearchParamsDTO searchParamsDto){
+        System.out.println(searchParamsDto);
+        return bookService.findAll(searchParamsDto);
     }
 }

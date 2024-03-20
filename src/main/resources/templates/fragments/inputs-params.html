@@ -16,9 +16,11 @@
         </select>
         <input type="hidden" name="publisherId" id="publisherId">
         <input class="input-date" type="number" name="publishDate" id="publishDate" placeholder="Дата" style="padding: 11px 11px">
-        <input id="searchText" placeholder="Введите наименование книги" class="search-input" type="text">
-        <button id="search-button">
-            <img height="15px" width="15px" src="https://i.postimg.cc/k405b5NG/search-interface-symbol.png">
-        </button>
+        <div class="search" th:fragment="search-params">
+            <input id="searchText" placeholder="Введите наименование книги" class="search-input" type="text">
+            <button id="search-button">
+                <img height="15px" width="15px" src="https://i.postimg.cc/k405b5NG/search-interface-symbol.png">
+            </button>
+        </div>
     </ul>
 </div>

@@ -15,10 +15,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface BookDAO extends JpaRepository<Book, Long>, PagingAndSortingRepository<Book, Long>, BookRepositoryCustom{
+public interface BookDAO extends JpaRepository<Book, Long>, PagingAndSortingRepository<Book, Long>{
     Page<Book> getBooksByBookNameContainsIgnoreCase(String bookName, Pageable page);
-    List<Book> getBooksByCriteries(SearchParamsDTO dto);
-    Page<Book> findAll(Specification<Book> specification, Pageable page);
     Page<Book> getBooksByBookNameAndPublicDate(String bookName, Integer publicDate, Pageable page);
     BookDTO getBookById(Long bookId);
     Book getBookByBookName(String bookName);

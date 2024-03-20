@@ -20,33 +20,22 @@ import java.util.Objects;
 
 @Controller
 @AllArgsConstructor
-@RequestMapping("/search")
+@RequestMapping("/searchhh")
 @Lazy
 public class SearchController {
     private final BookService bookService;
     private final PageService pageService;
-    private final AuthorService authorService;
-    private final GenreService genreService;
-    private final PublisherService publisherService;
-    private final StatusManager statusManager;
     private final UserService userService;
 
     @GetMapping("")
     public String search(Principal principal, Model model, @ModelAttribute SearchParamsDTO dto){
         if (principal != null) {
             model.addAttribute("user", userService.getUserByName(principal.getName()));
-            model.addAttribute("isActiveStat", statusManager.ifUserMatchesStatus(
-                    userService.getUserByName(principal.getName()), UserStatus.Активный)
-            );
-
             model.addAttribute("ifUserSigned", userService.ifUserSigned(principal));
         }
         Page<Book> page = bookService.getAllPage(dto.getPage());
         model.addAttribute("search", new SearchParamsDTO());
         model.addAttribute("params", dto);
-        model.addAttribute("authorSearched", authorService.getAuthor(dto.getAuthorId()));
-        model.addAttribute("genreSearched", genreService.getGenre(dto.getGenreId()));
-        model.addAttribute("publisherSearched", publisherService.getBookByPublisher(dto.getPublisherId()));
         model.addAttribute("foundBooks", page.getContent());
         model.addAttribute(
                 "currentPage", pageService.GetBiggerLower(dto.getPage(), page.getTotalPages())
@@ -60,10 +49,6 @@ public class SearchController {
                 pageService.Max(dto.getPage(), bookService.getAllPage(dto.getPage()).getTotalPages())
         );
         model.addAttribute("minPage", pageService.Min(dto.getPage()));
-        model.addAttribute("toDraw", pageService.toDraw(bookService.getSearchBooks(dto.getPage(), dto.getSearchText()).getTotalElements()));
-        model.addAttribute("authors", authorService.getAllAuthors());
-        model.addAttribute("genres", genreService.getAllGenres());
-        model.addAttribute("publishers", publisherService.getAllPublishers());
         model.addAttribute("totalItems", page.getTotalElements());
         model.addAttribute("totalPages", page.getTotalPages());
         return "search";

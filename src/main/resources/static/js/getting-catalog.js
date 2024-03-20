@@ -7,8 +7,6 @@ window.onload = function () {
 let bookExist = true;
 let signedUser = false;
 
-var content = {}
-
 function userCheck(){
     $.ajax({
         type: "GET",
@@ -25,6 +23,12 @@ function userCheck(){
     });
 }
 
+function Params(){
+    getAllAuthors();
+    getAllGenres();
+    getAllPublishers();
+}
+
 function getContent(pageNumber){
     $.ajax({
         type: "GET",
@@ -33,10 +37,11 @@ function getContent(pageNumber){
         url: '/catalog/api/' + pageNumber,
         data: false,
         success: (response) => {
-            content = response.content
-            content.map(function (obj){
+            response.content.map(function (obj){
                 setContent(obj)
+                getPages(obj)
             })
+
         },
         failure: (response) => {
             alert(response)
@@ -54,7 +59,7 @@ function setContent(obj){
         <ul class="book" style="margin-left: 0px; margin-right: 0px;">
             <img class="book-img" src="${obj.img}">
             <li style="margin-right: 0px;">
-                <div class="name-book justify-content-between">
+                <div class="name-book">
                     <a href="book/${obj.id}">${obj.bookName}</a>
                     <span>Количество: ${obj.count}</span>
                 ${signedUser === true ? 
@@ -98,8 +103,7 @@ function getAllGenres(){
         url: '/genres/api',
         data: false,
         success: (response) => {
-            content = response
-            content.map(function (obj){
+            response.map(function (obj){
                 setGenres(obj)
             })
         },
@@ -107,6 +111,10 @@ function getAllGenres(){
             alert(response)
         }
     });
+}
+
+function getPages(obj){
+
 }
 
 function getAllAuthors(){

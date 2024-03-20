@@ -4,8 +4,10 @@ import com.example.biblio.dao.AuthorDAO;
 import com.example.biblio.dto.AuthorDTO;
 import com.example.biblio.mapper.AuthorMapper;
 import com.example.biblio.model.Author;
+import com.example.biblio.model.Book;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

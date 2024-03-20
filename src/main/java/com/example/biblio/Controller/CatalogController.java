@@ -68,4 +68,30 @@ public class CatalogController {
 
         return "catalog";
     }
+
+    @GetMapping("/search")
+    public String getBooksBySearch(Model model, SearchParamsDTO searchParamsDto, Principal principal){
+        if (principal != null) {
+            model.addAttribute("user", userService.getUserByName(principal.getName()));
+            model.addAttribute(
+                    "booksByUser",
+                    notesService.booksByUser(
+                            ticketService.getTicketByUser(userService.getUserByName(principal.getName()))
+                    )
+            );
+            model.addAttribute("booksUnclosed", notesService.getBooksUnclosedBooksByUser(
+                    userService.getUserByName(principal.getName())
+            ));
+        }
+        model.addAttribute("currentPage",
+                pageService.GetBiggerLower(searchParamsDto.getPage(), bookService.getAllPage(searchParamsDto.getPage()).getTotalPages())
+        );
+        model.addAttribute("totalItems", bookService.getAllPage(searchParamsDto.getPage()).getTotalElements());
+        model.addAttribute("totalPages", bookService.getAllPage(searchParamsDto.getPage()).getTotalPages());
+        model.addAttribute("maxPage",
+                pageService.Max(searchParamsDto.getPage(), bookService.getAllPage(searchParamsDto.getPage()).getTotalPages())
+        );
+        model.addAttribute("minPage", pageService.Min(searchParamsDto.getPage()));
+        return "catalog";
+    }
 }

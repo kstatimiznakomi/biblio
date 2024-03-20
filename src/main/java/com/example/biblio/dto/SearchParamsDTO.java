@@ -15,5 +15,5 @@ public class SearchParamsDTO {
     private Long publisherId;
     private String searchText;
     private Integer publishDate;
-    private Integer page;
+    private int page;
 }
