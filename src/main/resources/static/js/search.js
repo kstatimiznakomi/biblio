@@ -1,9 +1,6 @@
-
 window.onload = function () {
-    if (new URL(window.location.href).searchParams.has("searchText")){
-        $('#searchText')[0].value = new URL(window.location.href).searchParams.get("searchText")
-    }
     Params()
+    ParamsFromSearch()
 }
 $('#search-button')[0].addEventListener('click', (e) => {
     clearSearchObj()

@@ -30,6 +30,7 @@ function Params(){
 }
 
 function getContent(pageNumber){
+    console.log("im here")
     $.ajax({
         type: "GET",
         contentType: 'application/json',
@@ -39,7 +40,6 @@ function getContent(pageNumber){
         success: (response) => {
             response.content.map(function (obj){
                 setContent(obj)
-                getPages(obj)
             })
 
         },
@@ -151,6 +151,14 @@ function getAllPublishers(){
             alert(response)
         }
     });
+}
+
+function ParamsFromSearch(){
+    $('#auth')[0].value = 1;
+    $('#searchText')[0].value = new URL(window.location.href).searchParams.get("searchText")
+    $('#publishDate')[0].value = new URL(window.location.href).searchParams.get("publishDate")
+    $('#genre')[0].value = new URL(window.location.href).searchParams.get("genreId")
+    $('#publ')[0].value = new URL(window.location.href).searchParams.get("publisherId")
 }
 
 function setAuthors(obj){
