@@ -47,8 +47,11 @@ public class CatalogControllerAPI {
         return principal != null;
     }
     @GetMapping("/catalog/api/search")
-    public Page<Object> getBooksBySearch(@Lazy SearchParamsDTO searchParamsDto){
-        System.out.println(searchParamsDto);
+    public Page<Book> getBooksBySearch(SearchParamsDTO searchParamsDto){
+        if (searchParamsDto.getSearchText() != null && searchParamsDto.getPublisherId() == null
+        && searchParamsDto.getGenreId() == null && searchParamsDto.getAuthorId() == null) {
+            return bookService.getSearchBooks(1, searchParamsDto.getSearchText());
+        }
         return bookService.findAll(searchParamsDto);
     }
 }

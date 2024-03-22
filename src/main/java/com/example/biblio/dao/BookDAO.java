@@ -17,6 +17,7 @@ import java.util.List;
 @Repository
 public interface BookDAO extends JpaRepository<Book, Long>, PagingAndSortingRepository<Book, Long>{
     Page<Book> getBooksByBookNameContainsIgnoreCase(String bookName, Pageable page);
+    Book getBooksByBookNameContainsIgnoreCase(String bookName);
     Page<Book> getBooksByBookNameAndPublicDate(String bookName, Integer publicDate, Pageable page);
     BookDTO getBookById(Long bookId);
     Book getBookByBookName(String bookName);

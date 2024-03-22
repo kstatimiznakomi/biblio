@@ -16,7 +16,7 @@ public interface BookService {
     Page<Book> getAllPage(int pageNumber);
     BookDTO getBookPage(Long book);
     Page<Book> getSearchBooks(int pageNumber, String bookName);
-    Page<Object> findAll(SearchParamsDTO dto);
+    Page<Book> findAll(SearchParamsDTO dto);
     Book getBook(String bookName);
     Page<Book> getBooksByAuthor(int pageNumber, Long authorId);
 

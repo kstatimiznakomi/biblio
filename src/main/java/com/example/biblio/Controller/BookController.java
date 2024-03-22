@@ -43,7 +43,7 @@ public class BookController {
 
     @PostMapping("/adding")
     public String adding(@ModelAttribute BookParamsDTO dto, Model model, Principal principal){
-        if(principal != null && userService.getUserByName(principal.getName()).getRole().equals(UserRole.Администратор)) {
+        if(principal != null && userService.getUserByName(principal.getName()).getRole().equals(UserRole.Администратор)){
             model.addAttribute("user", userService.getUserByName(principal.getName()));
             //bookService.Create(dto);
             return "redirect:/book/add";

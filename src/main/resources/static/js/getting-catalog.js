@@ -1,11 +1,20 @@
+/////////////////////////// main
 window.onload = function () {
     let pageNumber = document.URL.substring(document.URL.lastIndexOf('/') + 1);
+    if(new URL(window.location.href).searchParams.get("searchText") !== null &&
+        new URL(window.location.href).searchParams.get("publishDate") !== null
+    ){
+        Params()
+        ParamsFromSearch()
+    }
     getContent(pageNumber);
+    getPager()
     userCheck();
 }
 
 let bookExist = true;
 let signedUser = false;
+searchObj = {}
 
 function userCheck(){
     $.ajax({
@@ -30,7 +39,6 @@ function Params(){
 }
 
 function getContent(pageNumber){
-    console.log("im here")
     $.ajax({
         type: "GET",
         contentType: 'application/json',
@@ -41,7 +49,6 @@ function getContent(pageNumber){
             response.content.map(function (obj){
                 setContent(obj)
             })
-
         },
         failure: (response) => {
             alert(response)
@@ -113,10 +120,6 @@ function getAllGenres(){
     });
 }
 
-function getPages(obj){
-
-}
-
 function getAllAuthors(){
     $.ajax({
         type: "GET",
@@ -153,14 +156,6 @@ function getAllPublishers(){
     });
 }
 
-function ParamsFromSearch(){
-    $('#auth')[0].value = 1;
-    $('#searchText')[0].value = new URL(window.location.href).searchParams.get("searchText")
-    $('#publishDate')[0].value = new URL(window.location.href).searchParams.get("publishDate")
-    $('#genre')[0].value = new URL(window.location.href).searchParams.get("genreId")
-    $('#publ')[0].value = new URL(window.location.href).searchParams.get("publisherId")
-}
-
 function setAuthors(obj){
     $('#auth').append(`
         <option value="${obj.id}"> ${obj.authorLastName} ${obj.authorName}</option>
@@ -177,4 +172,97 @@ function setPublishers(obj){
     $('#publ').append(`
         <option value="${obj.id}"> ${obj.publisherName}</option>
 `)
+}
+
+///////////////////////////////////// for search
+
+$('#search-button')[0].addEventListener('click', (e) => {
+    clearSearchObj()
+    e.preventDefault()
+    $('#search-div')[0].querySelectorAll("input").forEach(item => item.value !== "" ? searchObj[item.id] = item.value : '')
+    createUrl(searchObj)
+    history.pushState(searchObj, 'Поиск', url)
+    deleteContent()
+    search()
+})
+
+function fillParams(){
+    let url = new URL(window.location.href)
+    $('#searchText').value = url.searchParams.get("searchText")
+    $('#publishDate').value = url.searchParams.get("publishDate")
+}
+
+function ParamsFromSearch(){
+    $('#auth')[0].value = 1;
+    $('#searchText')[0].value = new URL(window.location.href).searchParams.get("searchText")
+    $('#publishDate')[0].value = new URL(window.location.href).searchParams.get("publishDate")
+    $('#genre')[0].value = new URL(window.location.href).searchParams.get("genreId")
+    $('#publ')[0].value = new URL(window.location.href).searchParams.get("publisherId")
+}
+function getPagesEmpty(response){
+    $('#pager').append(`
+    <div class="pages" align="center">
+    <span>Всего элементов: ${response.totalElements}</span>
+</div>
+    `)
+}
+
+function getPager(){
+    console.log("im here in content")
+    console.log(searchObj)
+    $.ajax({
+        type: "GET",
+        contentType: "application/json",
+        dataType: "json",
+        url: '/catalog/api/search',
+        data: searchObj,
+        success: (response)=> {
+            fillParams()
+            if (response.totalElements < 5){
+                console.log("im here")
+                getPagesEmpty(response)
+            }
+        }
+    });
+}
+function search(){
+    $.ajax({
+        type: "GET",
+        contentType: "application/json",
+        dataType: "json",
+        url: '/catalog/api/search',
+        data: searchObj,
+        success: (response)=> {
+            response.content.map(function (obj){
+                console.log("im here")
+                setContent(obj)
+            })
+            fillParams()
+            if (response.totalElements < 5){
+                getPagesEmpty(response)
+            }
+        }
+    });
+}
+let url = 'http://localhost:8080/catalog/search?'
+
+function createUrl(obj) {
+    url = 'http://localhost:8080/catalog/search?'
+    for (let item in searchObj) {
+        url += item + '=' + searchObj[item] + '&'
+    }
+    url = url.slice(0, -1)
+}
+
+function clearSearchObj() {
+    for (let item in searchObj) {
+        delete searchObj[item];
+    }
+}
+
+function deleteContent() {
+    var books = document.querySelectorAll('.book-bg');
+    books.forEach(book => {
+        book.remove()
+    })
 }
