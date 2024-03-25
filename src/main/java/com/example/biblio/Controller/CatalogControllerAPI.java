@@ -10,7 +10,9 @@ import com.example.biblio.service.*;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,7 +31,6 @@ public class CatalogControllerAPI {
     public Page<Book> getBooks(@PathVariable int pageNumber){
         return bookService.getAllPage(pageNumber);
     }
-
     @GetMapping("/author/api")
     public List<AuthorDTO> getAllAuthors(){
         return authorService.getAllAuthors();

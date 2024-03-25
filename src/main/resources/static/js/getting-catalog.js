@@ -1,15 +1,19 @@
 /////////////////////////// main
 window.onload = function () {
-    let pageNumber = document.URL.substring(document.URL.lastIndexOf('/') + 1);
-    if(new URL(window.location.href).searchParams.get("searchText") !== null &&
-        new URL(window.location.href).searchParams.get("publishDate") !== null
-    ){
-        Params()
-        ParamsFromSearch()
+    if (window.location.href.includes("page")) {
+        Params();
+        ParamsFromSearch();
+        fillParamsFromUrl();
+        search()
     }
-    getContent(pageNumber);
-    getPager()
-    userCheck();
+    else {
+        let pageNumber = document.URL.substring(document.URL.lastIndexOf('/') + 1);
+        Params();
+        getContent(pageNumber);
+        //getPager();
+        userCheck();
+    }
+
 }
 
 let bookExist = true;
@@ -179,17 +183,33 @@ function setPublishers(obj){
 $('#search-button')[0].addEventListener('click', (e) => {
     clearSearchObj()
     e.preventDefault()
-    $('#search-div')[0].querySelectorAll("input").forEach(item => item.value !== "" ? searchObj[item.id] = item.value : '')
+    fillSearchObj()
     createUrl(searchObj)
     history.pushState(searchObj, 'Поиск', url)
     deleteContent()
     search()
 })
 
+function fillSearchObj(){
+    $('#search-div')[0].querySelectorAll("input").forEach(item => item.value !== "" ? searchObj[item.id] = item.value : '')
+}
+
+function fillParamsFromUrl(){
+    clearSearchObj()
+    let url = new URLSearchParams(window.location.href)
+    let newUrl = url.toString().split('%3F')[1]
+    let rightStrUrl = '?' + newUrl
+    let correct = new URLSearchParams(rightStrUrl)
+    searchObj = Object.fromEntries(correct.entries())
+}
+
 function fillParams(){
-    let url = new URL(window.location.href)
-    $('#searchText').value = url.searchParams.get("searchText")
-    $('#publishDate').value = url.searchParams.get("publishDate")
+    let url = new URLSearchParams(window.location.href)
+    let newUrl = url.toString().split('%3F')[1]
+    let rightStrUrl = '?' + newUrl
+    let correct = new URLSearchParams(rightStrUrl)
+    $('#searchText').value = correct.get("searchText")
+    $('#publishDate').value = correct.get("publishDate")
 }
 
 function ParamsFromSearch(){
@@ -208,7 +228,22 @@ function getPagesEmpty(response){
 }
 
 function getPager(){
-    console.log("im here in content")
+    $.ajax({
+        type: "GET",
+        contentType: "application/json",
+        dataType: "json",
+        url: '/catalog/api/search',
+        data: searchObj,
+        success: (response)=> {
+            fillParams()
+            if (response.totalElements < 5){
+                getPagesEmpty(response)
+            }
+        }
+    });
+}
+
+function search() {
     console.log(searchObj)
     $.ajax({
         type: "GET",
@@ -216,29 +251,12 @@ function getPager(){
         dataType: "json",
         url: '/catalog/api/search',
         data: searchObj,
-        success: (response)=> {
-            fillParams()
-            if (response.totalElements < 5){
-                console.log("im here")
-                getPagesEmpty(response)
-            }
-        }
-    });
-}
-function search(){
-    $.ajax({
-        type: "GET",
-        contentType: "application/json",
-        dataType: "json",
-        url: '/catalog/api/search',
-        data: searchObj,
-        success: (response)=> {
-            response.content.map(function (obj){
-                console.log("im here")
+        success: (response) => {
+            response.content.map(function (obj) {
                 setContent(obj)
             })
             fillParams()
-            if (response.totalElements < 5){
+            if (response.totalElements < 5) {
                 getPagesEmpty(response)
             }
         }
