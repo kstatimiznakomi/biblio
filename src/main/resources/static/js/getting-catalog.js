@@ -252,6 +252,7 @@ function search() {
         url: '/catalog/api/search',
         data: searchObj,
         success: (response) => {
+            console.log(response)
             response.content.map(function (obj) {
                 setContent(obj)
             })

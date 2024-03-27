@@ -24,6 +24,6 @@ public class Author {
     private String authorLastName;
     private String authorName;
     private String authorSurname;
-    @OneToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<Book> books;
 }

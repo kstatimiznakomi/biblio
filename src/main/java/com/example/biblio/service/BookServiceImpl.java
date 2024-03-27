@@ -7,8 +7,6 @@ import com.example.biblio.dto.SearchParamsDTO;
 import com.example.biblio.mapper.BookMapper;
 import com.example.biblio.model.Author;
 import com.example.biblio.model.Book;
-import com.example.biblio.model.Genres;
-import com.example.biblio.model.Publisher;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.*;
@@ -16,7 +14,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -61,14 +58,18 @@ public class BookServiceImpl implements BookService{
         CriteriaQuery query = cb.createQuery();
         List<Predicate> predicates = new ArrayList<>();
         Root<Book> books = query.from(Book.class);
+        query.multiselect(
+                books.get("id"),
+                books.get("bookName"),
+                books.get("count"),
+                books.get("img")
+        );
 
         if (dto.getAuthorId() != null){
-            Root<Author> authorRoot = query.from(Author.class);
-            Join<Author, Book> authorJoin = authorRoot.join("books", JoinType.INNER);
+            Join<Book, Author> authorJoin = books.join("authors", JoinType.INNER);
             predicates.add(cb.equal(authorJoin.get("id"), dto.getAuthorId()));
-            query.select(authorJoin.get("id"));
         }
-        if (dto.getGenreId() != null){
+        /*if (dto.getGenreId() != null){
             Root<Genres> genresRoot = query.from(Genres.class);
             Join<Genres, Book> genreJoin = genresRoot.join("books", JoinType.INNER);
             predicates.add(cb.equal(genresRoot.get("id"), dto.getGenreId()));
@@ -79,13 +80,12 @@ public class BookServiceImpl implements BookService{
             Join<Publisher, Book> publisherJoin = publisherRoot.join("books", JoinType.INNER);
             predicates.add(cb.equal(publisherJoin.get("id"), dto.getPublisherId()));
             query.select(publisherJoin.get("id"));
-        }
+        }*/
 
         query.where(predicates.stream().toArray(Predicate[]::new));
         TypedQuery<Book> typedQuery = em.createQuery(query);
-        Page<Book> resultList = new PageImpl<>(typedQuery.getResultList());
-        //Page<Book> res = new PageImpl<>(bookDAO.getBookByBookName(typedQuery.getParameter("content").getName()));
-        return resultList;
+        List<Book> resultList = typedQuery.getResultList();
+        return new PageImpl<>(resultList);
                 //bookDAO.getBooksByBookNameContainsIgnoreCase(dto.getSearchText(), pageService.getPage(dto.getPage()));
         /*return paramsDAO.findAll((Root<Book> root, CriteriaQuery<?> query, CriteriaBuilder cb) -> {
             List<Predicate> predicates = new ArrayList<>();
