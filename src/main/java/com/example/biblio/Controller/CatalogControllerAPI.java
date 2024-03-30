@@ -10,6 +10,7 @@ import com.example.biblio.service.*;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -53,6 +54,6 @@ public class CatalogControllerAPI {
         && searchParamsDto.getGenreId() == null && searchParamsDto.getAuthorId() == null) {
             return bookService.getSearchBooks(1, searchParamsDto.getSearchText());
         }
-        return bookService.findAll(searchParamsDto);
+        return new PageImpl<>(bookService.findAll(searchParamsDto).getContent());
     }
 }

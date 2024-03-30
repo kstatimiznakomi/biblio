@@ -1,7 +1,7 @@
 <template>
   <section class = "head sticky-top">
     <header class="header justify-content-between">
-      <a href="#"><img src="https://i.postimg.cc/9FpWWbkr/rd-lib.png" height="40" width="40"></a>
+      <RouterLink to="/" /><img src="https://i.postimg.cc/9FpWWbkr/rd-lib.png" height="40" width="40"/>
       <nav>
         <ul class = "menu">
           <li><RouterLink to="/"/>Главная</li>
@@ -11,12 +11,8 @@
         </ul>
       </nav>
       <div class = "btn__menu">
-        <span th:text="${user.username}"></span>
-        <a th:href="@{/logout}">Выйти</a>
       </div>
       <div class = "btn__menu">
-        <a th:href="@{/login}">Войти</a>
-        <a th:href="@{/register}" style = "margin-left: 0px; margin-right: 0px;">Регистрация</a>
       </div>
     </header>
   </section>
@@ -27,5 +23,5 @@
 </script>
 
 <style scoped>
-
+@import '@/assets/biblio.css';
 </style>

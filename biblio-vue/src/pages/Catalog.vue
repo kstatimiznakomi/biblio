@@ -1,27 +1,17 @@
 <template>
-  <div>
-    <Header />
-  </div>
-  <section class="flex-container justify-content-between">
-    <div class="criteria">
-      <div id="search-div">
-
-      </div>
-    </div>
-  </section>
-
-  <section class="flex-container">
-    <div id="content">
-
-    </div>
-  </section>
+  <Header />
+  <Criteries />
+  <Content />
   <div id="pager"></div>
 </template>
 
 <script setup>
-import Header from '@/components/Header.vue';
+import Header from '../components/Header.vue';
+import Criteries from "../components/Criteries.vue";
+import Content from "../components/Content.vue";
+
 </script>
 
 <style scoped>
-
+@import '../assets/biblio.css';
 </style>

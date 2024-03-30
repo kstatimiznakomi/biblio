@@ -1,8 +1,8 @@
 select
     b1_0.id,
     b1_0.book_name,
-    b1_0.count,
-    b1_0.img
+    b1_0.img,
+    b1_0.count
 from
     book b1_0
         join

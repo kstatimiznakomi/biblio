@@ -1,13 +1,12 @@
 select
-    book.id,
-    book.book_name,
-    book.count
+    b1_0.id,
+    b1_0.book_name,
+    b1_0.count,
+    b1_0.description,
+    b1_0.img,
+    b1_0.isbn,
+    b1_0.public_date
 from
-    book
-         join
-    author_books b2_0
-    on book.id=b2_0.books_id
-         join
-    author b_3
-    on b_3.id = b2_0.authors_id
-where b_3.id = 2
+    book b1_0
+where
+        upper(b1_0.book_name) like upper('%капит%') escape '\'
