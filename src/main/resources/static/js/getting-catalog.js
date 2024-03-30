@@ -1,6 +1,7 @@
 /////////////////////////// main
 window.onload = function () {
     if (window.location.href.includes("page")) {
+        getPager();
         Params();
         ParamsFromSearch();
         fillParamsFromUrl();
@@ -244,7 +245,6 @@ function getPager(){
 }
 
 function search() {
-    console.log(searchObj)
     $.ajax({
         type: "GET",
         contentType: "application/json",
@@ -252,11 +252,11 @@ function search() {
         url: '/catalog/api/search',
         data: searchObj,
         success: (response) => {
-            console.log(response)
             response.content.map(function (obj) {
                 setContent(obj)
             })
             fillParams()
+            deletePager()
             if (response.totalElements < 5) {
                 getPagesEmpty(response)
             }
@@ -277,6 +277,13 @@ function clearSearchObj() {
     for (let item in searchObj) {
         delete searchObj[item];
     }
+}
+
+function deletePager() {
+    var pages = document.querySelectorAll('.pages');
+    pages.forEach(page => {
+        page.remove()
+    })
 }
 
 function deleteContent() {
