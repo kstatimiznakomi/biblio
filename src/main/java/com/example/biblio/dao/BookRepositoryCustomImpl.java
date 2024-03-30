@@ -3,6 +3,7 @@ package com.example.biblio.dao;
 import com.example.biblio.dto.SearchParamsDTO;
 import com.example.biblio.model.Author;
 import com.example.biblio.model.Book;
+import com.example.biblio.model.Genres;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
@@ -28,6 +29,10 @@ public class BookRepositoryCustomImpl implements BookRepositoryCustom{
         if (dto.getAuthorId() != null){
             Join<Book, Author> authorJoin = books.join("authors", JoinType.INNER);
             predicates.add(cb.equal(authorJoin.get("id"), dto.getAuthorId()));
+        }
+        if (dto.getGenreId() != null){
+            Join<Book, Genres> genresJoin = books.join("genres", JoinType.INNER);
+            predicates.add(cb.equal(genresJoin.get("id"), dto.getGenreId()));
         }
         query.select(books).
                 where(predicates.toArray(new Predicate[predicates.size()]));

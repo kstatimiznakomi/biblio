@@ -56,32 +56,7 @@ public class BookServiceImpl implements BookService{
 
     @Override
     public Page<Book> findAll(SearchParamsDTO dto) {
-
-        /*if (dto.getGenreId() != null){
-            Root<Genres> genresRoot = query.from(Genres.class);
-            Join<Genres, Book> genreJoin = genresRoot.join("books", JoinType.INNER);
-            predicates.add(cb.equal(genresRoot.get("id"), dto.getGenreId()));
-            query.select(genreJoin.get("id"));
-        }
-        if (dto.getPublisherId() != null){
-            Root<Publisher> publisherRoot = query.from(Publisher.class);
-            Join<Publisher, Book> publisherJoin = publisherRoot.join("books", JoinType.INNER);
-            predicates.add(cb.equal(publisherJoin.get("id"), dto.getPublisherId()));
-            query.select(publisherJoin.get("id"));
-        }*/
-
         return bookDAO.getBooksByCriteries(dto);
-                //bookDAO.getBooksByBookNameContainsIgnoreCase(dto.getSearchText(), pageService.getPage(dto.getPage()));
-        /*return paramsDAO.findAll((Root<Book> root, CriteriaQuery<?> query, CriteriaBuilder cb) -> {
-            List<Predicate> predicates = new ArrayList<>();
-            predicates.add(cb.equal(root.get("authorId").as(String.class), "%"+dto.getAuthorId() + "%"));
-            predicates.add(cb.equal(root.get("genreId").as(String.class), "%"+dto.getGenreId() + "%"));
-            predicates.add(cb.equal(root.get("publisherId").as(String.class), "%"+dto.getPublisherId() + "%"));
-            predicates.add(cb.like(root.get("searchText").as(String.class), "%"+dto.getSearchText() + "%"));
-            predicates.add(cb.equal(root.get("publishDate").as(String.class), "%"+dto.getPublishDate() + "%"));
-            predicates.add(cb.equal(root.get("page").as(String.class), "%"+dto.getPage() + "%"));
-            return query.where(predicates.toArray(new Predicate[predicates.size()])).getRestriction();
-        }, pageService.getPage(dto.getPage()));*/
     }
 
     @Override

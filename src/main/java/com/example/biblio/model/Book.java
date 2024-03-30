@@ -28,4 +28,7 @@ public class Book {
     @ManyToMany(mappedBy = "books", fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Author> authors;
+    @ManyToMany(mappedBy = "books", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Genres> genres;
 }

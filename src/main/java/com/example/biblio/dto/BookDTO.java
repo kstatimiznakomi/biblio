@@ -2,6 +2,7 @@ package com.example.biblio.dto;
 
 import com.example.biblio.model.Author;
 import com.example.biblio.model.Book;
+import com.example.biblio.model.Genres;
 import com.example.biblio.model.Publisher;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
@@ -25,4 +26,5 @@ public class BookDTO {
     private String isbn;
     private Integer publicDate;
     private List<Author> authors;
+    private List<Genres> genres;
 }
