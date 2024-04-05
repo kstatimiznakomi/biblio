@@ -25,6 +25,7 @@ import java.util.List;
 public class CatalogControllerAPI {
     @Lazy
     private final BookService bookService;
+    @Lazy
     private final AuthorService authorService;
     private final GenreService genreService;
     private final PublisherService publisherService;

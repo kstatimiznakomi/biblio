@@ -17,9 +17,7 @@ public interface JournalNotesService {
     public List<JournalNotes> getAllByTicket(ReaderTicket ticket);
     List<Book> booksByUser(ReaderTicket ticket);
     void Create(Book book, User user);
-
     List<JournalNotes> getReadBooks(Principal principal);
-
     void Save(Principal principal, Long bookId);
     void CompletePrincipal(Principal principal, Long bookId);
     void CompleteNote(List<JournalNotes> notes);

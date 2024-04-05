@@ -24,8 +24,7 @@ public class JournalNotes {
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     private ReaderTicket readerTicket;
-    @OneToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
+    @OneToOne(fetch = FetchType.EAGER)
     private Book book;
     @Enumerated(EnumType.STRING)
     private NoteStatus status;

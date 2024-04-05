@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,9 +17,12 @@ import java.util.List;
 @AllArgsConstructor
 @Lazy
 public class JournalNotesServiceImpl implements JournalNotesService{
+    @Lazy
     private final JournalNotesDAO dao;
+    @Lazy
     private final UserService userService;
     private final ReaderTicketService ticketService;
+    @Lazy
     private final BookService bookService;
     private final PageService pageService;
 
@@ -86,6 +90,8 @@ public class JournalNotesServiceImpl implements JournalNotesService{
     public void Create(Book book, User user){
         JournalNotes note = JournalNotes.builder()
                 .book(book)
+                .dateTake(LocalDateTime.now())
+                .dateReturn(LocalDateTime.now().plusMonths(1))
                 .readerTicket(
                         ticketService.getTicketByUser(user)
                 )
@@ -112,12 +118,6 @@ public class JournalNotesServiceImpl implements JournalNotesService{
                 userService.getUserByName(principal.getName()),
                 bookService.findBookByIdModel(bookId)
         )) {
-            Create(
-                    bookService.findBookByIdModel(bookId),
-                    userService.getUserByName(principal.getName())
-            );
-            bookService.decreaseCountOfBook(bookId, 1);
-        } else {
             Create(
                     bookService.findBookByIdModel(bookId),
                     userService.getUserByName(principal.getName())

@@ -9,6 +9,5 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class BiblioApplication {
     public static void main(String[] args) {
         SpringApplication.run(BiblioApplication.class, args);
-
     }
 }

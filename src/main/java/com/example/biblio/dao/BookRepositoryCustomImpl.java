@@ -32,7 +32,6 @@ public class BookRepositoryCustomImpl implements BookRepositoryCustom{
         for (int i = 1; i < dto.getPage(); i++){
             start += pageSize;
         }
-        System.out.println("start = " + start);
 
         if (dto.getAuthorId() != null){
             Join<Book, Author> authorJoin = books.join("authors", JoinType.INNER);

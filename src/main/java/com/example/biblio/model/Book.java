@@ -31,7 +31,7 @@ public class Book {
     @ManyToMany(mappedBy = "books", fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Genres> genres;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     private Publisher publisher;
 }

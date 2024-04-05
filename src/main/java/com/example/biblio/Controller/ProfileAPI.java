@@ -1,5 +1,6 @@
 package com.example.biblio.Controller;
 
+import com.example.biblio.model.Book;
 import com.example.biblio.model.JournalNotes;
 import com.example.biblio.model.User;
 import com.example.biblio.service.JournalNotesService;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -23,8 +25,6 @@ public class ProfileAPI {
 
     @GetMapping("/profile/get-notes")
     public List<JournalNotes> notes (Principal principal){
-        List<JournalNotes> notes = notesService.getReadBooks(principal);
-        System.out.println(notes);
-        return notes;
+        return notesService.getReadBooks(principal);
     }
 }

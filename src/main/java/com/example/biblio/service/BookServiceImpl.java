@@ -6,20 +6,13 @@ import com.example.biblio.dto.BookParamsDTO;
 import com.example.biblio.dto.SearchParamsDTO;
 import com.example.biblio.mapper.BookMapper;
 import com.example.biblio.model.Book;
-import jakarta.persistence.EntityManager;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 
 @Service
-@AllArgsConstructor
 public class BookServiceImpl implements BookService{
     @Lazy
     private final BookDAO bookDAO;
@@ -29,6 +22,14 @@ public class BookServiceImpl implements BookService{
     private final AuthorService authorService;
     private final PublisherService publisherService;
     private final GenreService genreService;
+
+    public BookServiceImpl(BookDAO bookDAO, PageService pageService, @Lazy AuthorService authorService, PublisherService publisherService, GenreService genreService) {
+        this.bookDAO = bookDAO;
+        this.pageService = pageService;
+        this.authorService = authorService;
+        this.publisherService = publisherService;
+        this.genreService = genreService;
+    }
 
     @Override
     public Page<Book> getAllPage(int pageNumber) {

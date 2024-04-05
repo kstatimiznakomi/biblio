@@ -63,10 +63,18 @@
     display: flex;
 }
 
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
 
 .prof-bg{
-    width: 1443px;
-    height: 820px;
+    width: 1425px;
+    height: 813px;
     background-color: #9ca1ff;
     display: flex;
     justify-content: center;
@@ -436,6 +444,10 @@ a:hover{
     padding-top: 24px;
     background-color: teal;
     border-radius: 11px;
+}
+
+.user-data{
+    background-color: #ffb016;
 }
 
 .book li {
