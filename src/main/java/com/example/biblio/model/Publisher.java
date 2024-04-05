@@ -24,6 +24,6 @@ public class Publisher {
     private String publisherName;
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Author> authors;
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "publisher")
     private List<Book> books;
 }

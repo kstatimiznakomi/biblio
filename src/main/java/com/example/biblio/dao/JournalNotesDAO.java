@@ -14,6 +14,5 @@ public interface JournalNotesDAO extends JpaRepository<JournalNotes, Long>, Pagi
     Page<JournalNotes> getJournalNotesByReaderTicket(ReaderTicket ticket, Pageable page);
     JournalNotes getJournalNotesByReaderTicketAndBook(ReaderTicket ticket, Book book);
     List<JournalNotes> getJournalNotesByReaderTicket(ReaderTicket ticket);
-    List<JournalNotes> getJournalNotesByReserve(Reserve reserve);
     List<JournalNotes> getJournalNotesByReaderTicketAndStatusLike(ReaderTicket ticket, NoteStatus status);
 }

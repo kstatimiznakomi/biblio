@@ -1,7 +1,9 @@
 /////////////////////////// main
 window.onload = function () {
     if (window.location.href.includes("page")) {
-        getPager();
+        //if (!hasEmptyParams()) window.location.replace("http://localhost:8080/catalog/1")
+
+        getPagerSearch();
         Params();
         ParamsFromSearch();
         fillParamsFromUrl();
@@ -11,7 +13,6 @@ window.onload = function () {
         let pageNumber = document.URL.substring(document.URL.lastIndexOf('/') + 1);
         Params();
         getContent(pageNumber);
-        //getPager();
         userCheck();
     }
 
@@ -54,14 +55,12 @@ function getContent(pageNumber){
             response.content.map(function (obj){
                 setContent(obj)
             })
+            getMainPager(response)
         },
         failure: (response) => {
             alert(response)
         }
     });
-    getAllAuthors();
-    getAllGenres();
-    getAllPublishers();
 }
 
 function setContent(obj){
@@ -179,9 +178,18 @@ function setPublishers(obj){
 `)
 }
 
+function hasEmptyParams(){
+    return window.location.href.includes("bookName") === false &&
+        window.location.href.includes("publisherId") === false &&
+        window.location.href.includes("authorId") === false &&
+        window.location.href.includes("genreId") === false &&
+        window.location.href.includes("publicDate") === false
+}
+
 ///////////////////////////////////// for search
 
 $('#search-button')[0].addEventListener('click', (e) => {
+    //if (!hasEmptyParams()) window.location.replace("http://localhost:8080/catalog/1")
     clearSearchObj()
     e.preventDefault()
     fillSearchObj()
@@ -228,7 +236,23 @@ function getPagesEmpty(response){
     `)
 }
 
-function getPager(){
+function getMainPager(response){
+    $('#pager').append(`
+    <div class="pages" align="center">
+    <span>Всего элементов: ${response.totalElements} - Страница ${response.number + 1} из ${response.totalPages} </span>
+    &nbsp;
+    <div>
+        <ul class="paging justify-content-center">
+            <li>
+            
+            </li>
+        </ul>
+    </div>
+</div>
+    `)
+}
+
+function getPagerSearch(){
     $.ajax({
         type: "GET",
         contentType: "application/json",

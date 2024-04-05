@@ -142,6 +142,7 @@
     height: 100%;
     width: 100%;
     min-width: 1500px;
+    margin-bottom: 10px;
 }
 
 .separator{
@@ -400,7 +401,7 @@ ul{
     height: auto;
     flex-shrink: 0;
     border-radius: 11px;
-    background: #9ca1ff;
+    background: transparent;
     margin: 14px auto;
     list-style: none;
 }
@@ -429,7 +430,7 @@ a:hover{
 }
 
 .book {
-    width: 1412px;
+    width: 1460px;
     display: flex;
     margin: 0 auto;
     padding-top: 24px;
