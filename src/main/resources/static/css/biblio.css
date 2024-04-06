@@ -72,6 +72,45 @@
     user-select: none;
 }
 
+.cover{
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: #434343;
+    opacity: 0.7;
+    animation: ani 0.5s forwards;
+}
+
+@keyframes ani {
+    0% {opacity: 0;}
+    70% {opacity: 70%;}
+}
+
+@keyframes aniClose {
+    70% {opacity: 70;}
+    0% {opacity: 0;}
+}
+
+.cover-content-fill{
+    background-image: url("https://media1.tenor.com/m/B-dneC0C6bUAAAAC/study-book.gif");
+    background-repeat: no-repeat;
+    z-index: 21;
+    width: 500px;
+    height: 500px;
+    margin: auto;
+    animation: ani 0.5s forwards;
+}
+
+.cover-content{
+    width: 100%;
+    height: 100%;
+    z-index: 20;
+    position: fixed;
+    display: flex;
+    animation: ani 0.5s forwards;
+}
+
 .prof-bg{
     width: 1425px;
     height: 813px;

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 @AllArgsConstructor
@@ -50,7 +51,7 @@ public class CatalogControllerAPI {
         return principal != null;
     }
     @GetMapping("/catalog/api/search")
-    public Page<Book> getBooksBySearch(SearchParamsDTO searchParamsDto){
+    public Page<Book> getBooksBySearch(SearchParamsDTO searchParamsDto) throws InterruptedException {
         if (searchParamsDto.getSearchText() != null && searchParamsDto.getPublisherId() == null
         && searchParamsDto.getGenreId() == null && searchParamsDto.getAuthorId() == null) {
             return bookService.getSearchBooks(1, searchParamsDto.getSearchText());

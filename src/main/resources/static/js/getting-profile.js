@@ -45,19 +45,19 @@ function setBooks(data) {
 
 function setUser(data) {
     $('#info-details').append(`
-                    <hr class="info-details-hr noselect">
-                    <span class="user-dtls noselect">${data.lastname}</span>
-                    <hr class="info-details-hr noselect">
-                    <span class="user-dtls noselect">${data.name}</span>
-                    <hr class="info-details-hr noselect">
-                    <span class="user-dtls noselect">${data.surname}</span>
-                    <hr class="info-details-hr noselect">
-                    <span class="user-dtls noselect">${data.username}</span>
-                    <hr class="info-details-hr noselect">
-                    <span class="user-dtls noselect">${data.email}</span>
-                    <hr class="info-details-hr noselect">
-                    <span class="user-dtls noselect">${data.phone}</span>
-                    <hr class="info-details-hr noselect">
+                    <hr class="info-details-hr">
+                    <span class="user-dtls">${data.lastname}</span>
+                    <hr class="info-details-hr">
+                    <span class="user-dtls ">${data.name}</span>
+                    <hr class="info-details-hr">
+                    <span class="user-dtls">${data.surname}</span>
+                    <hr class="info-details-hr">
+                    <span class="user-dtls">${data.username}</span>
+                    <hr class="info-details-hr">
+                    <span class="user-dtls ">${data.email}</span>
+                    <hr class="info-details-hr">
+                    <span class="user-dtls">${data.phone}</span>
+                    <hr class="info-details-hr">
     `)
 }
 

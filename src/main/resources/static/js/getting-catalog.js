@@ -244,7 +244,7 @@ function getMainPager(response){
     <div>
         <ul class="paging justify-content-center">
             <li>
-            
+                
             </li>
         </ul>
     </div>
@@ -269,6 +269,11 @@ function getPagerSearch(){
 }
 
 function search() {
+    cover()
+    // preloader
+    // paginator
+    // login
+
     $.ajax({
         type: "GET",
         contentType: "application/json",
@@ -278,7 +283,9 @@ function search() {
         success: (response) => {
             response.content.map(function (obj) {
                 setContent(obj)
+
             })
+            removeCover()
             fillParams()
             deletePager()
             if (response.totalElements < 5) {
@@ -286,6 +293,7 @@ function search() {
             }
         }
     });
+
 }
 let url = 'http://localhost:8080/catalog/search?'
 
