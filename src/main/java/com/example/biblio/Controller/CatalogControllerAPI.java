@@ -56,6 +56,7 @@ public class CatalogControllerAPI {
         && searchParamsDto.getGenreId() == null && searchParamsDto.getAuthorId() == null) {
             return bookService.getSearchBooks(1, searchParamsDto.getSearchText());
         }
+        TimeUnit.SECONDS.sleep(2);
         return new PageImpl<>(bookService.findAll(searchParamsDto).getContent());
     }
 }

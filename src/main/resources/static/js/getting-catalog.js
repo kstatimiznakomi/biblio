@@ -8,12 +8,12 @@ window.onload = function () {
         ParamsFromSearch();
         fillParamsFromUrl();
         search()
+
     }
     else {
         let pageNumber = document.URL.substring(document.URL.lastIndexOf('/') + 1);
         Params();
         getContent(pageNumber);
-        userCheck();
     }
 
 }
@@ -45,6 +45,7 @@ function Params(){
 }
 
 function getContent(pageNumber){
+    userCheck();
     $.ajax({
         type: "GET",
         contentType: 'application/json',
@@ -237,19 +238,20 @@ function getPagesEmpty(response){
 }
 
 function getMainPager(response){
+    console.log("im here")
     $('#pager').append(`
     <div class="pages" align="center">
-    <span>Всего элементов: ${response.totalElements} - Страница ${response.number + 1} из ${response.totalPages} </span>
+    <span>Всего элементов: ${response.totalElements} - Страница ${response.number + 1} из ${response.totalPages}</span>
     &nbsp;
     <div>
         <ul class="paging justify-content-center">
-            <li>
-                
-            </li>
+            
         </ul>
     </div>
 </div>
     `)
+    //document.querySelector('.paging').append(getPages(response.number + 1, response.totalPages))
+    document.querySelector('.paging').innerHTML += getPagesCatalog(response.number + 1, response.totalPages)
 }
 
 function getPagerSearch(){
@@ -260,6 +262,7 @@ function getPagerSearch(){
         url: '/catalog/api/search',
         data: searchObj,
         success: (response)=> {
+            getMainPager(response)
             fillParams()
             if (response.totalElements < 5){
                 getPagesEmpty(response)
@@ -269,6 +272,7 @@ function getPagerSearch(){
 }
 
 function search() {
+    userCheck()
     cover()
     // preloader
     // paginator
@@ -291,6 +295,7 @@ function search() {
             if (response.totalElements < 5) {
                 getPagesEmpty(response)
             }
+            else getMainPager(response)
         }
     });
 
