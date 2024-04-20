@@ -12,12 +12,10 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.security.core.parameters.P;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -29,8 +27,10 @@ public class CatalogControllerAPI {
     @Lazy
     private final AuthorService authorService;
     private final GenreService genreService;
+    private final PageService pageService;
     private final PublisherService publisherService;
     @GetMapping("/catalog/api/{pageNumber}")
+    @CrossOrigin
     public Page<Book> getBooks(@PathVariable int pageNumber){
         return bookService.getAllPage(pageNumber);
     }
@@ -52,11 +52,8 @@ public class CatalogControllerAPI {
     }
     @GetMapping("/catalog/api/search")
     public Page<Book> getBooksBySearch(SearchParamsDTO searchParamsDto) throws InterruptedException {
-        if (searchParamsDto.getSearchText() != null && searchParamsDto.getPublisherId() == null
-        && searchParamsDto.getGenreId() == null && searchParamsDto.getAuthorId() == null) {
-            return bookService.getSearchBooks(1, searchParamsDto.getSearchText());
-        }
-        TimeUnit.SECONDS.sleep(2);
-        return new PageImpl<>(bookService.findAll(searchParamsDto).getContent());
+        TimeUnit.SECONDS.sleep(1);
+        System.out.println("page " + searchParamsDto.getPage());
+        return bookService.findAll(searchParamsDto, pageService.getPage(searchParamsDto.getPage()));
     }
 }

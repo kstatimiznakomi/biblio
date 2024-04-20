@@ -72,6 +72,28 @@
     user-select: none;
 }
 
+.book:hover{
+    transform: translateY(-5px);
+    box-shadow: 0px 3px 20px #1D1D1D;
+    animation: book 0.1s ease-in;
+    transition-property: height;
+}
+
+.transition-all{
+    transition: all .1s ease-in;
+}
+
+@keyframes book {
+    0% {
+        transform: translateY(0);
+        box-shadow: 0px 0px 0px #1D1D1D;
+    }
+    90% {
+        transform: translateY(-5px);
+        box-shadow: 0px 3px 20px #1D1D1D;
+    }
+}
+
 .cover{
     z-index: 10;
     width: 100%;
@@ -93,7 +115,7 @@
 }
 
 .cover-content-fill{
-    background-image: url("https://media1.tenor.com/m/B-dneC0C6bUAAAAC/study-book.gif");
+    background-image: url("/image/tenor.gif");
     background-repeat: no-repeat;
     z-index: 21;
     width: 500px;
@@ -109,6 +131,10 @@
     position: fixed;
     display: flex;
     animation: ani 0.5s forwards;
+}
+
+.content{
+    display: grid;
 }
 
 .prof-bg{
@@ -184,8 +210,9 @@
     height: 2px;
 }
 
+
+
 .pages{
-    margin-top: 10px;
     height: 100%;
     width: 100%;
     min-width: 1500px;
@@ -220,8 +247,8 @@ body
 }
 
 #search-button{
-    height: 30px;
     width: 55px;
+    height: 40px;
     background-color: rgb(255, 255, 255);
     border-radius: 15px;
     border-width: inherit;
@@ -297,8 +324,7 @@ li{
 }
 
 .criteria {
-    width: 1460px;
-    height: 140px;
+    max-width: inherit;
     flex-shrink: 0;
     border-radius: 11px;
     background-color: teal;
@@ -307,12 +333,13 @@ li{
 }
 
 .bar {
-    width: 1460px;
     display: flex;
 }
 
 .combo {
-padding: 20px 0px;
+    padding: 20px;
+    min-width: 960px;
+    padding: 10px 5px;
 }
 .combo ul {
     width: 1460px;
@@ -344,8 +371,6 @@ padding: 20px 0px;
     border-radius: 14px;
     width: fit-content;
     height: 40px;
-    margin: 21px 74px;
-    background: #ffffff;
 }
 
 input{
@@ -391,6 +416,7 @@ select{
     display: flex;
     padding-left: 0;
     list-style: none;
+    flex-direction: row;
 }
 
 .res-book-bg{
@@ -410,12 +436,11 @@ select{
 
 .page-digits-bg-link{
     color: #0064ff;
-    background-color: #f5f5f5;
+    background-color: #e8e8e8;
     font-family: Inter;
     text-decoration: none;
     border-radius: 5px;
-    margin-right: 10px;
-    margin-bottom: 15px;
+    margin-left: 10px;
     padding: 10px;
 }
 .page-digits-bg-link:hover{
@@ -423,10 +448,9 @@ select{
 }
 .page-digits-span{
     color: #000000;
-    background-color: #f5f5f5;
+    background-color: #d1d1d1;
+    margin-left: 10px;
     border-radius: 5px;
-    margin-right: 10px;
-    margin-bottom: 15px;
     padding: 10px;
 }
 
@@ -444,7 +468,6 @@ ul{
 }
 
 .book-bg {
-    width: 1460px;
     height: auto;
     flex-shrink: 0;
     border-radius: 11px;
@@ -458,9 +481,7 @@ ul{
 }
 
 .book-img{
-    width: 269px;
-    height: 390px;
-    margin-right: 25px;
+    height: 306px;
     border-radius: 14px;
 }
 
@@ -473,14 +494,13 @@ a:hover{
 }
 
 .book-nm{
-
+    height: 157px;
 }
 
 .book {
-    width: 1460px;
     display: flex;
     margin: 0 auto;
-    padding-top: 24px;
+    padding: 18px;
     background-color: teal;
     border-radius: 11px;
 }
@@ -490,9 +510,7 @@ a:hover{
 }
 
 .book li {
-    width: 1058px;
     border-radius: 14px;
-    margin: 0px 24px 24px 0px;
     background: #ebfbff;
     align-items: center;
 }
@@ -535,7 +553,7 @@ a:hover{
     font-weight: 400;
     line-height: normal;
     border-radius: 14px;
-    padding: 16px 111px;
+    padding: 16px 47px;
     display: inline-block;
     background: #fff0a4;
 }
@@ -548,10 +566,9 @@ a:hover{
     font-weight: 400;
     line-height: normal;
     border-radius: 14px;
-    padding: 16px 111px;
-    display: inline-block;
+    padding: 16px 47px;
     background: #979797;
-    margin: auto;
+    margin: 8px 0px;
 }
 
 .select-for-book{
@@ -572,8 +589,7 @@ a:hover{
 }
 
 .name-book,.description-book{
-    padding-left: 42px;
-    display: grid;
+    padding: 1px 18px;
 }
 
 select{
@@ -581,18 +597,15 @@ select{
     border-radius: 15px;
     background-color: white;
     height: 45px;
-    margin-left: 74px !important;
-    margin-right: 35px !important;
     width: 261.28px;
     border-width: 0;
 }
 
 .input-date{
     padding: 5px;
-    margin-left: 5px;
     border-radius: 14px;
     border-width: inherit;
-    height: 42px;
+    height: 45px;
 }
 
 nav{

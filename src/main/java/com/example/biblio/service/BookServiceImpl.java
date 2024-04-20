@@ -9,6 +9,7 @@ import com.example.biblio.model.Book;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 
@@ -45,10 +46,6 @@ public class BookServiceImpl implements BookService{
 
     @Override
     public Page<Book> getSearchBooks(int pageNumber, String bookName){
-        System.out.println(bookDAO.getBooksByBookNameContainsIgnoreCase(
-                bookName,
-                pageService.getPage(pageNumber)
-        ));
         return bookDAO.getBooksByBookNameContainsIgnoreCase(
                 bookName,
                 pageService.getPage(pageNumber)
@@ -56,8 +53,8 @@ public class BookServiceImpl implements BookService{
     }
 
     @Override
-    public Page<Book> findAll(SearchParamsDTO dto) {
-        return bookDAO.getBooksByCriteries(dto);
+    public Page<Book> findAll(SearchParamsDTO dto, Pageable pageable) {
+        return bookDAO.getBooksByCriteries(dto, pageable);
     }
 
     @Override

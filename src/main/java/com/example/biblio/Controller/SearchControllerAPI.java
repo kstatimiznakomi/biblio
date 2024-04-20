@@ -16,7 +16,6 @@ public class SearchControllerAPI {
 
     @GetMapping(value = "/search", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Page<Book> getBooksBySearch(SearchParamsDTO searchParamsDto){
-        System.out.println(searchParamsDto);
         return bookService.getAllPage(searchParamsDto.getPage());
     }
 }

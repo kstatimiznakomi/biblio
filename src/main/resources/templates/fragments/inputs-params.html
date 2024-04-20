@@ -1,26 +1,29 @@
 <div class = "bar">
-    <ul class = "combo" style = "width: 1460px;height: 60px;" th:fragment="params">
-        <input type="hidden" name="page" value="1" id="page">
-        <select id="auth">
-            <option value="0">Авторы</option>
-        </select>
-        <input type="hidden" name="authorId" id="authorId">
+    <div class = "w-100 d-flex flex-column combo container" th:fragment="params">
+        <div class="d-flex justify-content-between">
+            <input type="hidden" name="page" value="1" id="page">
+            <select id="auth">
+                <option value="0">Авторы</option>
+            </select>
+            <input type="hidden" name="authorId" id="authorId">
 
-        <select id="genre">
-            <option value="0">Жанры</option>
-        </select>
-        <input type="hidden" name="genreId" id="genreId">
+            <select id="genre">
+                <option value="0">Жанры</option>
+            </select>
+            <input type="hidden" name="genreId" id="genreId">
 
-        <select id="publ">
-            <option value="0">Издатели</option>
-        </select>
-        <input type="hidden" name="publisherId" id="publisherId">
-        <input class="input-date" type="number" name="publishDate" id="publishDate" placeholder="Дата" style="padding: 11px 11px">
-        <div class="search" th:fragment="search-params">
+            <select id="publ">
+                <option value="0">Издатели</option>
+            </select>
+            <input type="hidden" name="publisherId" id="publisherId">
+            <input class="input-date" type="number" name="publishDate" id="publishDate" placeholder="Дата" style="padding: 11px 11px">
+
+        </div>
+        <div class="search mt-3 d-flex justify-content-between align-items-center" th:fragment="search-params">
             <input id="searchText" placeholder="Введите наименование книги" class="search-input" type="text">
             <button id="search-button">
                 <img height="15px" width="15px" src="https://i.postimg.cc/k405b5NG/search-interface-symbol.png">
             </button>
         </div>
-    </ul>
+    </div>
 </div>

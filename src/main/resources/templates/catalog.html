@@ -15,21 +15,18 @@
 
 <div id="cover"></div>
 <div th:replace="~{fragments/header-fragment :: nav-menu}"></div>
-<section class="flex-container justify-content-between">
+<section class="container d-flex justify-content-between">
     <div class="criteria">
         <div id="search-div">
             <div th:replace="~{fragments/inputs-params}"></div>
-            <div th:replace="~{fragments/search-input-fragment}"></div>
         </div>
     </div>
 </section>
 
-<section class="flex-container">
-    <div id="content">
-
-    </div>
+<section class="container">
+    <div id="content" class="row"></div>
 </section>
-<div id="pager" ></div>
+<div id="pager"></div>
 </body>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

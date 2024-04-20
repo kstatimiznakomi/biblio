@@ -1,21 +1,16 @@
 /////////////////////////// main
 window.onload = function () {
     if (window.location.href.includes("page")) {
-        //if (!hasEmptyParams()) window.location.replace("http://localhost:8080/catalog/1")
-
-        getPagerSearch();
         Params();
         ParamsFromSearch();
         fillParamsFromUrl();
         search()
-
     }
     else {
         let pageNumber = document.URL.substring(document.URL.lastIndexOf('/') + 1);
         Params();
         getContent(pageNumber);
     }
-
 }
 
 let bookExist = true;
@@ -67,12 +62,14 @@ function getContent(pageNumber){
 function setContent(obj){
     obj.count > 0 ? bookExist = true : bookExist = false;
     $('#content').append(`
-    <div class="book-bg">
-        <ul class="book" style="margin-left: 0px; margin-right: 0px;">
-            <img class="book-img" src="${obj.img}">
+    <div class="book-bg mt-2 col-3 transition-all">
+        <ul class="book transition-all" style="margin-left: 0px; margin-right: 0px;">
             <li style="margin-right: 0px;">
                 <div class="name-book">
-                    <a href="book/${obj.id}">${obj.bookName}</a>
+                    <img class="book-img mt-3" src="${obj.img}">
+                    <div class="col-11 overflow-hidden book-nm">
+                        <a href="book/${obj.id}">${obj.bookName}</a>
+                    </div>
                     <span>Количество: ${obj.count}</span>
                 ${signedUser === true ? 
                         bookExist === true ? reserveOpen(obj) : reserveBooksNull()
@@ -86,7 +83,7 @@ function setContent(obj){
 function reserveOpen(obj){
     return `
     <div class="btn-book">
-        <a href="/books/add/${obj.id}" class="btn__menu">Забронировать</a>
+        <a href="/books/add/${obj.id}" class="btn__menu mb-3">Забронировать</a>
     </div>
     `;
 }
@@ -101,7 +98,7 @@ function notSigned(){
 
 function reserveBooksNull(){
     return `
-    <div class="btn-book-locked">
+    <div class="btn-book-locked mb-3">
         <span class="btn__menu">Книги нет в наличии</span>
     </div>
     `;
@@ -190,11 +187,10 @@ function hasEmptyParams(){
 ///////////////////////////////////// for search
 
 $('#search-button')[0].addEventListener('click', (e) => {
-    //if (!hasEmptyParams()) window.location.replace("http://localhost:8080/catalog/1")
-    clearSearchObj()
     e.preventDefault()
+    clearSearchObj()
     fillSearchObj()
-    createUrl(searchObj)
+    createUrl()
     history.pushState(searchObj, 'Поиск', url)
     deleteContent()
     search()
@@ -229,7 +225,7 @@ function ParamsFromSearch(){
     $('#genre')[0].value = new URL(window.location.href).searchParams.get("genreId")
     $('#publ')[0].value = new URL(window.location.href).searchParams.get("publisherId")
 }
-function getPagesEmpty(response){
+function getPagesLess(response){
     $('#pager').append(`
     <div class="pages" align="center">
     <span>Всего элементов: ${response.totalElements}</span>
@@ -237,21 +233,42 @@ function getPagesEmpty(response){
     `)
 }
 
+function getPagesEmpty(response){
+    $('#pager').append(`
+    <div class="pages" align="center">
+    <span>По данному запросу не было найдено книг :(</span>
+</div>
+    `)
+}
+
 function getMainPager(response){
-    console.log("im here")
     $('#pager').append(`
     <div class="pages" align="center">
     <span>Всего элементов: ${response.totalElements} - Страница ${response.number + 1} из ${response.totalPages}</span>
     &nbsp;
     <div>
-        <ul class="paging justify-content-center">
+        <ul class="mt-1 paging justify-content-center">
             
         </ul>
     </div>
 </div>
     `)
-    //document.querySelector('.paging').append(getPages(response.number + 1, response.totalPages))
-    document.querySelector('.paging').innerHTML += getPagesCatalog(response.number + 1, response.totalPages)
+    document.querySelector('.paging').innerHTML = getPagesCatalog(response.number + 1, response.totalPages)
+}
+
+function getSearchPager(response){
+    $('#pager').append(`
+    <div class="pages" align="center">
+    <span>Всего элементов: ${response.totalElements} - Страница ${response.number + 1} из ${response.totalPages}</span>
+    &nbsp;
+    <div>
+        <ul class="mt-1 paging justify-content-center">
+            
+        </ul>
+    </div>
+</div>
+    `)
+    document.querySelector('.paging').innerHTML = getSearchPagerr(response.number + 1, response.totalPages)
 }
 
 function getPagerSearch(){
@@ -262,7 +279,7 @@ function getPagerSearch(){
         url: '/catalog/api/search',
         data: searchObj,
         success: (response)=> {
-            getMainPager(response)
+            getSearchPager(response)
             fillParams()
             if (response.totalElements < 5){
                 getPagesEmpty(response)
@@ -274,9 +291,9 @@ function getPagerSearch(){
 function search() {
     userCheck()
     cover()
-    // preloader
-    // paginator
-    // login
+    // preloader y
+    // paginator half
+    // login y
 
     $.ajax({
         type: "GET",
@@ -285,24 +302,23 @@ function search() {
         url: '/catalog/api/search',
         data: searchObj,
         success: (response) => {
-            response.content.map(function (obj) {
+            response.content.map((obj) => {
                 setContent(obj)
-
             })
             removeCover()
             fillParams()
             deletePager()
             if (response.totalElements < 5) {
-                getPagesEmpty(response)
+                response.totalElements === 0 ? getPagesEmpty() : getPagesLess(response)
             }
-            else getMainPager(response)
+            else getSearchPager(response)
         }
     });
 
 }
 let url = 'http://localhost:8080/catalog/search?'
 
-function createUrl(obj) {
+function createUrl() {
     url = 'http://localhost:8080/catalog/search?'
     for (let item in searchObj) {
         url += item + '=' + searchObj[item] + '&'

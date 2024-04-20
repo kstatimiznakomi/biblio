@@ -47,7 +47,11 @@ public class SecurityConfig {
                         .anyRequest().permitAll()
                 )
                 .httpBasic(Customizer.withDefaults())
-                .formLogin(Customizer.withDefaults())
+
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .permitAll()
+                )
                 .csrf(AbstractHttpConfigurer::disable);
         return http.build();
     }

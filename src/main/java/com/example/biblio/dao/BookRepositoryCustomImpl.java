@@ -12,6 +12,8 @@ import jakarta.persistence.criteria.*;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -22,7 +24,7 @@ import java.util.List;
 public class BookRepositoryCustomImpl implements BookRepositoryCustom{
     EntityManager em;
     @Override
-    public Page<Book> getBooksByCriteries(SearchParamsDTO dto) {
+    public Page<Book> getBooksByCriteries(SearchParamsDTO dto, Pageable pageable) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Book> query = cb.createQuery(Book.class);
         List<Predicate> predicates = new ArrayList<>();
@@ -31,6 +33,14 @@ public class BookRepositoryCustomImpl implements BookRepositoryCustom{
         int start = 0;
         for (int i = 1; i < dto.getPage(); i++){
             start += pageSize;
+        }
+
+        if (dto.getSearchText() != null){
+            predicates.add(cb.like(cb.upper(books.get("bookName")), "%" + dto.getSearchText().toUpperCase() + "%"));
+        }
+
+        if (dto.getPublishDate() != null){
+            predicates.add(cb.equal(books.get("publicDate"), dto.getPublishDate()));
         }
 
         if (dto.getAuthorId() != null){
@@ -45,11 +55,22 @@ public class BookRepositoryCustomImpl implements BookRepositoryCustom{
             Join<Book, Publisher> publisherJoin = books.join("publisher", JoinType.RIGHT);
             predicates.add(cb.equal(publisherJoin.get("id"), dto.getPublisherId()));
         }
+        int totalElements = em.createQuery(query).getResultList().size();
+        System.out.println(totalElements);
         query.select(books).
                 where(predicates.toArray(new Predicate[predicates.size()]));
-        return new PageImpl<>(em.createQuery(query)
+
+        TypedQuery<Book> typedQuery = em.createQuery(query);
+        typedQuery.setFirstResult((int)pageable.getOffset());
+        typedQuery.setMaxResults(pageable.getPageSize());
+        List<Book> bookss = typedQuery.getResultList();
+
+        return PageableExecutionUtils.getPage(
+                bookss, pageable, () -> totalElements
+        );
+        /*return new PageImpl<>(em.createQuery(query)
                 .setFirstResult(start)
                 .setMaxResults(pageSize)
-                .getResultList());
+                .getResultList());*/
     }
 }
