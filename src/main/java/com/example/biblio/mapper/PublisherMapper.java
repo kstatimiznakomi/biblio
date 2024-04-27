@@ -11,5 +11,6 @@ import java.util.List;
 public interface PublisherMapper {
     PublisherMapper MAPPER = Mappers.getMapper(PublisherMapper.class);
     Publisher toPublisher(PublisherDTO dto);
+    Publisher toPublisherById(Long publisherId);
     List<PublisherDTO> fromPublisherList(List<Publisher> publishers);
 }

@@ -82,4 +82,12 @@ public class UserServiceImpl implements UserService {
                 roles
         );
     }
+
+    @Override
+    public List<UserDTO> getAllUsers() { return userMapper.fromUserList(userRepository.findAll()); }
+
+    public void save(User user) {
+        if (user.getId() != null)
+            userRepository.save(user);
+    }
 }

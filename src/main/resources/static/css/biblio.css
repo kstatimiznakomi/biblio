@@ -411,8 +411,8 @@ select{
 }
 
 .book-img{
-    width: 269px;
-    height: 390px;
+    width: initial;
+    height: initial;
     margin-right: 25px;
     border-radius: 14px;
 }

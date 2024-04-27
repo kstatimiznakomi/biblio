@@ -26,4 +26,22 @@ public class AuthorServiceImpl implements AuthorService {
     public Author getAuthor(Long authorId) {
         return authorDAO.getAuthorById(authorId);
     }
+
+    public void deleteAuthorById(Long authorId) {
+        authorDAO.delete(authorDAO.getAuthorById(authorId));
+    }
+
+    public void save(Author author) {
+        if (author.getId() != null)
+            authorDAO.save(author);
+    }
+
+    public void save(AuthorDTO authorDTO) {
+        Author author = Author.builder()
+                .authorName(authorDTO.getAuthorName())
+                .authorLastName(authorDTO.getAuthorLastName())
+                .authorSurname((authorDTO.getAuthorSurname()))
+                .build();
+        authorDAO.save(author);
+    }
 }
