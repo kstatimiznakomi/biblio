@@ -29,8 +29,8 @@ public interface UserService extends UserDetailsService {
 
     void patchUser(UserDTO dto, User user);
 
-    void block(User user);
-    void unblock(User user);
+//    void block(User user);
+//    void unblock(User user);
 
     List<UserDTO> getAllUsers();
     void save (User user);
