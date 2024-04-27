@@ -65,12 +65,14 @@ function setContent(obj){
     <div class="book-bg mt-2 col-3 transition-all">
         <ul class="book transition-all" style="margin-left: 0px; margin-right: 0px;">
             <li style="margin-right: 0px;">
-                <div class="name-book">
+                <div class="name-book d-flex flex-wrap justify-content-center">
                     <img class="book-img mt-3" src="${obj.img}">
                     <div class="col-11 overflow-hidden book-nm">
                         <a href="book/${obj.id}">${obj.bookName}</a>
                     </div>
-                    <span>Количество: ${obj.count}</span>
+                    <div>
+                        <span>Количество: ${obj.count}</span>
+                    </div>
                 ${signedUser === true ? 
                         bookExist === true ? reserveOpen(obj) : reserveBooksNull()
                 : notSigned()}

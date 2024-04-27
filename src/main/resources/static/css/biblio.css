@@ -250,7 +250,7 @@ body
     width: 55px;
     height: 40px;
     background-color: rgb(255, 255, 255);
-    border-radius: 15px;
+    border-radius: 0 14px 14px 0;
     border-width: inherit;
 }
 
@@ -386,8 +386,8 @@ select{
 }
 
 .search-input{
-    border-radius: 14px;
-    width: 1238px;
+    border-radius: 14px 0 0 14px;
+    width: -webkit-fill-available;
     height: 40px;
     padding: 5px 16px;;
     border-width: inherit;
@@ -494,7 +494,9 @@ a:hover{
 }
 
 .book-nm{
-    height: 157px;
+    justify-content: center;
+    display: flex;
+    height: 63px;
 }
 
 .book {
@@ -503,6 +505,7 @@ a:hover{
     padding: 18px;
     background-color: teal;
     border-radius: 11px;
+    width: min-content;
 }
 
 .user-data{
@@ -518,11 +521,12 @@ a:hover{
 .name-book a{
     text-decoration: none;
     font-family: Inter;
-    font-size: 36px;
+    font-size: 25px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
     color: #000;
+    text-align: center;
 }
 
 .name-book a:hover{
@@ -590,6 +594,7 @@ a:hover{
 
 .name-book,.description-book{
     padding: 1px 18px;
+    width: min-content;
 }
 
 select{
@@ -597,8 +602,8 @@ select{
     border-radius: 15px;
     background-color: white;
     height: 45px;
-    width: 261.28px;
     border-width: 0;
+    width: 207px;
 }
 
 .input-date{
