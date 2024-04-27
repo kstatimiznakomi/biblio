@@ -481,7 +481,10 @@ ul{
 }
 
 .book-img{
+
     height: 306px;
+    width: initial;
+    margin-right: 25px;
     border-radius: 14px;
 }
 

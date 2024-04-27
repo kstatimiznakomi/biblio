@@ -12,4 +12,8 @@ import java.util.List;
 public interface AuthorService {
     List<AuthorDTO> getAllAuthors();
     Author getAuthor(Long authorId);
+    void deleteAuthorById(Long authorId);
+
+    void save(Author author);
+    void save(AuthorDTO authorDTO);
 }

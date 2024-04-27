@@ -11,5 +11,5 @@ import java.util.List;
 public interface GenreMapper {
     GenreMapper MAPPER = Mappers.getMapper(GenreMapper.class);
     Genres toGenre(GenresDTO dto);
-    List<GenresDTO> fromGenre(List<Genres> genres);
+    List<GenresDTO> fromGenreList(List<Genres> genres);
 }

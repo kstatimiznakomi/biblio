@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{admin/layout.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>АдминПанель. Авторы</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="icon" type="image/png" sizes="16x16" href="/image/rdLib.jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="/css/biblio.css"/>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-2" layout:fragment="sidebar">
+            <div th:replace="~{admin/fragments/sidebar :: sidebar}"></div>
+        </div>
+        <div class="col" layout:fragment="content">
+            <a class="btn btn-success" style="margin: 1%" data-bs-toggle="modal" data-bs-target="#addModal">Добавить</a>
+            <table class="table table-hover" style="margin: 1%">
+                <thead class="table-light">
+                <tr>
+                    <th scope="col" style="width: 10%">#</th>
+                    <th scope="col">ID</th>
+                    <th scope="col">Фамилия</th>
+                    <th scope="col">Имя</th>
+                    <th scope="col">Отчество</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="author : ${authors}">
+                    <td>
+                        <a class="btn btn-warning" data-bs-toggle="modal"
+                           th:attr="data-bs-target=${'#editModal' + author.id}" data-row="${author}">
+                            <i class="bi bi-pencil"></i>
+                        </a>
+                        <a class="btn btn-danger"
+                           th:onclick="'isDelete(' + ${author.id} + ')'"><i class="bi bi-trash"></i></a>
+                    </td>
+                    <td th:text="${author.id}"></td>
+                    <td th:text="${author.authorLastName}"></td>
+                    <td th:text="${author.authorName}"></td>
+                    <td th:text="${author.authorSurname}"></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="modal fade"
+                 th:each="author : ${authors}" th:attr="id=${'editModal' + author.id}">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form th:action="@{'/admin/authors/' + ${author.id} + '/edit'}" method="post">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Редактирование автора
+                                    <div th:text="${author.authorLastName} + ' ' +
+                                                  ${author.authorName} + ' ' + (${author.authorSurname} ?: ' ')"/>
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="authorLastNameInputEdit" class="form-label">Фамилия</label>
+                                    <input name="authorLastName" type="text" th:value="${author.authorLastName}"
+                                           class="form-control" id="authorLastNameInputEdit" placeholder="Введите фамилию">
+                                    <label for="authorNameInputEdit" class="form-label">Имя</label>
+                                    <input name="authorName" type="text" th:value="${author.authorName}"
+                                           class="form-control" id="authorNameInputEdit" placeholder="Введите имя">
+                                    <label for="authorSurnameInputEdit" class="form-label">Отчество</label>
+                                    <input name="authorSurname" type="text" th:value="${author.authorSurname}"
+                                           class="form-control" id="authorSurnameInputEdit" placeholder="Введите отчество">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                                <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="addModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form th:action="@{'/admin/authors/add'}" th:object="${author}" method="post">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Добавление автора</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="authorLastNameInputAdd" class="form-label">Фамилия</label>
+                                    <input name="authorLastName" type="text"
+                                           class="form-control" id="authorLastNameInputAdd"
+                                           placeholder="Введите фамилию"
+                                           th:field="*{authorLastName}" required>
+                                    <label for="authorNameInputAdd" class="form-label">Имя</label>
+                                    <input name="authorName" type="text"
+                                           class="form-control" id="authorNameInputAdd"
+                                           placeholder="Введите имя"
+                                           th:field="*{authorName}" required>
+                                    <label for="authorSurnameInputAdd" class="form-label">Отчество</label>
+                                    <input name="authorSurname" type="text"
+                                           class="form-control" id="authorSurnameInputAdd"
+                                           placeholder="Введите Отчество"
+                                           th:field="*{authorSurname}">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                                <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<script>
+    function isDelete(authorId) {
+        let isConf = confirm("Удалить запись?");
+        if (isConf) {
+            document.location.replace("/admin/authors/" + authorId + "/delete");
+        }
+    }
+</script>
+
+</html>
