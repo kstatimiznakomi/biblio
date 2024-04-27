@@ -1,5 +1,6 @@
 package com.example.biblio.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,5 +24,6 @@ public class Genres {
     private Long id;
     private String genreName;
     @ManyToMany(fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Book> books;
 }

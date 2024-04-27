@@ -5,6 +5,7 @@ import com.example.biblio.dto.GenresDTO;
 import com.example.biblio.mapper.GenreMapper;
 import com.example.biblio.model.Genres;
 import lombok.AllArgsConstructor;
+import org.apache.catalina.users.GenericUser;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 

@@ -1,12 +1,10 @@
 package com.example.biblio.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import java.util.Date;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -27,4 +25,13 @@ public class Book {
     private Integer count;
     private Integer publicDate;
     private String isbn;
+    @ManyToMany(mappedBy = "books", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Author> authors;
+    @ManyToMany(mappedBy = "books", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Genres> genres;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Publisher publisher;
 }

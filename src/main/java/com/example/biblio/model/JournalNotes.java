@@ -1,15 +1,13 @@
 package com.example.biblio.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -24,11 +22,12 @@ public class JournalNotes {
     @SequenceGenerator(name = SEQ_NAME, sequenceName = SEQ_NAME, allocationSize = 1)
     private Long id;
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     private ReaderTicket readerTicket;
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Reserve reserve;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     private Book book;
     @Enumerated(EnumType.STRING)
     private NoteStatus status;
+    private LocalDateTime dateTake;
+    private LocalDateTime dateReturn;
 }

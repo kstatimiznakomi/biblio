@@ -1,5 +1,6 @@
 package com.example.biblio.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,6 +25,7 @@ public class Author {
     private String authorLastName;
     private String authorName;
     private String authorSurname;
-    @OneToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Book> books;
 }

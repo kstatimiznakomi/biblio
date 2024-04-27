@@ -1,15 +1,12 @@
 const author = document.getElementsByTagName("select")[0]
 const genre = document.getElementsByTagName("select")[1]
 const publisher = document.getElementsByTagName("select")[2]
-const dateButton = document.getElementById("date")
-
-
 
 
 author.addEventListener('change', () => {
     let authorId = document.getElementsByTagName("select")[0].value
-    if (authorId === '0') document.getElementById("authId").value = '';
-    else document.getElementById("authId").value = authorId;
+    if (authorId === '0') document.getElementById("authorId").value = '';
+    else document.getElementById("authorId").value = authorId;
 });
 genre.addEventListener('change', () => {
     let genreId = document.getElementsByTagName("select")[1].value
@@ -21,9 +18,3 @@ publisher.addEventListener('change', () => {
     if (publisherId === '0') document.getElementById("publisherId").value = '';
     else document.getElementById("publisherId").value = publisherId;
 });
-
-dateButton.addEventListener('change', () => {
-    const date = document.getElementById("date").value
-    const auth = document.getElementsByTagName("select")[0].value
-
-})

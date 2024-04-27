@@ -1,9 +1,4 @@
-    var searchText = document.getElementById('search-button')
-    searchText.addEventListener('click', () => {
-        var string = document.getElementById("search-in").value;
-        //if (string !== "") search(string);
-        //else console.log("введите название книги");
-    });
+
 
 
 
@@ -19,4 +14,5 @@ function search(name){
         },
     });
 }
+
 

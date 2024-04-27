@@ -12,16 +12,27 @@ import java.util.List;
 @Service
 public interface UserService extends UserDetailsService {
     User getUserByName(String name);
+
+    User getUserByEmail(String mail);
+
     UserDTO getUser(String name);
     Boolean checkUserForExist(String name);
 
     Boolean ifUserSigned(Principal principal);
 
+    User create(UserDTO dto);
+
+    void Save(User user);
+
     void Save(UserDTO dto);
+
+
+    void patchUser(UserDTO dto, User user);
 
     void block(User user);
     void unblock(User user);
 
     List<UserDTO> getAllUsers();
     void save (User user);
+
 }

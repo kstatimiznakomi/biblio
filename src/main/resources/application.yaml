@@ -4,14 +4,15 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
     properties:
       hibernate:
         format_sql: true
         default_batch_fetch_size: 5
+        show_sql: true
   datasource:
     url: jdbc:postgresql://185.139.69.174:5432/biblio
     username: postgres
     password: MoDreamTheBest23
   flyway:
     baseline-on-migrate: true
+

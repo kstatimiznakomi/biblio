@@ -1,8 +1,16 @@
 select
-    u1_0.id,
-    u1_0.status,
-    u1_0.reader_ticket_id
+    b1_0.id,
+    b1_0.book_name,
+    b1_0.count,
+    b1_0.description,
+    b1_0.img,
+    b1_0.isbn,
+    b1_0.public_date,
+    b1_0.publisher_id
 from
-    journal_notes u1_0
+    book b1_0
+        join
+    author_books a1_0
+    on b1_0.id=a1_0.books_id
 where
-    u1_0.status='открытый'
+    a1_0.authors_id=16 offset 0 rows fetch first 5 rows only

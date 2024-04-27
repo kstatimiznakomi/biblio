@@ -6,5 +6,6 @@ import org.springframework.stereotype.Service;
 
 public interface ReaderTicketService {
     ReaderTicket getTicketByUser(User user);
-    void Save(ReaderTicket readerTicket);
+
+    void Create(User user);
 }

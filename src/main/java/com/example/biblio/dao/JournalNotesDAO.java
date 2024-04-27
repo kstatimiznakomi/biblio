@@ -1,9 +1,6 @@
 package com.example.biblio.dao;
 
-import com.example.biblio.model.Book;
-import com.example.biblio.model.JournalNotes;
-import com.example.biblio.model.NoteStatus;
-import com.example.biblio.model.ReaderTicket;
+import com.example.biblio.model.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
