@@ -22,11 +22,24 @@ public class GenreServiceImpl implements GenreService {
 
     @Override
     public List<GenresDTO> getAllGenres() {
-        return mapper.fromGenre(genresDAO.findAll());
+        return mapper.fromGenreList(genresDAO.findAll());
     }
 
     @Override
     public Genres getGenre(Long genreId){
         return genresDAO.getGenresById(genreId);
+    }
+
+
+    public void deleteGenreById(Long genreId) { genresDAO.delete(genresDAO.getGenresById(genreId)); }
+    public void save(Genres genres) {
+        if(genres.getId() != null)
+            genresDAO.save(genres);
+    }
+    public void save(GenresDTO genresDTO) {
+        Genres genre = Genres.builder()
+                .genreName(genresDTO.getGenreName())
+                .build();
+        genresDAO.save(genre);
     }
 }
