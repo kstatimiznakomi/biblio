@@ -51,11 +51,4 @@ public class ReaderBookListController {
         notesService.CompletePrincipal(principal, bookId);
         return "redirect:/profile";
     }
-
-    @GetMapping("/continue/{bookId}")
-    public String returnToRead(Model model, Principal principal, @PathVariable Long bookId){
-        if (principal == null) return "redirect:/catalog";
-        notesService.ReturnToRead(principal, bookId);
-        return "redirect:/profile";
-    }
 }

@@ -29,9 +29,7 @@ public class ProfileController {
         if (principal == null) return "redirect:/login";
         model.addAttribute(
                 "notes",
-                notesService.getAllByTicket(
-                        readerTicketService.getTicketByUser(
-                                userService.getUserByName(principal.getName())))
+                notesService.getReadBooks(principal)
         );
         model.addAttribute("user", userService.getUserByName(principal.getName()));
         return "profile";

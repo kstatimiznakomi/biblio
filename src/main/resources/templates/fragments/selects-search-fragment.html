@@ -1,14 +1,17 @@
 <div class = "bar">
-    <ul class = "combo" style = "width: 1460px;height: 60px;" th:fragment="params">
+    <ul class = "combo" style = "width: 1460px;height: 60px;" th:fragment="params-for-search">
         <select id="auth">
+            <option th:value="${params.authorId}" th:text="${authorSearched.authorLastName} + ' ' + ${authorSearched.getAuthorName}"></option>
             <option value="0">Авторы</option>
             <option th:each="author : ${authors}" th:text="${author.authorLastName} + ' ' + ${author.getAuthorName()}" th:value="${author.id}"></option>
         </select>
         <select id="genre">
+            <option th:value="${params.genreId}" th:text="${genreSearched.genreName}"></option>
             <option value="0">Жанры</option>
             <option th:each="genre : ${genres}" th:text="${genre.genreName}" th:value="${genre.id}"></option>
         </select>
         <select id="publ">
+            <option th:value="${params.publisherId}" th:text="${publisherSearched.publisherName}"></option>
             <option value="0">Издатели</option>
             <option th:each="publisher : ${publishers}" th:text="${publisher.publisherName}" th:value="${publisher.id}"></option>
         </select>

@@ -22,11 +22,11 @@ public interface BookService {
 
     void decreaseCountOfBook(Long bookId, int count);
 
-    Boolean ifAvailable(Long bookId);
-
     Page<Book> getBooksByPublisher(int pageNumber, Long publisherId);
 
     Page<Book> getBooksByGenre(int pageNumber, Long genreId);
+
+    void Create(BookParamsDTO dto);
 
     Page<Book> getBooksByDate(int pageNumber, Integer date);
 

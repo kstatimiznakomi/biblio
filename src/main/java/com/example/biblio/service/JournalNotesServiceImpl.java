@@ -63,8 +63,9 @@ public class JournalNotesServiceImpl implements JournalNotesService{
         return dao.getJournalNotesByReaderTicketAndBook(ticket, book);
     }
 
+    @Override
     public List<JournalNotes> getReadBooks(Principal principal){
-        return dao.getJournalNotesByReaderTicketAndStatus(
+        return dao.getJournalNotesByReaderTicketAndStatusLike(
                 ticketService.getTicketByUser(userService.getUserByName(principal.getName())),
                 NoteStatus.Открытый
         );
@@ -90,9 +91,6 @@ public class JournalNotesServiceImpl implements JournalNotesService{
                 );
                 bookService.decreaseCountOfBook(bookId, 1);
             }
-            if(getReadBooks(principal) == null) {
-                reserveService.Close(principal);
-            }
         }
         else {
             reserveService.Create(
@@ -111,33 +109,12 @@ public class JournalNotesServiceImpl implements JournalNotesService{
     }
 
     @Override
-    public void ReturnToRead(Principal principal, Long bookId){
-        if (ifExist(
-                ticketService.getTicketByUser(userService.getUserByName(principal.getName())),
-                bookService.findBookByIdModel(bookId)
-        ) != null){
-            dao.getJournalNotesByReaderTicketAndBook(
-                    ticketService.getTicketByUser(userService.getUserByName(principal.getName())),
-                    bookService.findBookByIdModel(bookId)
-            ).setStatus(NoteStatus.Открытый);
-            dao.save(
-                    dao.getJournalNotesByReaderTicketAndBook(
-                            ticketService.getTicketByUser(userService.getUserByName(principal.getName())),
-                            bookService.findBookByIdModel(bookId))
-            );
-        }
-    }
-
-    @Override
     public void CompletePrincipal(Principal principal, Long bookId){
         if (ifExist(
                 ticketService.getTicketByUser(userService.getUserByName(principal.getName())),
                 bookService.findBookByIdModel(bookId)
         ) != null){
             closeAndSave(principal, bookId);
-            if(getReadBooks(principal) == null) {
-                reserveService.Close(principal);
-            }
             bookService.increaseCountOfBook(bookId, 1);
         }
     }
@@ -146,6 +123,7 @@ public class JournalNotesServiceImpl implements JournalNotesService{
     public void CompleteNote(List<JournalNotes> notes){
         for (JournalNotes noteIn : notes){
             noteIn.setStatus(NoteStatus.Закрытый);
+
         }
     }
 
@@ -170,6 +148,9 @@ public class JournalNotesServiceImpl implements JournalNotesService{
                         ticketService.getTicketByUser(userService.getUserByName(principal.getName())),
                         bookService.findBookByIdModel(bookId))
         );
+        if(getReadBooks(principal) == null) {
+            reserveService.Close(principal);
+        }
     }
 
     @Override
@@ -181,6 +162,9 @@ public class JournalNotesServiceImpl implements JournalNotesService{
             bookIsUnread(ifExist(
                     ticketService.getTicketByUser(userService.getUserByName(principal.getName())),
                     bookService.findBookByIdModel(bookId)));
+        }
+        if(getReadBooks(principal) == null) {
+            reserveService.Close(principal);
         }
     }
 }

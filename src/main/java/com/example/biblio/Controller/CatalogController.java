@@ -48,7 +48,6 @@ public class CatalogController {
                             ticketService.getTicketByUser(userService.getUserByName(principal.getName()))
                     )
             );
-
         }
         model.addAttribute("search", new SearchParamsDTO());
         model.addAttribute("currentPage",

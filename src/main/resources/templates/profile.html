@@ -58,8 +58,6 @@
                          th:switch="${note.status.name()}">
                         <a th:case="'Открытый'" th:href="@{/books/complete/{bookId}(bookId=${note.book.id})}"
                            class="btn__menu">Завершить чтение</a>
-                        <a th:case="'Закрытый'" th:href="@{/books/continue/{bookId}(bookId=${note.book.id})}"
-                           class="btn__menu">Продолжить чтение</a>
                         <span th:case="'Недочитанный'">Книга отмечена непрочитанной</span>
                     </div>
                 </div>

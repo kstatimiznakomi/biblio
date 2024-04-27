@@ -39,8 +39,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Boolean checkUserForExist(String name){
-        User user = userRepository.findFirstByUsername(name);
-        return user != null;
+        return userRepository.findFirstByUsername(name) != null;
     }
 
     @Override
@@ -67,18 +66,6 @@ public class UserServiceImpl implements UserService {
                 .user(user)
                 .build();
         readerTicketService.Save(ticket);
-    }
-
-    @Override
-    public void block(User user) {
-        user.setStatus(UserStatus.Заблокированный);
-        userRepository.save(user);
-    }
-
-    @Override
-    public void unblock(User user){
-        user.setStatus(UserStatus.Активный);
-        userRepository.save(user);
     }
 
     @Override

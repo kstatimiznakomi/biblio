@@ -16,8 +16,10 @@
 <div th:replace="~{fragments/header-fragment :: nav-menu}"></div>
 <section class="flex-container justify-content-between">
     <div class="criteria">
-        <div th:replace="~{fragments/inputs-params}"></div>
-        <div th:replace="~{fragments/search-input-fragment}"></div>
+        <form th:action="@{/search}" th:object="${search}">
+            <div th:replace="~{fragments/inputs-params}"></div>
+            <div th:replace="~{fragments/search-input-fragment}"></div>
+        </form>
     </div>
 </section>
 

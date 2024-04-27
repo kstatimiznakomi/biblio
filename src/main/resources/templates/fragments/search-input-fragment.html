@@ -3,6 +3,9 @@
 <div class="search" th:fragment="search-params">
     <form th:action="@{/search}" th:object="${search}">
         <input type="hidden" name="page" value="1">
+        <input type="hidden" name="authorId" id="authId" value="1">
+        <input type="hidden" name="genreId" id="genreId" value="1">
+        <input type="hidden" name="publisherId" id="publisherId" value="1">
         <input th:field="*{searchText}" id="search-in" placeholder="Введите наименование книги" class="search-input" type="text"
                data-toggle="dropdown" aria-expanded="false">
         <button type="submit" id="search-button">
