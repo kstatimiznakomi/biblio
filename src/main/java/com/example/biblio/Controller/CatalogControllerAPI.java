@@ -1,9 +1,6 @@
 package com.example.biblio.Controller;
 
-import com.example.biblio.dto.AuthorDTO;
-import com.example.biblio.dto.GenresDTO;
-import com.example.biblio.dto.PublisherDTO;
-import com.example.biblio.dto.SearchParamsDTO;
+import com.example.biblio.dto.*;
 import com.example.biblio.model.Book;
 import com.example.biblio.model.User;
 import com.example.biblio.service.*;
@@ -21,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 
 @RestController
 @AllArgsConstructor
-public class CatalogControllerAPI {
+public class  CatalogControllerAPI {
     @Lazy
     private final BookService bookService;
     @Lazy
@@ -56,4 +53,6 @@ public class CatalogControllerAPI {
         System.out.println("page " + searchParamsDto.getPage());
         return bookService.findAll(searchParamsDto, pageService.getPage(searchParamsDto.getPage()));
     }
+    @GetMapping("/books/api")
+    public List<BookDTO> getAllBooks() { return bookService.getAllBooks(); }
 }
