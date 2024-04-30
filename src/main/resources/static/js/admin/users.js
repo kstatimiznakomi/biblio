@@ -6,8 +6,8 @@ function setUsers(user) {
                             data-bs-target=$('#editModal' + ${user.id}") data-row="${user}">
                             <i class="bi bi-pencil"></i>
                             </a>
-                            <a class="btn btn-danger" disabled="disabled"
-                            onclick="isDelete(${user.id})"><i class="bi bi-trash"></i></a>
+                            <button class="btn btn-danger" disabled="disabled"
+                            onclick="isDelete(${user.id})"><i class="bi bi-trash"></i></button>
                         </td>
                         <td>${user.id}</td>
                         <td>${user.username}</td>
