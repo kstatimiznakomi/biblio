@@ -28,19 +28,8 @@
                     <th scope="col">Название жанра</th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr th:each="genre : ${genres}">
-                    <td>
-                        <a class="btn btn-warning" data-bs-toggle="modal"
-                           th:attr="data-bs-target=${'#editModal' + genre.id}" data-row="${genre}">
-                            <i class="bi bi-pencil"></i>
-                        </a>
-                        <a class="btn btn-danger"
-                           th:onclick="'isDelete(' + ${genre.id} + ')'"><i class="bi bi-trash"></i></a>
-                    </td>
-                    <td th:text="${genre.id}"></td>
-                    <td th:text="${genre.genreName}"></td>
-                </tr>
+                <tbody id="genres">
+
                 </tbody>
             </table>
 

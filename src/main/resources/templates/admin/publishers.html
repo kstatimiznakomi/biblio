@@ -28,19 +28,8 @@
                     <th scope="col">Название издателя</th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr th:each="publisher : ${publishers}">
-                    <td>
-                        <a class="btn btn-warning" data-bs-toggle="modal"
-                           th:attr="data-bs-target=${'#editModal' + publisher.id}" data-row="${publisher}">
-                            <i class="bi bi-pencil"></i>
-                        </a>
-                        <a class="btn btn-danger"
-                           th:onclick="'isDelete(' + ${publisher.id} + ')'"><i class="bi bi-trash"></i></a>
-                    </td>
-                    <td th:text="${publisher.id}"></td>
-                    <td th:text="${publisher.publisherName}"></td>
-                </tr>
+                <tbody id="publishers">
+
                 </tbody>
             </table>
 

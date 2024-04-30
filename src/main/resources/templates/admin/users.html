@@ -36,26 +36,8 @@
                         <th scope="col">Адрес</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr th:each="user : ${users}">
-                        <td>
-                            <a class="btn btn-warning" data-bs-toggle="modal"
-                               th:attr="data-bs-target=${'#editModal' + user.id}" data-row="${user}">
-                                <i class="bi bi-pencil"></i>
-                            </a>
-                            <button type="button" class="btn btn-danger" disabled><i class="bi bi-trash"></i></button>
-                        </td>
-                        <td th:text="${user.id}"></td>
-                        <td th:text="${user.username}"></td>
-                        <td th:text="${user.status}"></td>
-                        <td th:text="${user.role}"></td>
-                        <td th:text="${user.lastname}"></td>
-                        <td th:text="${user.name}"></td>
-                        <td th:text="${user.surname}"></td>
-                        <td th:text="${user.email}"></td>
-                        <td th:text="${user.phone}"></td>
-                        <td th:text="${user.address}"></td>
-                    </tr>
+                    <tbody id="users">
+
                     </tbody>
                 </table>
 
