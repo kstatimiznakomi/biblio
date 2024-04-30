@@ -3,7 +3,7 @@ const regBtn = document.getElementById('reg-btn')
 const form = document.getElementById('form').querySelectorAll("input")
 
 regBtn.addEventListener('click', () => {
-    var userObj = {};
+    let userObj = {};
     form.forEach(item => userObj[item.id] = item.value);
     if (userObj["seq_password"] === userObj["password"]){
         delete userObj["seq_password"]

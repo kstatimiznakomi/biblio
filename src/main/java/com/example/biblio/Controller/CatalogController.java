@@ -1,6 +1,7 @@
 package com.example.biblio.Controller;
 
 import com.example.biblio.dto.SearchParamsDTO;
+import com.example.biblio.model.UserRole;
 import com.example.biblio.service.*;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Lazy;
@@ -39,6 +40,10 @@ public class CatalogController {
                     notesService.booksByUser(
                             ticketService.getTicketByUser(userService.getUserByName(principal.getName()))
                     )
+            );
+            model.addAttribute(
+                    "userAdmin",
+                    userService.getUserByName(principal.getName()).getRole().equals(UserRole.Администратор)
             );
             model.addAttribute("booksUnclosed", notesService.getBooksUnclosedBooksByUser(
                     userService.getUserByName(principal.getName())
