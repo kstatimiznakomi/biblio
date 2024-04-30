@@ -5,7 +5,12 @@ import com.example.biblio.model.Genres;
 import com.example.biblio.model.UserRole;
 import com.example.biblio.service.GenreService;
 import com.example.biblio.service.UserService;
+import com.fasterxml.jackson.databind.util.BeanUtil;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.BeanUtils;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -60,5 +65,18 @@ public class AdminGenreController {
             return "redirect:/admin/genres";
         }
         return "redirect:/login";
+    }
+
+    @PostMapping(value = "/api/add", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> addGenre(@RequestBody Genres genre, Principal principal) {
+        if(principal != null &&
+                userService.getUserByName(principal.getName()).getRole().equals(UserRole.Администратор)) {
+            GenresDTO genresDTO = new GenresDTO();
+            BeanUtils.copyProperties(genre, genresDTO);
+            System.out.println(genre);
+            genreService.save(genresDTO);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 }

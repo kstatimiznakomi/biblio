@@ -61,23 +61,23 @@
             <div class="modal fade" id="addModal" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <form th:action="@{'/admin/genres/add'}" th:object="${genre}" method="post">
+                        <form>
                             <div class="modal-header">
                                 <h5 class="modal-title">Добавление жанра</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
                             </div>
                             <div class="modal-body">
-                                <div class="mb-3">
-                                    <label for="genreNameInputAdd" class="form-label">Название жанра</label>
+                                <div class="mb-3" id="genre-name-input-add">
+                                    <label for="genreName" class="form-label">Название жанра</label>
                                     <input name="genreName" type="text"
-                                           class="form-control" id="genreNameInputAdd"
+                                           class="form-control" id="genreName"
                                            placeholder="Введите название жанра"
-                                           th:field="*{genreName}" required>
+                                           required>
                                 </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                                <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                                <button id="submit-genre-add-btn" type="submit" class="btn btn-primary">Сохранить изменения</button>
                             </div>
                         </form>
                     </div>
