@@ -38,7 +38,7 @@ const submitGenreAddBtn = document.getElementById("submit-genre-add-btn")
 const genreAddForm = document.getElementById('genre-name-input-add').querySelectorAll("input")
 
 submitGenreAddBtn.addEventListener('click', () => {
-    var genreObj = {}
+    let genreObj = {}
     genreAddForm.forEach(item => genreObj[item.id] = item.value)
     const genre = JSON.stringify(genreObj)
     console.log(genre)

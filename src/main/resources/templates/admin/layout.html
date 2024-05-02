@@ -25,13 +25,6 @@
 <script src="/js/admin/publishers.js"></script>
 <script src="/js/admin/genres.js" crossorigin></script>
 <script src="/js/admin/users.js"></script>
-<script>
-    window.onload = () => {
-        if (window.location.href.search("/admin/authors") > 0) getAuthorsList()
-        if (window.location.href.search("/admin/books") > 0) getBooksList()
-        if (window.location.href.search("/admin/publishers") > 0) getPublishersList()
-        if (window.location.href.search("/admin/genres") > 0) getGenresList()
-        if (window.location.href.search("/admin/users") > 0) getUsersList()
-    }
-</script>
+<script src="/js/admin/edit-delete.js"></script>
+
 </html>
