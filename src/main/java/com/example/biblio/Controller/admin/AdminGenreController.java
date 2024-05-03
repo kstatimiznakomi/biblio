@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin/genres")
@@ -88,6 +89,17 @@ public class AdminGenreController {
         if(principal != null &&
                 userService.getUserByName(principal.getName()).getRole().equals(UserRole.Администратор)) {
             genreService.deleteGenreById(genreId);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+    }
+
+    @PutMapping(value = "/api/{genreId}/edit", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> editGenre(@RequestBody Genres genre, @PathVariable Long genreId, Principal principal) {
+        if(principal != null &&
+                userService.getUserByName(principal.getName()).getRole().equals(UserRole.Администратор)) {
+            genre.setId(genreId);
+            genreService.save(genre);
             return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.FORBIDDEN);

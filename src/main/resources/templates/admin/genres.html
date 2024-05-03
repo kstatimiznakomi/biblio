@@ -28,35 +28,10 @@
                     <th scope="col">Название жанра</th>
                 </tr>
                 </thead>
-                <tbody id="genres">
-
-                </tbody>
+                <tbody id="genres"></tbody>
             </table>
 
-            <div class="modal fade"
-                 th:each="genre : ${genres}" th:attr="id=${'editModal' + genre.id}">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <form th:action="@{'/admin/genres/' + ${genre.id} + '/edit'}" method="post">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Редактирование жанра <div th:text="${genre.genreName}"/></h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="mb-3">
-                                    <label for="genreNameInputEdit" class="form-label">Название жанра</label>
-                                    <input name="genreName" type="text" th:value="${genre.genreName}"
-                                           class="form-control" id="genreNameInputEdit" placeholder="Введите название жанра">
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                                <button type="submit" class="btn btn-primary">Сохранить изменения</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+            <div class="modal fade" id="modal"></div>
 
             <div class="modal fade" id="addModal" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog">
@@ -88,13 +63,4 @@
 </div>
 
 </body>
-<script>
-    function isDelete(genreId) {
-        let isConf = confirm("Удалить запись?");
-        if (isConf) {
-            document.location.replace("/admin/genres/" + genreId + "/delete");
-        }
-    }
-</script>
-
 </html>

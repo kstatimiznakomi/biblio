@@ -2,6 +2,7 @@ package com.example.biblio.Controller;
 
 import com.example.biblio.dto.*;
 import com.example.biblio.model.Book;
+import com.example.biblio.model.Genres;
 import com.example.biblio.model.User;
 import com.example.biblio.service.*;
 import lombok.AllArgsConstructor;
@@ -35,10 +36,16 @@ public class  CatalogControllerAPI {
     public List<AuthorDTO> getAllAuthors(){
         return authorService.getAllAuthors();
     }
+
     @GetMapping("/genres/api")
     public List<GenresDTO> getAllGenres(){
         return genreService.getAllGenres();
     }
+    @GetMapping("/genres/api/{genreId}")
+    public Genres getGenreById(@PathVariable Long genreId) {
+        return genreService.getGenre(genreId);
+    }
+
     @GetMapping("/publishers/api")
     public List<PublisherDTO> getAllPublishers(){
         return publisherService.getAllPublishers();
