@@ -67,14 +67,27 @@ public class AdminGenreController {
         return "redirect:/login";
     }
 
+    /////////////////
+    // API SECTION //
+    /////////////////
+
     @PostMapping(value = "/api/add", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> addGenre(@RequestBody Genres genre, Principal principal) {
         if(principal != null &&
                 userService.getUserByName(principal.getName()).getRole().equals(UserRole.Администратор)) {
             GenresDTO genresDTO = new GenresDTO();
             BeanUtils.copyProperties(genre, genresDTO);
-            System.out.println(genre);
             genreService.save(genresDTO);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+    }
+
+    @DeleteMapping(value = "/api/{genreId}/delete", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> deleteGenre(@PathVariable Long genreId, Principal principal) {
+        if(principal != null &&
+                userService.getUserByName(principal.getName()).getRole().equals(UserRole.Администратор)) {
+            genreService.deleteGenreById(genreId);
             return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.FORBIDDEN);
