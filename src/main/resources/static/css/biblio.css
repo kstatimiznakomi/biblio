@@ -18,7 +18,7 @@
 .prof-grad-bg{
     width: 1399px;
     height: 772px;
-    background: linear-gradient(180deg, #9ca1ff, rgb(72 104 159) 100%);
+    background: linear-gradient(180deg, teal, #00a4a4 100%);
     margin-top: 29px;
     border-radius: 14px;
     display: flex;
@@ -37,7 +37,8 @@
     width: inherit;
     margin-left: 25px;
     background: linear-gradient(180deg, #FFE68B, rgb(255 237 151) 100%);
-    border-radius: 14px
+    border-radius: 14px;
+    height: fit-content;
 }
 
 .info-details-hr{
@@ -137,10 +138,15 @@
     display: grid;
 }
 
+.user-edit{
+    border-radius: 14px;
+    padding: 10px 250px;
+}
+
 .prof-bg{
     width: 1425px;
     height: 813px;
-    background-color: #9ca1ff;
+    background-color: teal;
     display: flex;
     justify-content: center;
     margin: 15px auto;
@@ -420,13 +426,12 @@ select{
 }
 
 .res-book-bg{
-    height: 152px;
     width: 1000px;
     display: flex;
     flex-direction: row;
     border-radius: 14px;
     background: linear-gradient(180deg, #FFE68B, rgb(255 237 151) 100%);
-    padding: 11px 24px;
+    padding: 16px;
     margin: 10px auto;
 }
 
@@ -481,10 +486,8 @@ ul{
 }
 
 .book-img{
-
     height: 306px;
     width: initial;
-    margin-right: 25px;
     border-radius: 14px;
 }
 

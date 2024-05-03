@@ -1,10 +1,7 @@
 package com.example.biblio.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @NoArgsConstructor
@@ -12,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity
 @Table(name = "users")
+@EqualsAndHashCode
 public class User {
     private static final String SEQ_NAME = "user_seq";
     @Id
@@ -22,6 +20,7 @@ public class User {
     private String name;
     private String surname;
     private String username;
+    @EqualsAndHashCode.Exclude
     private String password;
     private String email;
     private String address;

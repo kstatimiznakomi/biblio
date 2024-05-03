@@ -3,7 +3,6 @@ package com.example.biblio.service;
 import com.example.biblio.dao.UserDAO;
 import com.example.biblio.dto.UserDTO;
 import com.example.biblio.mapper.UserMapper;
-import com.example.biblio.model.ReaderTicket;
 import com.example.biblio.model.User;
 import com.example.biblio.model.UserRole;
 import com.example.biblio.model.UserStatus;
@@ -68,7 +67,18 @@ public class UserServiceImpl implements UserService {
                 .build();
     }
 
-
+    @Override
+    public void putUser(User user, User userCurrent){
+        userCurrent.setLastname(user.getLastname());
+        userCurrent.setName(user.getName());
+        userCurrent.setSurname(user.getSurname());
+        userCurrent.setUsername(user.getUsername());
+        userCurrent.setPassword(user.getPassword());
+        userCurrent.setEmail(user.getEmail());
+        userCurrent.setAddress(user.getAddress());
+        userCurrent.setPhone(user.getPhone());
+        userRepository.save(userCurrent);
+    }
 
     @Override
     public void Save(User user){
@@ -81,18 +91,6 @@ public class UserServiceImpl implements UserService {
         User user = create(dto);
         userRepository.save(user);
         readerTicketService.Create(user);
-    }
-
-    @Override
-    public void patchUser(UserDTO dto, User user){
-        user.setName(dto.getName());
-        user.setPassword(encoder.encode(dto.getPassword()));
-        user.setEmail(dto.getEmail());
-        user.setLastname(dto.getLastname());
-        user.setSurname(dto.getSurname());
-        user.setAddress(dto.getAddress());
-        user.setUsername(dto.getUsername());
-        user.setPhone(dto.getPhone());
     }
 
     @Override
@@ -114,7 +112,6 @@ public class UserServiceImpl implements UserService {
     public List<UserDTO> getAllUsers() { return userMapper.fromUserList(userRepository.findAll()); }
 
     public void save(User user) {
-        if (user.getId() != null)
-            userRepository.save(user);
+        if (user.getId() != null) userRepository.save(user);
     }
 }

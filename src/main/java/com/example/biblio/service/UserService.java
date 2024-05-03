@@ -22,15 +22,11 @@ public interface UserService extends UserDetailsService {
 
     User create(UserDTO dto);
 
+    void putUser(User user, User userCurrent);
+
     void Save(User user);
 
     void Save(UserDTO dto);
-
-
-    void patchUser(UserDTO dto, User user);
-
-    void block(User user);
-    void unblock(User user);
 
     List<UserDTO> getAllUsers();
     void save (User user);

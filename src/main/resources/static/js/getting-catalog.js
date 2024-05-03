@@ -293,9 +293,6 @@ function getPagerSearch(){
 function search() {
     userCheck()
     cover()
-    // preloader y
-    // paginator half
-    // login y
 
     $.ajax({
         type: "GET",

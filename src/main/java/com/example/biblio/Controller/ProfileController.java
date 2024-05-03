@@ -42,12 +42,4 @@ public class ProfileController {
         model.addAttribute("user", new UserDTO());
         return "profile-edit";
     }
-
-    @PatchMapping ("/edit/patch")
-    public String profile(Model model, Principal principal, @ModelAttribute UserDTO dto){
-        if (principal == null) return "redirect:/login";
-        User user = userService.getUserByName(principal.getName());
-        userService.patchUser(dto, user);
-        return "redirect:/profile";
-    }
 }

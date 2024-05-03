@@ -21,7 +21,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true, jsr250Enabled = true)
 public class SecurityConfig {
-    private UserService userService;
+    private final UserService userService;
 
     public SecurityConfig(@Lazy UserService userService) {
         this.userService = userService;
