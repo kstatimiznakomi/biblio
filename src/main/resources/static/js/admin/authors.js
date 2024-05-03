@@ -29,9 +29,6 @@ function getAuthorsList() {
         }
     })
         .done((response) => {
-            response.map((author) => {
-                setAuthors(author)
-                }
-            )
+            response.map((author) => setAuthors(author))
         })
 }

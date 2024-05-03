@@ -14,6 +14,7 @@
     </nav>
     <div sec:authorize="isAuthenticated()" class = "btn__menu">
       <span th:text="${user.username}"></span>
+      <a th:if="${userAdmin}" th:href="@{/admin/authors}">Перейти в панель администратора ↑</a>
       <a th:href="@{/logout}">Выйти</a>
     </div>
     <div sec:authorize="!isAuthenticated()" class = "btn__menu">
