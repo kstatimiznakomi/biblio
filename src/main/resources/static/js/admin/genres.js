@@ -44,7 +44,7 @@ function getGenresList() {
     $.ajax({
         type: "GET",
         contentType: 'application/json',
-        dataType: "text",
+        dataType: "json",
         url: '/genres/api',
         data: false,
         failure: (error) => {
