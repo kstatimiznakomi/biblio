@@ -62,9 +62,7 @@ function getUserToEdit(){
         .done(function (response) {
             userGot = {}
             setUserEdit(response)
-            console.log(response)
             userGot = response
-            console.log("userGot: " + userGot)
         })
 }
 
@@ -95,26 +93,26 @@ $('#user-edit-btn')[0].addEventListener('click', (e) => {
         .querySelectorAll("input")
         .forEach(item => userSend[item.id] = item.value)
     userToCheck = userSend
-    delete userToCheck["seq_password"]
-    delete userToCheck["password"]
     console.log("userCheck: " + userToCheck)
 
     const jsonUser = JSON.stringify(userSend)
+    isEmptyFunc()
     if (!isEmpty) {
         if (userSend["password"] !== userSend["seq_password"]) alert("Пароли не совпадают!")
-        delete userSend["seq_password"]
-        if (userToCheck !== userGot){
-            $.ajax({
-           cache: false,
-           url: '/register/put',
-           type: "PUT",
-           contentType: 'application/json',
-           dataType: "json",
-           data: jsonUser,
-           success: alert("Данные успешно изменены!")
-       })
-        } else alert("Измените данные, чтобы сохранить")
-
+        else{
+            delete userSend["seq_password"]
+            if (userToCheck !== userGot){
+                $.ajax({
+                    cache: false,
+                    url: '/register/put',
+                    type: "PUT",
+                    contentType: 'application/json',
+                    dataType: "json",
+                    data: jsonUser,
+                    success: alert("Данные успешно изменены!")
+                })
+            } else alert("Измените данные, чтобы сохранить")
+        }
     } else alert("Данные не должы быть пусты!")
 })
 

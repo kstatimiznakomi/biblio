@@ -38,7 +38,6 @@ public class RegistrationController {
         UserDTO dto = new UserDTO();
         BeanUtils.copyProperties(user, dto);
         User user1 = userService.create(dto);
-        System.out.println(user1);
 
         userService.putUser(user1, userCurrent);
 
