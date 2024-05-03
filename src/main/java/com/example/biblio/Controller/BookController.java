@@ -23,7 +23,7 @@ public class BookController {
     private final BookService bookService;
     private final UserService userService;
 
-    @GetMapping("/{bookId}")
+    @GetMapping("::")
     public String aboutBook(Model model, @ModelAttribute("book") BookDTO bookDTO, @PathVariable Long bookId, Principal principal){
         if(principal != null) model.addAttribute("user", userService.getUserByName(principal.getName()));
         BookDTO book = bookService.getBookPage(bookId);

@@ -485,6 +485,18 @@ ul{
     border-radius: 14px;
 }
 
+.book-info{
+    width: 80%;
+    background-color: teal;
+    padding: 10px 10px;
+    border-radius: 14px;
+}
+
+#cover img {
+    border-radius: 14px;
+    height: 306px;
+}
+
 .book-img{
     height: 306px;
     width: initial;
@@ -502,7 +514,11 @@ a:hover{
 .book-nm{
     justify-content: center;
     display: flex;
-    height: 63px;
+    height: 52px;
+}
+
+#cover h3{
+    color: black;
 }
 
 .book {

@@ -25,7 +25,7 @@ public class Book {
     private Integer count;
     private Integer publicDate;
     private String isbn;
-    @ManyToMany(mappedBy = "books", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "books", fetch = FetchType.EAGER)
     @JsonIgnore
     private List<Author> authors;
     @ManyToMany(mappedBy = "books", fetch = FetchType.LAZY)

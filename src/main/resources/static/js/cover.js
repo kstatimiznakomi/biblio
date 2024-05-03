@@ -8,6 +8,39 @@ function cover(){
     `)
 }
 
+function modalBookInfo(bookId){
+    $.ajax({
+        type: "GET",
+        contentType: 'application/json',
+        dataType: "json",
+        url: '/catalog/book/' + bookId,
+        data: false,
+        success: (response) => {
+            console.log(response)
+                $('body,html').css('overflow', 'hidden')
+                $('#cover').append(`
+                <div class="cover transition-all"></div>
+                    <div onclick="removeCover()" class="overflow-auto cover-content transition-all align-items-center justify-content-center">
+                        <div class="book-info d-flex transition-all">
+                            <div>
+                                <img src="${response.img}"/>
+                            </div>
+                            <div>
+                                <h3>${response.bookName}</h3>
+                                <h3>Описание: ${response.description}</h3>
+                                <h3>Количество: ${response.count}</h3>
+                            </div>
+                        </div>
+                    </div>
+                `)
+        },
+        failure: (response) => {
+            alert(response)
+        }
+    });
+
+}
+
 function removeCover(){
     $('.cover').remove()
     $('.cover-content').remove()
