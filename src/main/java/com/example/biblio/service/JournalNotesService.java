@@ -19,7 +19,7 @@ public interface JournalNotesService {
     void Create(Book book, User user);
     List<JournalNotes> getReadBooks(Principal principal);
     void Save(Principal principal, Long bookId);
-    void CompletePrincipal(Principal principal, Long bookId);
+    void CompletePrincipal(Principal principal, Long[] bookId);
     void CompleteNote(List<JournalNotes> notes);
     void CompleteNote(JournalNotes note);
     void bookIsUnread(JournalNotes note);

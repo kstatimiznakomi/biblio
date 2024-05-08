@@ -4,6 +4,7 @@ import com.example.biblio.dto.PublisherDTO;
 import com.example.biblio.model.Publisher;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 

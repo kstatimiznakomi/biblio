@@ -52,8 +52,6 @@ public class CatalogControllerAPI {
     }
     @GetMapping("/catalog/api/search")
     public Page<Book> getBooksBySearch(SearchParamsDTO searchParamsDto) throws InterruptedException {
-        TimeUnit.SECONDS.sleep(1);
-        System.out.println("page " + searchParamsDto.getPage());
         return bookService.findAll(searchParamsDto, pageService.getPage(searchParamsDto.getPage()));
     }
 }

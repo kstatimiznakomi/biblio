@@ -66,17 +66,35 @@ public class UserServiceImpl implements UserService {
                 .status(UserStatus.Активный)
                 .build();
     }
+    @Override
+    public User createWoutPass(UserDTO dto){
+        return User.builder()
+                .lastname(dto.getLastname())
+                .name(dto.getName())
+                .surname(dto.getSurname())
+                .username(dto.getUsername())
+                .email(dto.getEmail())
+                .phone(dto.getPhone())
+                .address(dto.getAddress())
+                .role(UserRole.Читатель)
+                .status(UserStatus.Активный)
+                .build();
+    }
 
     @Override
-    public void putUser(User user, User userCurrent){
+    public void putUserWoutPass(User user, User userCurrent){
         userCurrent.setLastname(user.getLastname());
         userCurrent.setName(user.getName());
         userCurrent.setSurname(user.getSurname());
         userCurrent.setUsername(user.getUsername());
-        userCurrent.setPassword(user.getPassword());
         userCurrent.setEmail(user.getEmail());
         userCurrent.setAddress(user.getAddress());
         userCurrent.setPhone(user.getPhone());
+        userRepository.save(userCurrent);
+    }
+    @Override
+    public void putUserWPass(User user, User userCurrent){
+        userCurrent.setPassword(user.getPassword());
         userRepository.save(userCurrent);
     }
 

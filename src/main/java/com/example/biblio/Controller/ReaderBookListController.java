@@ -46,7 +46,7 @@ public class ReaderBookListController {
     }*/
 
     @GetMapping("/complete/{bookId}")
-    public String bookHasCompleted(Principal principal, @PathVariable Long bookId){
+    public String bookHasCompleted(Principal principal, @PathVariable Long[] bookId){
         if (principal == null) return "redirect:/catalog";
         notesService.CompletePrincipal(principal, bookId);
         return "redirect:/profile";

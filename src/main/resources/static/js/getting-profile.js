@@ -1,12 +1,15 @@
 window.onload = function () {
     if (window.location.href.includes("edit")) {
         getUserToEdit()
+        isEmptyFunc()
     }
     else{
         getUser()
         getNotes()
     }
 }
+let bookIds = []
+let listOfEmpty = []
 
 function getNotes() {
     $.ajax({
@@ -17,37 +20,72 @@ function getNotes() {
         data: false
     })
         .done(function (data){
-            console.log(data)
             data.map(function (note){
                     setBooks(note)
                 }
             )
+            if (bookIds.length > 0) sendBookList()
         })
 }
 
-function setBooks(data) {
-    let diffDys = moment(data.dateReturn).diff(new Date(), 'days')
-    let diffHrs = moment(data.dateReturn).diff(new Date(), 'hours') % diffDys
-
+function renderNote(data, diffDys, diffHrs) {
     $('#notes').append(`
-            <div class="res-book-bg align-items-center">
+            <div role="button" onclick="modalBookInfo(${data.book.id})" class="res-book-bg align-items-center">
                 <div class="row w-100 align-items-center">
                     <div class="col-2">
                         <img class="book-img-prof" width="90px" src="${data.book.img}">
                     </div>
                     <div class="col-6">
-                        <a href="/book/${data.book.id}">${data.book.bookName}</a>
+                        <span>${data.book.bookName}</span>
                     </div>
                     <div class="col-4">
                         <span class="noselect">Осталось: ${diffDys} дней, ${diffHrs} часов</span>
                     </div>
                 </div>
             </div>
-    `)
+        `)
 }
 
-function sendUser(){
+function setBooks(data) {
+    let diffDys = moment(data.dateReturn).diff(new Date(), 'days')
+    let diffHrs = moment(data.dateReturn).diff(new Date(), 'hours') % diffDys
+    if (diffDys <= 0){
+        if (diffHrs <= 0){
+            getBooksList(data.book.id)
+        } else renderNote(data, diffDys, diffHrs)
+    } else renderNote(data, diffDys, diffHrs)
+}
 
+function refetch() {
+    $.ajax({
+        url: '/profile/get-notes',
+        type: "GET",
+        contentType: 'application/json',
+        dataType: "json",
+        data: false
+    })
+        .done((data) => {
+            data === {}
+                ?
+                $('#notes').append(`
+                            <h1>Здесь нету книг</h1>
+                        `)
+                : renderNote(data, diffDys, diffHrs)
+        })
+}
+
+function getBooksList(bookId){
+    bookIds.push(bookId)
+}
+
+function sendBookList() {
+    $.ajax({
+        url: '/books/complete/' + bookIds,
+        type: "GET",
+        contentType: 'application/json',
+        dataType: "json",
+        data: false
+    })
 }
 
 function getUserToEdit(){
@@ -68,66 +106,82 @@ function getUserToEdit(){
 
 let userGot = {}
 let userSend = {}
-let userToCheck = {}
 
-function setUserEdit(data){
+function isEmptyInput(value){
+    isEmptyFunc()
+    value === '' || listOfEmpty.length ?
+        $('#user-edit-btn').prop('disabled', true)
+        :
+        $('#user-edit-btn').prop('disabled', false)
+}
+
+function setUserEdit(data) {
     $('#edit-user').prepend(`
-                        <input type="text" value="${data.lastname}" class="user" placeholder="Фамилия" id="lastname" required>
-                        <input type="text" value="${data.name}" class="user" placeholder="Имя" id="name" required>
-                        <input type="text" value="${data.surname}" class="user" placeholder="Отчество" id="surname" required>
-                        <input type="text" value="${data.username}" class="user" placeholder="Имя пользователя" id="username" required>
-                        <hr class="separator">
-                        <input type="password" class="user" placeholder="Пароль" id="password" required>
-                        <input type="password" class="user" id="seq_password" placeholder="Подтверждение пароля" required>
-                        <input type="email" value="${data.email}" class="user" placeholder="Почта" id="email" required>
-                        <input type="number" value="${data.phone}" class="user" placeholder="Номер телефона" id="phone" required>
-                        
+        <input type="text" oninput="isEmptyInput(this.value)" value="${data.lastname}" class="user" placeholder="Фамилия" id="lastname" required>
+        <input type="text" oninput="isEmptyInput(this.value)" value="${data.name}" class="user" placeholder="Имя" id="name" required>
+        <input type="text" oninput="isEmptyInput(this.value)" value="${data.surname}" class="user" placeholder="Отчество" id="surname" required>
+        <input type="text" oninput="isEmptyInput(this.value)" value="${data.username}" class="user" placeholder="Имя пользователя" id="username" required>
+        <hr class="separator">
+        <input type="email" oninput="isEmptyInput(this.value)" value="${data.email}" class="user" placeholder="Почта" id="email" required>
+        <input type="number" oninput="isEmptyInput(this.value)" value="${data.phone}" class="user" placeholder="Номер телефона" id="phone" required>
     `)
 }
 
-$('#user-edit-btn')[0].addEventListener('click', (e) => {
+const fillUserSend = () => {
     userSend = {}
-    e.preventDefault()
-
     $('#edit-user')[0]
         .querySelectorAll("input")
         .forEach(item => userSend[item.id] = item.value)
-    userToCheck = userSend
-    console.log("userCheck: " + userToCheck)
+}
+
+$('#user-edit-btn')[0].addEventListener('click', (e) => {
+    e.preventDefault()
+
+    fillUserSend()
 
     const jsonUser = JSON.stringify(userSend)
     isEmptyFunc()
     if (!isEmpty) {
-        if (userSend["password"] !== userSend["seq_password"]) alert("Пароли не совпадают!")
-        else{
-            delete userSend["seq_password"]
-            if (userToCheck !== userGot){
-                $.ajax({
-                    cache: false,
-                    url: '/register/put',
-                    type: "PUT",
-                    contentType: 'application/json',
-                    dataType: "json",
-                    data: jsonUser,
-                    success: alert("Данные успешно изменены!")
-                })
-            } else alert("Измените данные, чтобы сохранить")
-        }
-    } else alert("Данные не должы быть пусты!")
+        delete userSend["seq_password"]
+        $.ajax({
+            cache: false,
+            url: '/profile/put',
+            type: "PUT",
+            contentType: 'application/json',
+            dataType: "text/plain",
+            data: jsonUser
+        })
+            .done((response) => {
+                alert(response)
+            })
+            .fail((response) => {
+                alert(response)
+            })
+    } else {
+        alert("Не все поля заполнены")
+    }
 })
 
 let isEmpty = false
-isEmptyFunc = () => {
+
+const isEmptyFunc = () => {
+    fillUserSend()
+    listOfEmpty = []
     for (let item in userSend) {
         if (userSend[item] === "") {
-            alert("Пароль или данные пользователя не могут быть пустыми!")
-            isEmpty = true
-            return
+            listOfEmpty.push(item)
         }
+    }
+    if (listOfEmpty.length > 0) {
+        isEmpty = true
     }
 }
 
 function setUser(data) {
+    /*let clone = document.getElementsByTagName("template")[0]
+        .content.cloneNode(true);
+
+    $('#info-details').append(clone)*/
     $('#info-details').append(`
                     <hr class="info-details-hr">
                     <span class="user-dtls">${data.lastname}</span>

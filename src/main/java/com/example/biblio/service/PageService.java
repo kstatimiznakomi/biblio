@@ -12,7 +12,7 @@ public class PageService {
     }
 
     public PageRequest getPage(int pageNumber){
-        return PageRequest.of(pageNumber - 1,5);
+        return PageRequest.of(pageNumber - 1,4);
     }
 
     public Integer Min(int currentPage){

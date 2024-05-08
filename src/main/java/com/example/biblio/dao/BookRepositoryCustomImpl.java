@@ -29,7 +29,7 @@ public class BookRepositoryCustomImpl implements BookRepositoryCustom{
         CriteriaQuery<Book> query = cb.createQuery(Book.class);
         List<Predicate> predicates = new ArrayList<>();
         Root<Book> books = query.from(Book.class);
-        int pageSize = 5;
+        int pageSize = 4;
         int start = 0;
         for (int i = 1; i < dto.getPage(); i++){
             start += pageSize;

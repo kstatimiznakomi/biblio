@@ -14,17 +14,19 @@
 <div th:replace="~{fragments/header-fragment :: nav-menu}"></div>
 <div class="flex-container prof-bg">
     <div class="prof-grad-bg">
-        <div class="welcome">Профиль</div>
+        <div class="welcome">Редактирование профиля</div>
         <div class="profile-info">
             <img src="https://i.postimg.cc/9M8MFp0d/free-icon-open-book-3145858.png" height="319px" width="319px" alt="книга">
             <div class="info">
                 <div class="info-img">
                     <img src="https://i.postimg.cc/yNS4SyLh/free-icon-user-8150564.png" height="120px" width="120px" alt="книга">
                 </div>
-                <div class="info-details">
-                    <div id="edit-user">
-                        <button class="user-edit mb-2" id="user-edit-btn">Сохранить</button>
-                    </div>
+                <div class="info-details-edit">
+                    <form>
+                        <div id="edit-user" class="p-3">
+                            <button class="user-edit mb-2" id="user-edit-btn">Сохранить</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

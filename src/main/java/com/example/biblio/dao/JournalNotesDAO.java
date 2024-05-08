@@ -13,6 +13,7 @@ import java.util.List;
 public interface JournalNotesDAO extends JpaRepository<JournalNotes, Long>, PagingAndSortingRepository<JournalNotes, Long> {
     Page<JournalNotes> getJournalNotesByReaderTicket(ReaderTicket ticket, Pageable page);
     JournalNotes getJournalNotesByReaderTicketAndBook(ReaderTicket ticket, Book book);
+    JournalNotes getJournalNotesByReaderTicketAndBookAndStatus(ReaderTicket ticket, Book book, NoteStatus status);
     List<JournalNotes> getJournalNotesByReaderTicket(ReaderTicket ticket);
     List<JournalNotes> getJournalNotesByReaderTicketAndStatusLike(ReaderTicket ticket, NoteStatus status);
 }

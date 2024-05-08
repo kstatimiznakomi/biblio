@@ -10,5 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class BiblioApplication {
     public static void main(String[] args) {
         SpringApplication.run(BiblioApplication.class, args);
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        System.out.println(encoder.encode("mdtb"));
     }
 }

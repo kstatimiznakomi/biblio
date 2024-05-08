@@ -127,14 +127,17 @@ public class JournalNotesServiceImpl implements JournalNotesService{
     }
 
     @Override
-    public void CompletePrincipal(Principal principal, Long bookId){
-        if (!ifBookExistInCurrentReserve(
-                userService.getUserByName(principal.getName()),
-                bookService.findBookByIdModel(bookId)
-        )){
-            closeAndSave(principal, bookId);
-            bookService.increaseCountOfBook(bookId, 1);
+    public void CompletePrincipal(Principal principal, Long[] bookIds){
+        for (Long item : bookIds){
+            if (ifBookExistInCurrentReserve(
+                    userService.getUserByName(principal.getName()),
+                    bookService.findBookByIdModel(item)
+            )){
+                closeAndSave(principal, item);
+                bookService.increaseCountOfBook(item, 1);
+            }
         }
+
     }
 
     @Override
@@ -155,21 +158,13 @@ public class JournalNotesServiceImpl implements JournalNotesService{
         dao.save(note);
     }
 
-    public void closeAndSave(Principal principal, Long bookId){
-        dao.getJournalNotesByReaderTicketAndBook(
+    public void closeAndSave(Principal principal, Long bookId) {
+        JournalNotes note = dao.getJournalNotesByReaderTicketAndBookAndStatus(
                 ticketService.getTicketByUser(userService.getUserByName(principal.getName())),
-                bookService.findBookByIdModel(bookId)
-        ).setStatus(NoteStatus.Закрытый);
-        dao.save(
-                dao.getJournalNotesByReaderTicketAndBook(
-                        ticketService.getTicketByUser(userService.getUserByName(principal.getName())),
-                        bookService.findBookByIdModel(bookId))
+                bookService.findBookByIdModel(bookId),
+                NoteStatus.Открытый
         );
-        if(getReadBooks(principal) == null) {
-            Close(dao.getJournalNotesByReaderTicketAndBook(
-                    ticketService.getTicketByUser(userService.getUserByName(principal.getName())),
-                    bookService.findBookByIdModel(bookId)
-            ));
-        }
+        note.setStatus(NoteStatus.Закрытый);
+        dao.save(note);
     }
 }

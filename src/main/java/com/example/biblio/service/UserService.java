@@ -21,8 +21,10 @@ public interface UserService extends UserDetailsService {
     Boolean ifUserSigned(Principal principal);
 
     User create(UserDTO dto);
+    User createWoutPass(UserDTO dto);
 
-    void putUser(User user, User userCurrent);
+    void putUserWoutPass(User user, User userCurrent);
+    void putUserWPass(User user, User userCurrent);
 
     void Save(User user);
 
