@@ -134,8 +134,16 @@ const fillUserSend = () => {
         .forEach(item => userSend[item.id] = item.value)
 }
 
+function errorSpan(text, id){
+    return `<label for="${id}" class="error">${text}</label>`
+}
+
+
+
 $('#user-edit-btn')[0].addEventListener('click', (e) => {
+    $("label").remove()
     e.preventDefault()
+    cover()
 
     fillUserSend()
 
@@ -143,24 +151,39 @@ $('#user-edit-btn')[0].addEventListener('click', (e) => {
     isEmptyFunc()
     if (!isEmpty) {
         delete userSend["seq_password"]
+
         $.ajax({
             cache: false,
             url: '/profile/put',
             type: "PUT",
             contentType: 'application/json',
-            dataType: "text/plain",
-            data: jsonUser
+            dataType: "json",
+            data: jsonUser,
+            error: function (response){
+                console.log("error")
+                removeCover()
+                response.responseJSON.errors.map(item => {
+                    document.getElementById(item.field)
+
+                    $('#edit-user').append(errorSpan(item.defaultMessage, item.field))
+                })
+            }
         })
             .done((response) => {
-                alert(response)
+                removeCover()
+                alert(response.msg)
+                removeUserData()
+                getUserToEdit()
             })
-            .fail((response) => {
-                alert(response)
-            })
-    } else {
-        alert("Не все поля заполнены")
     }
 })
+
+const removeUserData = () => {
+    let inputs = document.querySelectorAll('input');
+    inputs.forEach(input => {
+        input.remove()
+    })
+}
 
 let isEmpty = false
 

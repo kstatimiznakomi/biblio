@@ -15,14 +15,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @AllArgsConstructor
 public class EditController {
     private final UserService userService;
     @PutMapping(value = "/profile/put", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> checkUser(@Valid @RequestBody ValidationComponent validationComponent, Principal principal) throws Exception {
-        System.out.println(validationComponent);
+    public Map<String, String> checkUser(@Valid @RequestBody ValidationComponent validationComponent, Principal principal) throws Exception {
         //@Valid
         //юзера в json и все ошибки
         //ассоциативный массив json, напр.
@@ -33,9 +34,10 @@ public class EditController {
         UserDTO dto = new UserDTO();
         BeanUtils.copyProperties(validationComponent, dto);
         User user1 = userService.createWoutPass(dto);
+        Map<String, String> success = new HashMap<>();
 
-        //userService.putUserWoutPass(user1, userCurrent);
-
-        return new ResponseEntity<>("Данные успешно изменены!", HttpStatus.OK);
+        userService.putUserWoutPass(user1, userCurrent);
+        success.put("msg", "Данные успешно изменены!");
+        return success;
     }
 }

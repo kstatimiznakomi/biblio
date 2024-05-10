@@ -13,25 +13,25 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ValidationComponent {
     @NotBlank(message = "Фамилия требуется")
-    @Size(min = 2,  message = "Минимальная длина 2")
+    @Size(min = 2,  message = "Минимальная длина фамилии - 2")
     private String lastname;
 
     @NotBlank(message = "Имя требуется")
-    @Size(min = 2,  message = "Минимальная длина 2")
+    @Size(min = 2,  message = "Минимальная длина имени - 2")
     private String name;
 
     @NotBlank(message = "Отчество требуется")
-    @Size(min = 2,  message = "Минимальная длина 2")
+    @Size(min = 2,  message = "Минимальная длина отчества - 2")
     private String surname;
 
     @NotBlank(message = "Имя пользователя требуется")
-    @Size(min = 2,  message = "Минимальная длина 2")
+    @Size(min = 2,  message = "Минимальная длина имени пользователя - 2")
     private String username;
 
     private String password;
     @NotBlank(message = "Почта требуется")
-    @Size(min = 2,  message = "Минимальная длина 2")
     @Email(message = "Неверно введена почта")
+    @Size(min = 2,  message = "Минимальная длина почты - 2")
     private String email;
     private String phone;
 }

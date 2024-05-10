@@ -27,7 +27,6 @@
 
 .info{
     margin-left: 195px;
-    height: 373px;
     width: 820px;
     display: flex;
     flex-direction: row;
@@ -38,6 +37,14 @@
     margin-left: 25px;
     border-radius: 14px;
     height: fit-content;
+}
+
+.error{
+    background-color: lightcoral;
+    padding: 7px 10px;
+    border-radius: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
 }
 
 .info-details{
