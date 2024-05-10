@@ -1,5 +1,6 @@
 package com.example.biblio.Controller;
 
+import com.example.biblio.config.ValidationExceptionHandler;
 import com.example.biblio.dto.UserDTO;
 import com.example.biblio.model.User;
 import com.example.biblio.service.UserService;
@@ -34,9 +35,9 @@ public class EditController {
         UserDTO dto = new UserDTO();
         BeanUtils.copyProperties(validationComponent, dto);
         User user1 = userService.createWoutPass(dto);
-        Map<String, String> success = new HashMap<>();
-
+        
         userService.putUserWoutPass(user1, userCurrent);
+        Map<String, String> success = new HashMap<>();
         success.put("msg", "Данные успешно изменены!");
         return success;
     }

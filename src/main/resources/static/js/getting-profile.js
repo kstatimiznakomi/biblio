@@ -163,9 +163,11 @@ $('#user-edit-btn')[0].addEventListener('click', (e) => {
                 console.log("error")
                 removeCover()
                 response.responseJSON.errors.map(item => {
-                    document.getElementById(item.field)
+                    $(item.field).title = item.field
+                    //$('#edit-user').append(errorSpan(item.defaultMessage, item.field))
 
-                    $('#edit-user').append(errorSpan(item.defaultMessage, item.field))
+                    $( errorSpan(item.defaultMessage, item.field) ).insertBefore(document.getElementById(item.field))
+                    //$('#edit-user').append(errorSpan(item.defaultMessage, item.field))
                 })
             }
         })
