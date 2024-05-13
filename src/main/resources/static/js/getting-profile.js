@@ -138,7 +138,9 @@ function errorSpan(text, id){
     return `<label for="${id}" class="error">${text}</label>`
 }
 
-
+function successSpan(text){
+    return `<label class="success">${text}</label>`
+}
 
 $('#user-edit-btn')[0].addEventListener('click', (e) => {
     $("label").remove()
@@ -163,7 +165,6 @@ $('#user-edit-btn')[0].addEventListener('click', (e) => {
                 console.log("error")
                 removeCover()
                 response.responseJSON.errors.map(item => {
-                    $(item.field).title = item.field
                     //$('#edit-user').append(errorSpan(item.defaultMessage, item.field))
 
                     $( errorSpan(item.defaultMessage, item.field) ).insertBefore(document.getElementById(item.field))
@@ -172,13 +173,21 @@ $('#user-edit-btn')[0].addEventListener('click', (e) => {
             }
         })
             .done((response) => {
+                $('.separator').remove()
                 removeCover()
-                alert(response.msg)
                 removeUserData()
                 getUserToEdit()
+                success(response)
             })
     }
 })
+
+function success(response){
+    $('#edit-user').append(successSpan(response.msg))
+    setTimeout(() => {
+        $('.success').remove()
+    }, 3000)
+}
 
 const removeUserData = () => {
     let inputs = document.querySelectorAll('input');

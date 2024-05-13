@@ -29,11 +29,13 @@ public class ValidationComponent {
     private String username;
 
     private String password;
+
     @NotBlank(message = "Почта требуется")
     @Email(message = "Неверно введена почта")
     @Size(min = 2, max = 30,  message = "Минимальная длина почты - 2")
     private String email;
+
     @NotBlank(message = "Почта требуется")
-    @Size(min = 2, max = 12,  message = "Минимальная длина почты - 2")
+    @Size(min = 11, max = 12,  message = "Длина номера телефона: 11-12")
     private String phone;
 }
