@@ -15,21 +15,31 @@ function setGenres(genre){
 }
 
 function deleteGenre(genreId){
-    let isConf = confirm("Удалить запись?");
-    if (isConf) {
-        $.ajax({
-            type: "DELETE",
-            contentType: 'application/json',
-            dataType: "text",
-            url: '/admin/genres/api/' + genreId + '/delete',
-            success: () => {
-                reloadGenresList()
-            },
-            failure: (response) => {
-                alert(response)
-            }
-        })
-    }
+    Swal.fire({
+        icon: "question",
+        title: "Удалить запись?",
+        showDenyButton: true,
+        confirmButtonText: "Да",
+        denyButtonText: "Нет"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: "DELETE",
+                contentType: 'application/json',
+                dataType: "text",
+                url: '/admin/genres/api/' + genreId + '/delete',
+                success: () => {
+                    reloadGenresList()
+                },
+                failure: (response) => {
+                    Swal.fire({
+                        icon: "error",
+                        text: response
+                    })
+                }
+            })
+        }
+    })
 }
 
 function editGenre(genreId) {
@@ -40,7 +50,6 @@ function editGenre(genreId) {
         url: '/genres/api/' + genreId,
         data:false,
         success: (response) => {
-            console.log(response)
             $('#modal').append(`
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -82,12 +91,18 @@ function saveGenre(genreId, event) {
         url: '/admin/genres/api/' + genreId + '/edit',
         data: genre,
         success: () => {
-            alert("Успешно")
+            Swal.fire({
+                icon: "success",
+                text: "Успешно"
+            })
             closeModal()
             reloadGenresList()
         },
         failure: (response) => {
-            alert(response)
+            Swal.fire({
+                icon: "error",
+                text: response
+            })
         }
     })
 }
@@ -138,7 +153,10 @@ function getGenresListOnPage(pageNumber) {
         url: '/admin/genres/api/' + pageNumber,
         data: false,
         failure: (error) => {
-            console.log(error)
+            Swal.fire({
+                icon: "error",
+                text: error
+            })
         }
     })
         .done((response) => {
@@ -180,7 +198,10 @@ submitGenreAddBtn.addEventListener('click', (e) => {
         url: '/admin/genres/api/add',
         data: genre,
         success: () => {
-            alert("Успешно")
+            Swal.fire({
+                icon: "success",
+                text: "Успешно"
+            })
             $('#addModal').modal('hide')
             $('.modal-backdrop').remove()
 
@@ -189,7 +210,10 @@ submitGenreAddBtn.addEventListener('click', (e) => {
             $('#genreName').val("")
         },
         failure: (response) => {
-            alert(response)
+            Swal.fire({
+                icon: "error",
+                text: response
+            })
         }
     });
 })
