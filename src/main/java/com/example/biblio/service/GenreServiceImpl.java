@@ -7,6 +7,7 @@ import com.example.biblio.model.Genres;
 import lombok.AllArgsConstructor;
 import org.apache.catalina.users.GenericUser;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +20,8 @@ public class GenreServiceImpl implements GenreService {
     private final GenreMapper mapper = GenreMapper.MAPPER;
     @Lazy
     private final GenresDAO genresDAO;
+
+    private final PageService pageService;
 
     @Override
     public List<GenresDTO> getAllGenres() {
@@ -41,5 +44,12 @@ public class GenreServiceImpl implements GenreService {
                 .genreName(genresDTO.getGenreName())
                 .build();
         genresDAO.save(genre);
+    }
+
+    @Override
+    public Page<Genres> getAllPage(int pageNumber) {
+        return genresDAO.findAll(
+                pageService.getPage(pageNumber)
+        );
     }
 }

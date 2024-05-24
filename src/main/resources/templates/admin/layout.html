@@ -30,7 +30,12 @@
         if (window.location.href.search("/admin/authors") > 0) getAuthorsList()
         if (window.location.href.search("/admin/books") > 0) getBooksList()
         if (window.location.href.search("/admin/publishers") > 0) getPublishersList()
-        if (window.location.href.search("/admin/genres") > 0) getGenresList()
+        if (window.location.href.search("/admin/genres") > 0)
+        {
+            let pageNumber = document.URL.substring(document.URL.lastIndexOf('/') + 1)
+            getGenresListOnPage(pageNumber)
+            //getGenresList()
+        }
         if (window.location.href.search("/admin/users") > 0) getUsersList()
     }
 </script>

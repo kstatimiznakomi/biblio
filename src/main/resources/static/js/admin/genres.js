@@ -58,7 +58,7 @@ function editGenre(genreId) {
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" onclick="closeModal()">Закрыть</button>
-                                <button type="submit" class="btn btn-primary" onClick="saveGenre(${response.id})">Сохранить изменения</button>
+                                <button id="save-button" type="submit" class="btn btn-primary" onClick="saveGenre(${response.id}, event)">Сохранить изменения</button>
                             </div>
                         </form>
                     </div>
@@ -68,7 +68,9 @@ function editGenre(genreId) {
     })
 }
 
-function saveGenre(genreId) {
+function saveGenre(genreId, event) {
+    event.preventDefault()
+
     const genreEditForm = document.getElementById('genre-name-input-edit').querySelectorAll("input")
     var genreObj = {}
     genreEditForm.forEach(item => genreObj[item.id] = item.value)
@@ -76,12 +78,13 @@ function saveGenre(genreId) {
     $.ajax({
         type: "PUT",
         contentType: 'application/json',
-        dataType: "json",
+        dataType: "text",
         url: '/admin/genres/api/' + genreId + '/edit',
         data: genre,
         success: () => {
             alert("Успешно")
             closeModal()
+            reloadGenresList()
         },
         failure: (response) => {
             alert(response)
@@ -118,10 +121,31 @@ function getGenresList() {
         })
 }
 
+function getGenresListOnPage(pageNumber) {
+    $.ajax({
+        type: "GET",
+        contentType: 'application/json',
+        dataType: "json",
+        url: '/admin/genres/api' + pageNumber,
+        data: false,
+        failure: (error) => {
+            console.log(error)
+        }
+    })
+        .done((response) => {
+            response.map((genre) => {
+                    setGenres(genre)
+                }
+            )
+        })
+}
+
 const submitGenreAddBtn = document.getElementById("submit-genre-add-btn")
 const genreAddForm = document.getElementById('genre-name-input-add').querySelectorAll("input")
 
-submitGenreAddBtn.addEventListener('click', () => {
+submitGenreAddBtn.addEventListener('click', (e) => {
+    e.preventDefault()
+
     var genreObj = {}
     genreAddForm.forEach(item => genreObj[item.id] = item.value)
     const genre = JSON.stringify(genreObj)
@@ -133,6 +157,12 @@ submitGenreAddBtn.addEventListener('click', () => {
         data: genre,
         success: () => {
             alert("Успешно")
+            $('#addModal').modal('hide')
+            $('.modal-backdrop').remove()
+
+            reloadGenresList()
+
+            $('#genreName').val("")
         },
         failure: (response) => {
             alert(response)

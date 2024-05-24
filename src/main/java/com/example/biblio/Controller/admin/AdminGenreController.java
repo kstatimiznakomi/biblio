@@ -30,7 +30,7 @@ public class AdminGenreController {
                 userService.getUserByName(principal.getName()).getRole().equals(UserRole.Администратор)){
             model.addAttribute("genres", genreService.getAllGenres());
             model.addAttribute("genre", new GenresDTO());
-            return "admin/genres";
+            return "redirect:/admin/genres/1";
         }
         return "redirect:/login";
     }
