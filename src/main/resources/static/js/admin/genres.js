@@ -99,7 +99,16 @@ function closeModal() {
 
 function reloadGenresList(){
     $('#genres').html("") //clear genres table
-    getGenresList()
+    deletePager()
+    let pageNumber = document.URL.substring(document.URL.lastIndexOf('/') + 1)
+    getGenresListOnPage(pageNumber)
+}
+
+function deletePager() {
+    var pages = document.querySelectorAll('.pages');
+    pages.forEach(page => {
+        page.remove()
+    })
 }
 
 function getGenresList() {
@@ -126,18 +135,33 @@ function getGenresListOnPage(pageNumber) {
         type: "GET",
         contentType: 'application/json',
         dataType: "json",
-        url: '/admin/genres/api' + pageNumber,
+        url: '/admin/genres/api/' + pageNumber,
         data: false,
         failure: (error) => {
             console.log(error)
         }
     })
         .done((response) => {
-            response.map((genre) => {
-                    setGenres(genre)
-                }
-            )
+            response.content.map(function (obj){
+                setGenres(obj)
+            })
+            getMainPager(response)
         })
+}
+
+function getMainPager(response){
+    $('#pager').append(`
+    <div class="pages" align="center" >
+    <span>Всего элементов: ${response.totalElements} - Страница ${response.number + 1} из ${response.totalPages}</span>
+    &nbsp;
+    <div>
+        <ul class="mt-1 paging justify-content-center">
+            
+        </ul>
+    </div>
+</div>
+    `)
+    document.querySelector('.paging').innerHTML = getPagesCatalog(response.number + 1, response.totalPages)
 }
 
 const submitGenreAddBtn = document.getElementById("submit-genre-add-btn")

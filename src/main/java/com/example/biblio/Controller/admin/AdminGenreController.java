@@ -4,6 +4,7 @@ import com.example.biblio.dto.GenresDTO;
 import com.example.biblio.model.Genres;
 import com.example.biblio.model.UserRole;
 import com.example.biblio.service.GenreService;
+import com.example.biblio.service.PageService;
 import com.example.biblio.service.UserService;
 import com.fasterxml.jackson.databind.util.BeanUtil;
 import lombok.AllArgsConstructor;
@@ -24,13 +25,37 @@ import java.util.List;
 public class AdminGenreController {
     private final GenreService genreService;
     private final UserService userService;
+    private final PageService pageService;
+
     @GetMapping("")
     public String genres(Model model, Principal principal) {
         if (principal != null &&
                 userService.getUserByName(principal.getName()).getRole().equals(UserRole.Администратор)){
-            model.addAttribute("genres", genreService.getAllGenres());
-            model.addAttribute("genre", new GenresDTO());
+//            model.addAttribute("genres", genreService.getAllGenres());
+//            model.addAttribute("genre", new GenresDTO());
             return "redirect:/admin/genres/1";
+        }
+        return "redirect:/login";
+    }
+
+    @GetMapping("/{pageNumber}")
+    public String getPage(Model model, @PathVariable int pageNumber, Principal principal){
+        if (principal != null &&
+                userService.getUserByName(principal.getName()).getRole().equals(UserRole.Администратор)){
+            model.addAttribute("genres", genreService.getAllPage(pageNumber));
+            model.addAttribute("genre", new GenresDTO());
+
+            model.addAttribute("currentPage",
+                    pageService.GetBiggerLower(pageNumber, genreService.getAllPage(pageNumber).getTotalPages())
+            );
+            model.addAttribute("totalItems", genreService.getAllPage(pageNumber).getTotalElements());
+            model.addAttribute("totalPages", genreService.getAllPage(pageNumber).getTotalPages());
+            model.addAttribute("maxPage",
+                    pageService.Max(pageNumber, genreService.getAllPage(pageNumber).getTotalPages())
+            );
+            model.addAttribute("minPage", pageService.Min(pageNumber));
+
+            return "admin/genres";
         }
         return "redirect:/login";
     }
