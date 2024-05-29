@@ -28,6 +28,8 @@ public class ValidationComponent {
     @Size(min = 2, max = 30,  message = "Минимальная длина имени пользователя - 2")
     private String username;
 
+    @NotBlank(message = "Пароль не может быть пустым")
+    @Size(min = 4, max = 30,  message = "Длина пароля должна быть 4-30")
     private String password;
 
     @NotBlank(message = "Почта требуется")

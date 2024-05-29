@@ -32,6 +32,9 @@ public class CatalogController {
     }
     @GetMapping("/{pageNumber}")
     public String getPage(Model model, @PathVariable int pageNumber, Principal principal){
+        int currentPage = pageService.GetBiggerLower(pageNumber, bookService.getAllPage(pageNumber).getTotalPages());
+        int maxPage = bookService.getAllPage(pageNumber).getTotalPages();
+        if (pageNumber < 1 || pageNumber > maxPage)  return  "redirect:/catalog/" + currentPage;
         if (principal != null) {
             model.addAttribute("user", userService.getUserByName(principal.getName()));
             model.addAttribute(

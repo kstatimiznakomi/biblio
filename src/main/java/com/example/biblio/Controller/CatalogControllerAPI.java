@@ -32,7 +32,9 @@ public class CatalogControllerAPI {
     @GetMapping("/catalog/api/{pageNumber}")
     @CrossOrigin
     public Page<Book> getBooks(@PathVariable int pageNumber){
-        return bookService.getAllPage(pageNumber);
+        return bookService.getAllPage(
+                pageService.GetBiggerLower(pageNumber, bookService.getAllPage(pageNumber).getTotalPages())
+        );
     }
     @GetMapping("/author/api")
     public List<AuthorDTO> getAllAuthors(){

@@ -12,6 +12,7 @@ public class PageService {
     }
 
     public PageRequest getPage(int pageNumber){
+        if (pageNumber < 1) return PageRequest.of(1,4);
         return PageRequest.of(pageNumber - 1,4);
     }
 
