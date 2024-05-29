@@ -33,7 +33,7 @@ function getPagesCatalog(crntPg, ttlPgs){
         i === crntPg ? pages.push(`<li><span class="page-digits-span">${i}</span><li>`)
             : pages.push(`<li><a class="page-digits-bg-link" href="${i}">${i}</a><li>`)
     }
-    if (pages.length >= 5) startEnd()
+    if (pages.length >= 5) startEnd(ttlPgs)
     return pages.toString().replaceAll(",", "")
 }
 
