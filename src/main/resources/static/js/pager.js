@@ -4,11 +4,11 @@ const offset = 5
 let start = 1
 let end = 0
 
-var toFirst = [`<li><span class="page-digits-span">1</span><li>`]
+var toFirst = [`<li><a href="1" class="page-digits-bg-link">На первую</a><li>`]
 var btween = [`<li><span class="page-digits-span">...</span><li>`]
 
 function toLast(ttlPgs){
-    return `<li><span class="page-digits-span">${ttlPgs}</span><li>`
+    return `<li><a href="${ttlPgs}" class="page-digits-bg-link">На последнюю</a><li>`
 }
 
 function getMaxMin(crntPg, ttlPgs){
@@ -33,7 +33,7 @@ function getPagesCatalog(crntPg, ttlPgs){
         i === crntPg ? pages.push(`<li><span class="page-digits-span">${i}</span><li>`)
             : pages.push(`<li><a class="page-digits-bg-link" href="${i}">${i}</a><li>`)
     }
-    if (pages.length >= 5) startEnd(ttlPgs)
+    if (pages.length > 5) startEnd(ttlPgs)
     return pages.toString().replaceAll(",", "")
 }
 
